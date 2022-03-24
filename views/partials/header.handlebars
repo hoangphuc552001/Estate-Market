@@ -3,10 +3,14 @@
         <div class="row d-flex align-items-center">
             <div class="col">
                 <p class="social d-flex">
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span class="icon-facebook"></span></a>
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span class="icon-twitter"></span></a>
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span class="icon-google"></span></a>
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span class="icon-pinterest"></span></a>
+                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
+                            class="icon-facebook"></span></a>
+                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
+                            class="icon-twitter"></span></a>
+                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
+                            class="icon-google"></span></a>
+                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
+                            class="icon-pinterest"></span></a>
                 </p>
             </div>
             <div class="col d-flex justify-content-end">
@@ -22,33 +26,44 @@
         </span>
     </div>
     <div class="container">
-        <img src="/public/assets/images/realestate.PNG"
-             id="rcorners3">
-        <a class="navbar-brand" href="index.html"><b>Real Estate</b></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <a href="/"><img src="/public/assets/images/realestate.PNG"
+                                              id="rcorners3"></a>
+        <a class="navbar-brand" href="/"><b>Real Estate</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.html" class="nav-link">Trang chủ</a></li>
-                <li class="nav-item"><a href="property.html" class="nav-link">Mua bán nhà đất</a></li>
-                <li class="nav-item"><a href="agents.html" class="nav-link">Cho thuê nhà đất</a></li>
+                <li class="nav-item active"><a href="/" class="nav-link">Trang chủ</a></li>
+                {{#each category}}
+                    <li class="nav-item dropdown"><a href="property.html" class="nav-link">{{name}}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {{#each nameChild}}
+                                <a class="dropdown-item" href="#">{{this}}</a>
+                            {{/each}}
+
+                        </div>
+                    </li>
+                {{/each}}
                 <li class="nav-item"><a href="about.html" class="nav-link">Dự án
                 </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="blog.html" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Xem thêm
-                </a>
+                        Xem thêm
+                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Tin tức</a>
                         <a class="dropdown-item" href="#">Về chúng tôi</a>
                     </div>
                 </li>
-                <li class="nav-item cta"><a href="contact.html" class="nav-link ml-lg-2"><span class="icon-user"></span> Đăng nhập</a></li>
-                <li class="nav-item cta cta-colored"><a href="contact.html" class="nav-link"><span class="icon-pencil"></span> Đăng ký</a></li>
+                <li class="nav-item cta"><a href="contact.html" class="nav-link ml-lg-2"><span class="icon-user"></span>
+                    Đăng nhập</a></li>
+                <li class="nav-item cta cta-colored"><a href="contact.html" class="nav-link"><span
+                        class="icon-pencil"></span> Đăng ký</a></li>
 
             </ul>
         </div>

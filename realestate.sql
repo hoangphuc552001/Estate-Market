@@ -40,33 +40,28 @@ create table estate
 (
     id          int auto_increment
         primary key,
-    name        varchar(45)                                not null,
+    title longtext                                   not null,
+    address     nvarchar(100)                                not null,
+    acreage nvarchar(45)  ,
     seller      int                                        not null,
     start       datetime       default current_timestamp() not null,
-    end         datetime                                   not null,
-    cap         float unsigned                             not null,
-    current     float unsigned default 0                   not null,
-    increment   float          default 0                   null,
-    holder      int                                        null,
-    info        varchar(45)                                null,
-    bids        int unsigned   default 0                   not null,
+    current     nvarchar(50)                   not null,
     description longtext                                   null,
     category    int                                        null,
     image       longtext                                   not null,
-    status      varchar(45)                                null,
-    annoucement varchar(300)                               null,
+    status      nvarchar(45)                                null,
+    annoucement nvarchar(300)                               null,
     constraint `product-category`
         foreign key (category) references category (id)
 );
 
 create fulltext index name
-    on estate (name, description);
+    on estate (title, description);
 
 create index `product-category_idx`
     on estate (category);
 
-create index `product-holder_idx`
-    on estate (holder, info);
+
 
 create index `product-seller_idx`
     on estate (seller);
