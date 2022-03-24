@@ -1,0 +1,31 @@
+{
+  "type": "module",
+  "name": "real-estate-auction",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangphuc552001/Real-Estate-Auction.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoangphuc552001/Real-Estate-Auction/issues"
+  },
+  "homepage": "https://github.com/hoangphuc552001/Real-Estate-Auction#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "express-handlebars-sections": "^1.0.1",
+    "knex": "^1.0.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "numeral": "^2.0.6"
+  }
+}
