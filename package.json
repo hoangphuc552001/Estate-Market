@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/hoangphuc552001/Real-Estate-Auction#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
     "express-handlebars": "^6.0.3",
     "express-handlebars-sections": "^1.0.1",
     "knex": "^1.0.4",

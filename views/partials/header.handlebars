@@ -1,73 +1,243 @@
-<div class="top">
-    <div class="container">
-        <div class="row d-flex align-items-center">
-            <div class="col">
-                <p class="social d-flex">
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
-                            class="icon-facebook"></span></a>
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
-                            class="icon-twitter"></span></a>
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
-                            class="icon-google"></span></a>
-                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100015804450346"><span
-                            class="icon-pinterest"></span></a>
-                </p>
-            </div>
-            <div class="col d-flex justify-content-end">
-                <p class="num"><span class="icon-phone"></span> 0906892676</p>
-            </div>
-        </div>
+{{#section 'js'}}
+  <script>
+      var options1= [{"value": "0",
+          "text": "Tất cả"
+      },{"value": "1",
+          "text": "500 - 800 triệu"
+      },{"value": "2",
+          "text": "1 - 2 tỷ"
+      },{"value": "3",
+          "text": "3 - 5 tỷ"
+      },{"value": "4",
+          "text": "7 - 10 tỷ"
+      },{"value": "5",
+          "text": "Trên 30 tỷ"
+      }]
+      var options2= [{"value": "0",
+          "text": "Tất cả"
+      },{"value": "1",
+          "text": "Dưới 500 triệu"
+      },{"value": "2",
+          "text": "800 - 1 tỷ"
+      },{"value": "3",
+          "text": "2 - 3 tỷ"
+      },{"value": "4",
+          "text": "5 - 7 tỷ"
+      },{"value": "5",
+          "text": "10 - 30 tỷ"
+      }]
+      const selectElement = document.querySelector('#minprice');
+      selectElement.addEventListener('change', (event) => {
+          const i1=event.target.selectedIndex
+          if (i1>=1){
+              $("#maxprice").empty();
+              for (let i=i1;i<6;i++){
+                  $("#maxprice").append($("<option/>",options1[i]));
+              }
+          }
+          else{
+              $("#maxprice").empty();
+              for (let i=0;i<6;i++){
+                  $("#maxprice").append($("<option/>",options1[i]));
+              }
+          }
+      });
+      const selectElement1 = document.querySelector('#maxprice');
+      selectElement1.addEventListener('change', (event) => {
+          const i1=event.target.selectedIndex
+          if (i1>=1){
+              $("#minprice").empty();
+              for (let i=0;i<=i1;i++){
+                  $("#minprice").append($("<option/>",options2[i]));
+              }
+          }else{
+              $("#minprice").empty();
+              for (let i=0;i<6;i++){
+                  $("#minprice").append($("<option/>",options2[i]));
+              }
+          }
+      });
+  </script>
+{{/section}}
+<!-- ======= Property Search Section ======= -->
+<div class="click-closed"></div>
+<!--/ Form Search Star /-->
+<div class="box-collapse">
+    <div class="title-box-d">
+        <h3 class="title-d">Tìm kiếm</h3>
     </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <span class="close-box-collapse right-boxed bi bi-x"></span>
+    <div class="box-collapse-wrap form">
+        <form class="form-a" method="get" action="/tim-kiem">
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <div class="form-group">
+                        <label class="pb-2" for="Type">Keyword</label>
+                        <input type="text" name="keyword" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group mt-3">
+                        <label class="pb-2" for="Type">Loại</label>
+                        <select class="form-control form-select form-control-a" name="type" id="Type">
+                            <option>Tất cả</option>
+                            <option>Mua bán</option>
+                            <option>Thuê</option>
+                            <option>Dự án</option>
+                            <option>Mới đăng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group mt-3">
+                        <label class="pb-2" for="city">Quận</label>
+                        <select class="form-control form-select form-control-a" name="ward" id="city">
+                            <option>Tất cả</option>
+                            <option>Quận 1</option>
+                            <option>Quận 2</option>
+                            <option>Quận 3</option>
+                            <option>Quận 4</option>
+                            <option>Quận 5</option>
+                            <option>Quận 6</option>
+                            <option>Quận 7</option>
+                            <option>Quận 8</option>
+                            <option>Quận 9</option>
+                            <option>Quận 10</option>
+                            <option>Quận 11</option>
+                            <option>Quận 12</option>
+                            <option>Quận Phú Nhuận</option>
+                            <option>Quận Bình Thạnh</option>
+                            <option>Quận Tân Phú</option>
+                            <option>Quận Tân Bình</option>
+                            <option>Quận Gò Vấp</option>
+                            <option>Thành Phố Thủ Đức</option>
+                            <option>Huyện Bình Chánh</option>
+                            <option>Huyện Cần Giờ</option>
+                            <option>Huyện Nhà Bè</option>
+                            <option>Huyện Củ Chi</option>
+                            <option>Huyện Hóc Môn</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group mt-3">
+                        <label class="pb-2" for="bedrooms">Phòng ngủ</label>
+                        <select name="bedroom" class="form-control form-select form-control-a" id="bedrooms">
+                            <option>Nhiều</option>
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group mt-3">
+                        <label class="pb-2" for="bathrooms">Phòng tắm</label>
+                        <select name="bathroom" class="form-control form-select form-control-a" id="bathrooms">
+                            <option>Nhiều</option>
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group mt-3">
+                        <label class="pb-2" for="price">Giá thấp nhất</label>
+                        <select class="form-control form-select form-control-a" id="minprice">
+                            <option>Tất cả</option>
+                            <option>Dưới 500 triệu</option>
+                            <option>800 - 1 tỷ</option>
+                            <option>2 - 3 tỷ</option>
+                            <option>5 - 7 tỷ</option>
+                            <option>10 - 30 tỷ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group mt-3">
+                        <label class="pb-2" for="price">Giá cao nhất</label>
+                        <select class="form-control form-select form-control-a" id="maxprice">
+                            <option>Tất cả</option>
+                            <option>500 - 800 triệu</option>
+                            <option>1 - 2 tỷ</option>
+                            <option>3 - 5 tỷ</option>
+                            <option>7 - 10 tỷ</option>
+                            <option>Trên 30 tỷ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-b">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div><!-- End Property Search Section -->
+<!-- ======= Header/Navbar ======= -->
+<nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="btn-grad btn-position-grad">
         <span class="btn-text-position-grad">
             Mới
         </span>
     </div>
     <div class="container">
-        <a href="/"><img src="/public/assets/images/realestate.PNG"
-                                              id="rcorners3"></a>
-        <a class="navbar-brand" href="/"><b>Real Estate</b></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
+        <a href="/">
+            <div style="position: absolute;left: 0px;top:7px">
+                <img src="/public/assets/estate/realestate.png" id="rcorners3" alt="" width="80px" height="80px">
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="/" class="nav-link">Trang chủ</a></li>
+            </div>
+        </a>
+        <a class="navbar-brand text-brand" href="/">Estate<span class="color-b"> Market</span></a>
+
+        <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Trang chủ</a>
+                </li>
+
                 {{#each category}}
-                    <li class="nav-item dropdown"><a href="property.html" class="nav-link">{{name}}</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="/nha-dat-ban">{{name}}</a>
+                        <div class="dropdown-menu">
                             {{#each nameChild}}
-                                <a class="dropdown-item" href="#">{{this}}</a>
+                                <a class="dropdown-item " href="/nha-dat-ban/{{this.catID}}">{{this.name}}</a>
                             {{/each}}
-
                         </div>
                     </li>
                 {{/each}}
-                <li class="nav-item"><a href="about.html" class="nav-link">Dự án
-                </a>
+                <li class="nav-item">
+                    <a class="nav-link " href="blog-grid.html">Dự án</a>
                 </li>
+
                 <li class="nav-item dropdown">
-                    <a href="blog.html" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Xem thêm
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Tin tức</a>
-                        <a class="dropdown-item" href="#">Về chúng tôi</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xem thêm</a>
+                    <div class="dropdown-menu">
+                        {{#each catSeemore}}
+                            <a class="dropdown-item " href="property-single.html">{{this.name}}</a>
+                        {{/each}}
+                        <a class="dropdown-item " href="agent-single.html">Về chúng tôi</a>
                     </div>
                 </li>
-                <li class="nav-item cta"><a href="contact.html" class="nav-link ml-lg-2"><span class="icon-user"></span>
-                    Đăng nhập</a></li>
-                <li class="nav-item cta cta-colored"><a href="contact.html" class="nav-link"><span
-                        class="icon-pencil"></span> Đăng ký</a></li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item " href="property-single.html">Đăng nhập</a>
+                        <a class="dropdown-item " href="blog-single.html">Đăng ký</a>
+                    </div>
+                </li>
             </ul>
         </div>
-    </div>
-</nav>
-<!-- END nav -->
 
+        <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
+            <i class="bi bi-search"></i>
+        </button>
+
+    </div>
+</nav><!-- End Header/Navbar -->

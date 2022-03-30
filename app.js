@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import activateViewMiddleware from './middlewares/view.mdw.js'
 import activateRouteMiddleware from './middlewares/routes.mdw.js'
 import activatLocalsMiddleware from './middlewares/locals.mdw..js'
+import asyncErrors from 'express-async-errors'
 //express declare
 const app = express()
 const port = 3000
