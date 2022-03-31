@@ -6,7 +6,6 @@ const router=express.Router();
 router.get('/',async function (req,res){
     const proByParentCat= await estateModel.findProByCatParentID(1)
     const parentName=await categoryModel.findCatParentByID(1)
-    console.log(proByParentCat)
     res.render('property-grid',{
         productByCatID:proByParentCat,
         catIDProduct:parentName[0]

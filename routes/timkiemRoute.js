@@ -3,14 +3,18 @@ import estateModels from "../models/estate.models.js";
 
 const router=express.Router();
 router.get("/",async function (req,res){
-    const key=req.query.keyword
-    const type=req.query.type
+    let key=req.query.keyword
+    const type=req.query.type_
     const ward= req.query.ward
-    const bedroom=req.query.bedroom
+    let bedroom=req.query.bedroom
     const bathroom=req.query.bathroom
-    const listKey=await estateModels.searchFullText(key)
-    res.render('property-grid',{
-        productByCatID:listKey
+    const price = req.query.price.split(" - ");
+    const minprice=price[0]
+    const maxprice=price[1]
+    const list=await estateModels.searchFullText(key,ward,type,bedroom,bathroom,
+        minprice,maxprice)
+    res.render("property-grid",{
+        productByCatID:list
     })
 })
 

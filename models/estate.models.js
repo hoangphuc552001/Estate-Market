@@ -23,10 +23,36 @@ export default {
             .join('img_detail','img_detail.proid','estate.id')
             .join('category','category.id','estate.category')
     },
-    async searchFullText(proName){
-        const sql=`select * FROM estate WHERE MATCH(title) AGAINST("${proName}") or MATCH(ward) AGAINST("${proName}")`
-        const raw_data= await db.raw(sql)
-        return raw_data[0]
-    }
+    async searchFullText(proName,ward_,type,bedroom,bathroom,minprice,maxprice){
+        if (proName == ''){
+            if (ward_ == "Tất cả") ward_="%%"
+            if (type == "Tất cả") type="%%"
+            if (bedroom == "Nhiều") bedroom="%%"
+            if (bathroom == "Nhiều") bathroom="%%"
+            const sql=`select * FROM estate as e
+                join category as c on e.category = c.id
+                join categoryparent as p on c.parent=p.id
+                       WHERE e.ward like "${ward_}" and 
+                           e.bedroom like "${bedroom}" and e.bathroom like "${bathroom}" 
+                       and e.price between ${minprice} and ${maxprice} and p.id like "${type}"`
+            const raw_data= await db.raw(sql)
+            return raw_data[0]
+        }
+        else{
+            if (ward_ == "Tất cả") ward_="%%"
+            if (type == "Tất cả") type="%%"
+            if (bedroom == "Nhiều") bedroom="%%"
+            if (bathroom == "Nhiều") bathroom="%%"
+            const sql=`select * FROM estate as e
+                join category as c on e.category = c.id
+                join categoryparent as p on c.parent=p.id
+                       WHERE (MATCH(title) AGAINST("${proName}") or MATCH(ward) AGAINST("${proName}")) and 
+                             e.ward like "${ward_}" and 
+                           e.bedroom like "${bedroom}" and e.bathroom like "${bathroom}" 
+                       and e.price between ${minprice} and ${maxprice} and p.id like "${type}"`
+            const raw_data= await db.raw(sql)
+            return raw_data[0]
+        }
 
+    }
 }

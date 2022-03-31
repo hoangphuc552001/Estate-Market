@@ -1,62 +1,19 @@
 {{#section 'js'}}
   <script>
-      var options1= [{"value": "0",
+      var options1= [{"value": "0,0",
           "text": "Tất cả"
-      },{"value": "1",
-          "text": "500 - 800 triệu"
-      },{"value": "2",
-          "text": "1 - 2 tỷ"
-      },{"value": "3",
-          "text": "3 - 5 tỷ"
-      },{"value": "4",
-          "text": "7 - 10 tỷ"
-      },{"value": "5",
-          "text": "Trên 30 tỷ"
+      },{"value": "500000000 - 800000000",
+          "text": "500.000.000 - 800.000.000 "
+      },{"value": "1000000000 - 2000000000",
+          "text": "1.000.000.000 - 2.000.000.000"
+      },{"value": "3000000000 - 5000000000",
+          "text": "3000.000.000 - 5.000.000.000"
+      },{"value": "7000000000 - 10000000000",
+          "text": "7.000.000.000 - 10.000.000.000"
+      },{"value": "30000000000 - 0",
+          "text": "30.000.000.000 +"
       }]
-      var options2= [{"value": "0",
-          "text": "Tất cả"
-      },{"value": "1",
-          "text": "Dưới 500 triệu"
-      },{"value": "2",
-          "text": "800 - 1 tỷ"
-      },{"value": "3",
-          "text": "2 - 3 tỷ"
-      },{"value": "4",
-          "text": "5 - 7 tỷ"
-      },{"value": "5",
-          "text": "10 - 30 tỷ"
-      }]
-      const selectElement = document.querySelector('#minprice');
-      selectElement.addEventListener('change', (event) => {
-          const i1=event.target.selectedIndex
-          if (i1>=1){
-              $("#maxprice").empty();
-              for (let i=i1;i<6;i++){
-                  $("#maxprice").append($("<option/>",options1[i]));
-              }
-          }
-          else{
-              $("#maxprice").empty();
-              for (let i=0;i<6;i++){
-                  $("#maxprice").append($("<option/>",options1[i]));
-              }
-          }
-      });
-      const selectElement1 = document.querySelector('#maxprice');
-      selectElement1.addEventListener('change', (event) => {
-          const i1=event.target.selectedIndex
-          if (i1>=1){
-              $("#minprice").empty();
-              for (let i=0;i<=i1;i++){
-                  $("#minprice").append($("<option/>",options2[i]));
-              }
-          }else{
-              $("#minprice").empty();
-              for (let i=0;i<6;i++){
-                  $("#minprice").append($("<option/>",options2[i]));
-              }
-          }
-      });
+
   </script>
 {{/section}}
 <!-- ======= Property Search Section ======= -->
@@ -79,12 +36,11 @@
                 <div class="col-md-6 mb-2">
                     <div class="form-group mt-3">
                         <label class="pb-2" for="Type">Loại</label>
-                        <select class="form-control form-select form-control-a" name="type" id="Type">
+                        <select class="form-control form-select form-control-a" name="type_" id="Type">
                             <option>Tất cả</option>
-                            <option>Mua bán</option>
-                            <option>Thuê</option>
-                            <option>Dự án</option>
-                            <option>Mới đăng</option>
+                            <option value="1">Mua bán</option>
+                            <option value="2">Thuê</option>
+                            <option value="3">Dự án</option>
                         </select>
                     </div>
                 </div>
@@ -124,9 +80,9 @@
                         <label class="pb-2" for="bedrooms">Phòng ngủ</label>
                         <select name="bedroom" class="form-control form-select form-control-a" id="bedrooms">
                             <option>Nhiều</option>
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
                         </select>
                     </div>
                 </div>
@@ -135,35 +91,25 @@
                         <label class="pb-2" for="bathrooms">Phòng tắm</label>
                         <select name="bathroom" class="form-control form-select form-control-a" id="bathrooms">
                             <option>Nhiều</option>
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6 mb-2">
                     <div class="form-group mt-3">
-                        <label class="pb-2" for="price">Giá thấp nhất</label>
-                        <select class="form-control form-select form-control-a" id="minprice">
-                            <option>Tất cả</option>
-                            <option>Dưới 500 triệu</option>
-                            <option>800 - 1 tỷ</option>
-                            <option>2 - 3 tỷ</option>
-                            <option>5 - 7 tỷ</option>
-                            <option>10 - 30 tỷ</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group mt-3">
-                        <label class="pb-2" for="price">Giá cao nhất</label>
-                        <select class="form-control form-select form-control-a" id="maxprice">
-                            <option>Tất cả</option>
-                            <option>500 - 800 triệu</option>
-                            <option>1 - 2 tỷ</option>
-                            <option>3 - 5 tỷ</option>
-                            <option>7 - 10 tỷ</option>
-                            <option>Trên 30 tỷ</option>
+                        <label class="pb-2" for="price">Mức giá</label>
+                        <select class="form-control form-select form-control-a"  name="price" id="price">
+                            <option value="0 - 100000000000">Tất cả</option>
+                            <option value="0 - 500000000">Dưới 500 triệu</option>
+                            <option value="500000000 - 2000000000">500 triệu - 2 tỷ</option>
+                            <option value="2000000000 - 3000000000">2 tỷ - 3 tỷ</option>
+                            <option value="3000000000 - 5000000000">3 tỷ - 5 tỷ</option>
+                            <option value="5000000000 - 7000000000">5 tỷ - 7 tỷ</option>
+                            <option value="7000000000 - 10000000000">7 tỷ - 10 tỷ</option>
+                            <option value="10000000000 - 30000000000">10 tỷ - 30 tỷ</option>
+                            <option value="30000000000 - 100000000000">Trên 30 tỷ</option>
                         </select>
                     </div>
                 </div>
