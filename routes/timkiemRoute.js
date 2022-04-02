@@ -11,11 +11,9 @@ router.get("/",async function (req,res){
     const price = req.query.price.split(" - ");
     const minprice=price[0]
     const maxprice=price[1]
-    const list=await estateModels.searchFullText(key,ward,type,bedroom,bathroom,
-        minprice,maxprice)
-    res.render("property-grid",{
+    const list=await estateModels.searchFullText(key,ward,type,bedroom,bathroom, minprice,maxprice,9,0)
+    res.render("product/search-grid",{
         productByCatID:list
     })
 })
-
 export default router;

@@ -1,4 +1,5 @@
 
+
 <main id="main">
 
     <!-- ======= Intro Single ======= -->
@@ -7,7 +8,8 @@
             <div class="row">
                 <div class="col-md-12 col-lg-8">
                     <div class="title-single-box">
-                        <h1 class="title-single">{{parentName.name}}</h1>
+                        <h1 class="title-single">{{catIDProduct.name}}</h1>
+                        <span id="nameParentPro" class="color-text-a">{{catParentIDProduct.name}}</span>
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-4">
@@ -27,7 +29,7 @@
     </section><!-- End Intro Single-->
 
     <!-- ======= Property Grid ======= -->
-    <section class="property-grid grid">
+    <section class="property-grid grid" id="section-pro">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -42,7 +44,7 @@
                         </form>
                     </div>
                 </div>
-                {{#each proByParentCat}}
+                {{#each productByCatID}}
                     <div class="col-md-4">
                         <div class="card-box-a card-shadow">
                             <div class="img-box-a" >
@@ -92,26 +94,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <nav class="pagination-a">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">
-                                    <span class="bi bi-chevron-left"></span>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item next">
-                                <a class="page-link" href="#">
-                                    <span class="bi bi-chevron-right"></span>
-                                </a>
-                            </li>
+                        <ul id="pageUl" class="pagination justify-content-end">
                         </ul>
                     </nav>
                 </div>
@@ -120,3 +103,81 @@
     </section><!-- End Property Grid Single-->
 
 </main><!-- End #main -->
+{{#section 'js'}}
+    <script>
+        function element(totalPages,currentPage){
+            const ulTag=document.querySelector("ul#pageUl")
+            let liTag=''
+            let beforePages=currentPage-1
+            let afterPages=currentPage+1
+            let activeLi=''
+            if (totalPages<=4){
+                for (let i=1;i<=totalPages;i++){
+                    if (currentPage == i) activeLi='active'
+                    else activeLi=''
+                    liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
+                                <a class="page-link">${i}</a>
+                            </li>`
+                }
+            }else{
+                if (currentPage>1){
+                    liTag+=` <li class="page-item" onclick="element(${totalPages},${currentPage-1})">
+                                <a class="page-link" tabindex="-1">
+                                    <span class="bi bi-chevron-left"></span>
+                                </a>
+                            </li>`
+                }
+                if (currentPage>2){
+                    liTag+=`<li class="page-item" onclick="element(${totalPages},1)">
+                                <a class="page-link">1</a>
+                            </li>`
+                    if (currentPage>3){
+                        liTag+=`<li class="page-item">
+                                <a class="page-link">...</a>
+                            </li>`
+                    }
+                }
+                if (currentPage == totalPages){
+                    beforePages=beforePages-2
+                }else if (currentPage == totalPages -1){
+                    beforePages=beforePages-1
+                }
+                if (currentPage == 1){
+                    afterPages=afterPages+2
+                }else if (currentPage == 2){
+                    afterPages=afterPages+1
+                }
+                for (let i=beforePages;i<=afterPages;i++){
+                    if (i>totalPages) continue
+                    if (i==0) i=i+1
+                    if (currentPage == i) activeLi='active'
+                    else activeLi=""
+                    liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
+                                <a class="page-link">${i}</a>
+                            </li>`
+                }
+                if (currentPage<totalPages-1){
+                    if (currentPage<totalPages-2){
+                        liTag+=`<li class="page-item">
+                                <a class="page-link">...</a>
+                            </li>`
+                    }
+                    liTag+=`<li class="page-item" onclick="element(${totalPages},${totalPages})">
+                                <a class="page-link">${totalPages}</a>
+                            </li>`
+                }
+                if (currentPage<totalPages){
+                    liTag+=` <li class="page-item next" onclick="element(${totalPages},${currentPage+1})">
+                                <a class="page-link">
+                                    <span class="bi bi-chevron-right"></span>
+                                </a>
+                            </li>`
+                }
+            }
+
+            ulTag.innerHTML=liTag
+        }
+        element(10,5)
+
+    </script>
+{{/section}}

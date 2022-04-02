@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from 'morgan';
+import bcrypt from 'bcrypt'
 import activateViewMiddleware from './middlewares/view.mdw.js'
 import activateRouteMiddleware from './middlewares/routes.mdw.js'
 import activatLocalsMiddleware from './middlewares/locals.mdw..js'
@@ -16,7 +17,6 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended:true}));
 //view
 
-app.use('/public',express.static('public'))
 
 activatLocalsMiddleware(app);
 activateViewMiddleware(app);

@@ -4,28 +4,38 @@ import categoryModel from '../models/category.models.js'
 const router=express.Router();
 
 router.get('/',async function (req,res){
-    const proByParentCat= await estateModel.findProByCatParentID(1)
-    const parentName=await categoryModel.findCatParentByID(1)
-    res.render('property-grid',{
-        productByCatID:proByParentCat,
-        catIDProduct:parentName[0]
+    let pro=await estateModel.findPageParent(9,0,1)
+    let proParent=await estateModel.findProByCatParentID(1)
+    const parentName=await categoryModel.findNameVsIdCatParentByID(1)
+    res.render('product/property-grid',{
+        productByCatID:pro,
+        catIDProduct:parentName[0],
+        totalOfPages:Math.ceil(proParent.length/9),
+        currentPage:1,
+        type:1,
+        noti:"parent/",
     })
 });
 router.get('/:estateID',async function (req,res){
     const catID=req.params.estateID||0;
-    const listProductFindByCatID= await estateModel.findByEstateID(catID)
+    const pro=await estateModel.findPage(9,0,catID)
+    const proParent=await estateModel.findByEstateID(catID)
     const catIDProduct=await categoryModel.findCatByID(catID)
-    const catParentProduct=await categoryModel.findCatParentByID(catID)
-    res.render('property-grid',{
-        productByCatID:listProductFindByCatID,
+    const catParentProduct=await categoryModel.findNameVsIdCatParentByID(catID)
+    res.render('product/property-grid',{
+        productByCatID:pro,
         catIDProduct:catIDProduct[0],
-        catParentIDProduct:catParentProduct[0]
+        catParentIDProduct:catParentProduct[0],
+        totalOfPages:Math.ceil(proParent.length/9),
+        currentPage:1,
+        type:1,
+        noti:"child/"
     })
 });
 router.get('/:estateID/:detailID',async function (req,res){
     const pro=await estateModel.findDetailProByID(req.params.detailID||0)
     const listRelatedPro=await estateModel.findProTopByEstateID(req.params.estateID||0,5)
-    res.render('prop-single',{
+    res.render('product/prop-single',{
         pro:pro[0],
         listRelatedPro,
     })

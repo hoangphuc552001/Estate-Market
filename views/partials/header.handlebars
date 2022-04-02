@@ -1,20 +1,20 @@
 {{#section 'js'}}
-  <script>
-      var options1= [{"value": "0,0",
-          "text": "Tất cả"
-      },{"value": "500000000 - 800000000",
-          "text": "500.000.000 - 800.000.000 "
-      },{"value": "1000000000 - 2000000000",
-          "text": "1.000.000.000 - 2.000.000.000"
-      },{"value": "3000000000 - 5000000000",
-          "text": "3000.000.000 - 5.000.000.000"
-      },{"value": "7000000000 - 10000000000",
-          "text": "7.000.000.000 - 10.000.000.000"
-      },{"value": "30000000000 - 0",
-          "text": "30.000.000.000 +"
-      }]
+    <script>
+        var options1= [{"value": "0,0",
+            "text": "Tất cả"
+        },{"value": "500000000 - 800000000",
+            "text": "500.000.000 - 800.000.000 "
+        },{"value": "1000000000 - 2000000000",
+            "text": "1.000.000.000 - 2.000.000.000"
+        },{"value": "3000000000 - 5000000000",
+            "text": "3000.000.000 - 5.000.000.000"
+        },{"value": "7000000000 - 10000000000",
+            "text": "7.000.000.000 - 10.000.000.000"
+        },{"value": "30000000000 - 0",
+            "text": "30.000.000.000 +"
+        }]
 
-  </script>
+    </script>
 {{/section}}
 <!-- ======= Property Search Section ======= -->
 <div class="click-closed"></div>
@@ -150,16 +150,18 @@
 
                 {{#each category}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link " href="/nha-dat-ban">{{name}}</a>
+                        <a class="nav-link " href="/{{this.nameCalling}}">{{name}}</a>
                         <div class="dropdown-menu">
                             {{#each nameChild}}
-                                <a class="dropdown-item " href="/nha-dat-ban/{{this.catID}}">{{this.name}}</a>
+                                {{#if (equal this.parentID ../this.id)}}
+                                    <a class="dropdown-item " href="/{{../this.nameCalling}}/{{this.catID}}">{{this.name}}</a>
+                                {{/if}}
                             {{/each}}
                         </div>
                     </li>
                 {{/each}}
                 <li class="nav-item">
-                    <a class="nav-link " href="blog-grid.html">Dự án</a>
+                    <a class="nav-link " href="/du-an">Dự án</a>
                 </li>
 
                 <li class="nav-item dropdown">
