@@ -23,6 +23,7 @@ export default function (app){
         })
         res.locals.category=category
         res.locals.catSeemore=catePa2
+        console.log(catePa2)
         next();
     });
 }

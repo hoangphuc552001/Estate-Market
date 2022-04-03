@@ -16,10 +16,10 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="#">Home</a>
+                                <a href="/">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Properties Grid
+                                {{catIDProduct.name}}
                             </li>
                         </ol>
                     </nav>
@@ -54,24 +54,34 @@
                                 <div class="card-overlay-a-content">
                                     <div class="card-header-a">
                                         <h2 class="card-title-a" style="font-size: 20px">
-                                            <a href="/nha-dat-ban/{{category}}/{{id}}">{{title}}</a>
+                                            {{#if (equal parentID 2)}}
+                                                <a href="/nha-dat-cho-thue/{{category}}/{{id}}">{{title}}</a>
+                                                {{else}}
+                                                <a href="/nha-dat-ban/{{category}}/{{id}}">{{title}}</a>
+                                            {{/if}}
                                         </h2>
                                     </div>
                                     <div class="card-body-a">
                                         <div class="price-box d-flex">
                                             <span class="price-a">{{current}}</span>
                                         </div>
-                                        <a href="/nha-dat-ban/{{category}}/{{id}}" class="link-a">Click here to view
-                                            <span class="bi bi-chevron-right"></span>
-                                        </a>
+                                        {{#if (equal parentID 2)}}
+                                            <a href="/nha-dat-cho-thue/{{category}}/{{id}}" class="link-a">Click here to view
+                                                <span class="bi bi-chevron-right"></span>
+                                            </a>
+                                        {{else}}
+                                            <a href="/nha-dat-ban/{{category}}/{{id}}" class="link-a">Click here to view
+                                                <span class="bi bi-chevron-right"></span>
+                                            </a>
+                                        {{/if}}
                                     </div>
                                     <div class="card-footer-a">
                                         <ul class="card-info d-flex justify-content-around">
                                             <li>
                                                 <h4 class="card-info-title">Area</h4>
                                                 <span>{{acreage}}
-                          <sup>2</sup>
-                        </span>
+                                            <sup>2</sup>
+                                        </span>
                                             </li>
                                             <li>
                                                 <h4 class="card-info-title">Beds</h4>
