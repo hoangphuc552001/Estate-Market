@@ -6,8 +6,10 @@ import signupRoute from "../routes/authen/signupRoute.js";
 import pageRoute from "../routes/pageRoute.js"
 import duanRoute from "../routes/duanRoute.js";
 import chothueRoute from '../routes/thueRoute.js'
+import tintucRoute from "../routes/tintucRoute.js"
+
 export default function (app) {
-    app.get('/',async (req,res)=>{
+    app.get('/', async (req,res)=>{
         const top3EstateHouse= await estateModel.findProTopByEstateID(1,3)
         const top3EstateGround= await estateModel.findProTopByEstateID(5,3)
         const sellPro=top3EstateGround.concat(top3EstateHouse)
@@ -26,6 +28,7 @@ export default function (app) {
     app.use("/tim-kiem",timkiemRoute)
     app.use("/du-an",duanRoute)
     app.use("/nha-dat-cho-thue",chothueRoute)
+    app.use("/tin-tuc",tintucRoute);
     app.use("/login",loginRoute)
     app.use("/register",signupRoute)
     app.use("/page",pageRoute)

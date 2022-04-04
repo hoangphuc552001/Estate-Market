@@ -14,13 +14,13 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html">Home</a>
+                                    <a href="/">Trang chủ</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="property-grid.html">Properties</a>
+                                    <a href="../">{{pro.name}}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    304 Blaster Up
+                                    {{pro.proid}}
                                 </li>
                             </ol>
                         </nav>
@@ -37,13 +37,13 @@
                         <div id="property-single-carousel" class="swiper">
                             <div class="swiper-wrapper">
                                 <div class="carousel-item-b swiper-slide">
-                                    <img src="{{pro.image1}}" alt="">
+                                    <img src="{{pro.image1}}" alt="" >
                                 </div>
                                 <div class="carousel-item-b swiper-slide">
                                     <img src="{{pro.image2}}" alt="">
                                 </div>
                                 <div class="carousel-item-b swiper-slide">
-                                    <img src="{{pro.image3}}" alt="">
+                                    <img src="{{pro.image3}}" alt="" >
                                 </div>
                             </div>
                         </div>
@@ -173,10 +173,10 @@
                                 <a class="nav-link" id="pills-plans-tab" data-bs-toggle="pill" href="#pills-plans" role="tab" aria-controls="pills-plans" aria-selected="false">Bất động sản liên quan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="false">Dự án</a>
+                                <a class="nav-link" id="pills-project-tab" data-bs-toggle="pill" href="#pills-project" role="tab" aria-controls="pills-project" aria-selected="false">Dự án</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="false">Tin tức</a>
+                                <a class="nav-link" id="pills-new-tab" data-bs-toggle="pill" href="#pills-new" role="tab" aria-controls="pills-new" aria-selected="false">Tin tức</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
@@ -204,7 +204,11 @@
                                                                                 <br>{{related.acreage}} <sup>2</sup></span>
                                                                         </h1>
                                                                         <p class="intro-subtitle intro-price">
-                                                                            <a href="#"><span class="price-a">{{related.current}}</span></a>
+                                                                            {{#if (equal related.parentID 2)}}
+                                                                                <a href="/nha-dat-cho-thue/{{related.category}}/{{related.id}}"><span class="price-a">{{related.current}}</span></a>
+                                                                            {{else}}
+                                                                                <a href="/nha-dat-ban/{{related.category}}/{{related.id}}"><span class="price-a">{{related.current}}</span></a>
+                                                                            {{/if}}
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -218,8 +222,96 @@
                                     <div class="swiper-pagination"></div>
                                 </div><!-- End Intro Section -->
                             </div>
+
+
+                            <div class="tab-pane fade" id="pills-project" role="tabpanel" aria-labelledby="pills-project-tab">
+                                <div class="intro intro-carousel swiper position-relative">
+                                    <div class="swiper-wrapper ">
+                                        {{a}}
+                                        {{#each ../listProjectPro as | project |}}
+                                            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({{project.image}})">
+                                                <div class="overlay overlay-a"></div>
+                                                <div class="intro-content display-table">
+                                                    <div class="table-cell">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-lg-8">
+                                                                    <div class="intro-body">
+                                                                        <p class="intro-title-top">{{project.ward}}
+                                                                            <br> TPHCM
+                                                                        </p>
+                                                                        <h1 class="intro-title mb-4 ">
+                                                                            <span class="color-b">{{project.title}}
+                                                                                <br>{{project.acreage}} <sup>2</sup></span>
+                                                                        </h1>
+                                                                        <p class="intro-subtitle intro-price">
+                                                                            <a href="/du-an/{{project.id}}"><span class="price-a">{{project.current}}</span></a>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div><!-- End Intro Section -->
+                            </div>
+
+
+
+                            <div class="tab-pane fade" id="pills-new" role="tabpanel" aria-labelledby="pills-new-tab">
+                                <div class="intro intro-carousel swiper position-relative">
+                                    <div class="swiper-wrapper ">
+                                        {{a}}
+                                        {{#each ../listNewPro as | new |}}
+                                            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({{new.image}})">
+                                                <div class="overlay overlay-a"></div>
+                                                <div class="intro-content display-table">
+                                                    <div class="table-cell">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-lg-8">
+                                                                    <div class="intro-body">
+                                                                        <h1 class="intro-title-top">{{new.ward}}
+                                                                        </h1>
+                                                                        <h1 class="intro-title mb-4 ">
+                                                                            <span class="color-b">{{new.title}}
+                                                                                <br>{{new.acreage}} <sup>2</sup></span>
+                                                                        </h1>
+                                                                        <p class="intro-subtitle intro-price">
+                                                                            <a href="/du-an/{{new.id}}"><span class="price-a">Xem thêm</span></a>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div><!-- End Intro Section -->
+                            </div>
+
+
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="col-md-12">
                         <div class="row section-t3">
                             <div class="col-sm-12">

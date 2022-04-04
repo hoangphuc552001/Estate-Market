@@ -6,10 +6,11 @@ import dateFormat from "dateformat";
 const router=express.Router();
 
 router.get('/',async function (req,res){
-    const proByParentCat= await estateModel.findProByCatParentID(3)
-    const parentName= await categoryModel.findCatParentByID(3);
+    const proByParentCat= await estateModel.findProByCatParentID(4)
+    const parentName= await categoryModel.findNameVsIdCatParentByID(4);
     proByParentCat.start=dateFormat(proByParentCat.start,"yyyy-mm-dd h:MM:ss")
-    res.render('product/blog-grib',{
+
+    res.render('product/new-grib',{
         productByCatID:proByParentCat,
         catIDProduct:parentName[0]
     })
@@ -17,7 +18,7 @@ router.get('/',async function (req,res){
 router.get('/:detailID',async function (req,res){
     const detailID=req.params.detailID||0;
     const pro=await estateModel.findDetailProByID(req.params.detailID||0)
-    res.render('product/blog-single',{
+    res.render('product/new-single',{
         pro:pro[0]
     })
 });

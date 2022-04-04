@@ -147,7 +147,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/">Trang chủ</a>
                 </li>
-
                 {{#each category}}
                     <li class="nav-item dropdown">
                         <a class="nav-link " href="/{{this.calling}}">{{name}}</a>
@@ -168,7 +167,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xem thêm</a>
                     <div class="dropdown-menu">
                         {{#each catSeemore}}
-                            <a class="dropdown-item " href="property-single.html">{{this.name}}</a>
+                            {{#if (equal this.name "Tin tức")}}
+                                <a class="dropdown-item " href="/tin-tuc">{{this.name}}</a>
+                            {{else}}
+                                <a class="dropdown-item " href="#">{{this.name}}</a>
+                            {{/if}}
                         {{/each}}
                         <a class="dropdown-item " href="agent-single.html">Về chúng tôi</a>
                     </div>
