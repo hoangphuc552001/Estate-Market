@@ -17,8 +17,6 @@ export default function (app){
                 }
             })
             k.nameChild=arrChild
-            if (k.id===+1) k.nameCalling="nha-dat-ban"
-            else k.nameCalling="nha-dat-cho-thue"
             category.push(k)
         })
         res.locals.category=category

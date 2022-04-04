@@ -7,7 +7,7 @@ const router=express.Router();
 
 router.get('/',async function (req,res){
     const proByParentCat= await estateModel.findProByCatParentID(3)
-    const parentName= await categoryModel.findNameVsIdCatParentByID(3);
+    const parentName= await categoryModel.findCatParentByID(3);
     proByParentCat.start=dateFormat(proByParentCat.start,"yyyy-mm-dd h:MM:ss")
 
     res.render('product/blog-grib',{

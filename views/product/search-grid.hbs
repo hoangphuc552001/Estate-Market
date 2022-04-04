@@ -54,14 +54,14 @@
                                 <div class="card-overlay-a-content">
                                     <div class="card-header-a">
                                         <h2 class="card-title-a" style="font-size: 20px">
-                                            <a href="/nha-dat-ban/{{category}}/{{id}}">{{title}}</a>
+                                            <a href="/{{calling}}/{{category}}/{{id}}">{{title}}</a>
                                         </h2>
                                     </div>
                                     <div class="card-body-a">
                                         <div class="price-box d-flex">
                                             <span class="price-a">{{current}}</span>
                                         </div>
-                                        <a href="/nha-dat-ban/{{category}}/{{id}}" class="link-a">Click here to view
+                                        <a href="/{{calling}}/{{category}}/{{id}}" class="link-a">Click here to view
                                             <span class="bi bi-chevron-right"></span>
                                         </a>
                                     </div>
@@ -153,7 +153,8 @@
                     if (currentPage == i) activeLi='active'
                     else activeLi=""
                     liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
-                                <a class="page-link">${i}</a>
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page={{sum currentPage 1}}" class="page-link">${i}</a>
+
                             </li>`
                 }
                 if (currentPage<totalPages-1){
@@ -177,7 +178,6 @@
 
             ulTag.innerHTML=liTag
         }
-        element(10,5)
-
+        element({{numberPage}},{{currentPage}})
     </script>
 {{/section}}

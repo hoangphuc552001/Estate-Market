@@ -13,10 +13,13 @@ export default function (app) {
         const sellPro=top3EstateGround.concat(top3EstateHouse)
         const top4Latest=await estateModel.findProTopLatest(4,0)
         const top6RentPro= await estateModel.findProTopByEstateID(6,6)
+        const top5Project = await estateModel.findProByCatParentID(3)
+        console.log(top5Project)
         res.render('product/index',{
             sellPro,
             top4Latest,
-            top6RentPro
+            top6RentPro,
+            top5Project
         })
     })
     app.use("/nha-dat-ban",muabanRoute)

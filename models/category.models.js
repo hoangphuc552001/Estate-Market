@@ -12,13 +12,9 @@ export default {
     findCatByID(CatID){
         return db('category').where('id',CatID)
     },
-    findCatParentByID(CatID) {
-        return db('categoryparent').select('categoryparent.name').join('category', 'categoryparent.id', 'category.parent')
-            .where('category.id', CatID)
-    },
     //tìm tên và id
-    findNameVsIdCatParentByID(CatID){
-        return db('categoryparent').select('categoryparent.name','categoryparent.id').join('category','categoryparent.id','category.parent')
-            .where('category.id',CatID)
+    findCatParentByID(CatID){
+        return db('categoryparent')
+            .where('categoryparent.id',CatID)
     }
 }

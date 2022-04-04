@@ -14,6 +14,10 @@ export default function (app) {
             equal(first, second) {
                 return first === second;
             },
+            sum(first,second){
+                return first+second
+            }
+        ,
             time(val){
                 return moment(val).format('DD-MM-YYYY')
             },

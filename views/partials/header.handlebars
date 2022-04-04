@@ -150,11 +150,11 @@
 
                 {{#each category}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link " href="/{{this.nameCalling}}">{{name}}</a>
+                        <a class="nav-link " href="/{{this.calling}}">{{name}}</a>
                         <div class="dropdown-menu">
                             {{#each nameChild}}
                                 {{#if (equal this.parentID ../this.id)}}
-                                    <a class="dropdown-item " href="/{{../this.nameCalling}}/{{this.catID}}">{{this.name}}</a>
+                                    <a class="dropdown-item " href="/{{../this.calling}}/{{this.catID}}">{{this.name}}</a>
                                 {{/if}}
                             {{/each}}
                         </div>

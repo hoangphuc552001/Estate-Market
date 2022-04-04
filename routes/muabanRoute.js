@@ -6,7 +6,7 @@ const router=express.Router();
 router.get('/',async function (req,res){
     let pro=await estateModel.findPageParent(9,0,1)
     let proParent=await estateModel.findProByCatParentID(1)
-    const parentName=await categoryModel.findNameVsIdCatParentByID(1)
+    const parentName=await categoryModel.findCatParentByID(1)
     res.render('product/property-grid',{
         productByCatID:pro,
         catIDProduct:parentName[0],
@@ -21,7 +21,7 @@ router.get('/:estateID',async function (req,res){
     const pro=await estateModel.findPage(9,0,catID)
     const proParent=await estateModel.findByEstateID(catID)
     const catIDProduct=await categoryModel.findCatByID(catID)
-    const catParentProduct=await categoryModel.findNameVsIdCatParentByID(catID)
+    const catParentProduct=await categoryModel.findCatParentByID(1)
     res.render('product/property-grid',{
         productByCatID:pro,
         catIDProduct:catIDProduct[0],
@@ -29,7 +29,7 @@ router.get('/:estateID',async function (req,res){
         totalOfPages:Math.ceil(proParent.length/9),
         currentPage:1,
         type:1,
-        noti:"child/"
+        noti:"child/",
     })
 });
 router.get('/:estateID/:detailID',async function (req,res){
