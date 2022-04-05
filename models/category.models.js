@@ -12,9 +12,6 @@ export default {
     findCatByID(CatID){
         return db('category').where('id',CatID)
     },
-    findNameParentByID(CatID){
-        return db('categoryparent').select('categoryparent.name').where('categoryparent.id', CatID)
-    },
     //tìm tên và id
     findCatParentByID(CatID){
         return db('categoryparent')

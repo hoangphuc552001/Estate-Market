@@ -37,7 +37,6 @@ router.get('/:estateID/:detailID',async function (req,res){
     const listRelatedPro=await estateModel.findProTopByEstateID(req.params.estateID||0,5)
     const listProjectPro=await  estateModel.findProByCatParentID(3)
     const listNewPro=await  estateModel.findProByCatParentID(4)
-    console.log(listProjectPro)
     listRelatedPro.forEach(i=>{
         i.parentID=2;
     })

@@ -108,6 +108,8 @@
                                 <div class="img-box-a">
                                     <img style="width: 400px;height: 300px;object-fit: cover"
                                          src="{{image}}" alt="" class="img-a img-fluid">
+                                    <img style="position: absolute;top: 0px;right: 0px"
+                                            class="new" src="/public/assets/img/new.gif">
                                 </div>
                                 <div class="card-overlay">
                                     <div class="card-overlay-a-content">
@@ -382,10 +384,10 @@
                 <div class="col-md-12">
                     <div class="title-wrap d-flex justify-content-between">
                         <div class="title-box">
-                            <h2 class="title-a">Cho thuê</h2>
+                            <h2 class="title-a">Tin tức</h2>
                         </div>
                         <div class="title-link">
-                            <a href="property-grid.html">Xem tất cả
+                            <a href="/tin-tuc">Xem tất cả
                                 <span class="bi bi-chevron-right"></span>
                             </a>
                         </div>
@@ -395,7 +397,7 @@
 
             <div id="property-carousel" class="swiper">
                 <div class="swiper-wrapper">
-                    {{#each top6RentPro}}
+                    {{#each top5News}}
                         <div class="carousel-item-b swiper-slide">
                             <div class="card-box-a card-shadow">
                                 <div class="img-box-a">
@@ -413,7 +415,7 @@
                                             <div class="price-box d-flex">
                                                 <span class="price-a">{{current}}</span>
                                             </div>
-                                            <a href="#" class="link-a">Click here to view
+                                            <a href="/{{calling}}/{{id}}" class="link-a">Click here to view
                                                 <span class="bi bi-chevron-right"></span>
                                             </a>
                                         </div>
@@ -433,10 +435,7 @@
                                                     <h4 class="card-info-title">Baths</h4>
                                                     <span>{{bathroom}}</span>
                                                 </li>
-                                                <li>
-                                                    <h4 class="card-info-title">Garages</h4>
-                                                    <span>1</span>
-                                                </li>
+
                                             </ul>
                                         </div>
                                     </div>

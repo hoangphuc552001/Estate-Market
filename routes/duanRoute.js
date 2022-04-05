@@ -1,7 +1,6 @@
 import express from "express";
 import estateModel from '../models/estate.models.js'
 import categoryModel from '../models/category.models.js'
-import bcrypt from "bcrypt";
 import dateFormat from "dateformat";
 const router=express.Router();
 

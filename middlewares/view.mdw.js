@@ -16,8 +16,8 @@ export default function (app) {
             },
             sum(first,second){
                 return first+second
-            }
-        ,
+            },
+            minus(first,second){return first-second},
             time(val){
                 return moment(val).format('DD-MM-YYYY')
             },

@@ -116,20 +116,21 @@
                     if (currentPage == i) activeLi='active'
                     else activeLi=''
                     liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
-                                <a class="page-link">${i}</a>
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page=${i}" class="page-link">${i}</a>
+
                             </li>`
                 }
             }else{
                 if (currentPage>1){
                     liTag+=` <li class="page-item" onclick="element(${totalPages},${currentPage-1})">
-                                <a class="page-link" tabindex="-1">
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page={{minus currentPage 1}}" class="page-link" tabindex="-1">
                                     <span class="bi bi-chevron-left"></span>
                                 </a>
                             </li>`
                 }
                 if (currentPage>2){
                     liTag+=`<li class="page-item" onclick="element(${totalPages},1)">
-                                <a class="page-link">1</a>
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page=1" class="page-link">1</a>
                             </li>`
                     if (currentPage>3){
                         liTag+=`<li class="page-item">
@@ -153,7 +154,7 @@
                     if (currentPage == i) activeLi='active'
                     else activeLi=""
                     liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
-                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page={{sum currentPage 1}}" class="page-link">${i}</a>
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page=${i}" class="page-link">${i}</a>
 
                             </li>`
                 }
@@ -164,12 +165,12 @@
                             </li>`
                     }
                     liTag+=`<li class="page-item" onclick="element(${totalPages},${totalPages})">
-                                <a class="page-link">${totalPages}</a>
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page=${totalPages}" class="page-link">${totalPages}</a>
                             </li>`
                 }
                 if (currentPage<totalPages){
                     liTag+=` <li class="page-item next" onclick="element(${totalPages},${currentPage+1})">
-                                <a class="page-link">
+                                <a href="?keyword={{keyword}}&type_={{type}}&ward={{ward}}&bedroom={{bedroom}} &bathroom={{bathroom}}&price={{price}}&page=${currentPage+1}" class="page-link">
                                     <span class="bi bi-chevron-right"></span>
                                 </a>
                             </li>`

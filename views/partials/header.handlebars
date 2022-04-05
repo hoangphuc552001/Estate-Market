@@ -1,16 +1,22 @@
 {{#section 'js'}}
     <script>
-        var options1= [{"value": "0,0",
+        var options1 = [{
+            "value": "0,0",
             "text": "Tất cả"
-        },{"value": "500000000 - 800000000",
+        }, {
+            "value": "500000000 - 800000000",
             "text": "500.000.000 - 800.000.000 "
-        },{"value": "1000000000 - 2000000000",
+        }, {
+            "value": "1000000000 - 2000000000",
             "text": "1.000.000.000 - 2.000.000.000"
-        },{"value": "3000000000 - 5000000000",
+        }, {
+            "value": "3000000000 - 5000000000",
             "text": "3000.000.000 - 5.000.000.000"
-        },{"value": "7000000000 - 10000000000",
+        }, {
+            "value": "7000000000 - 10000000000",
             "text": "7.000.000.000 - 10.000.000.000"
-        },{"value": "30000000000 - 0",
+        }, {
+            "value": "30000000000 - 0",
             "text": "30.000.000.000 +"
         }]
 
@@ -30,7 +36,8 @@
                 <div class="col-md-12 mb-2">
                     <div class="form-group">
                         <label class="pb-2" for="Type">Keyword</label>
-                        <input type="text" name="keyword" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+                        <input type="text" name="keyword" class="form-control form-control-lg form-control-a"
+                               placeholder="Keyword">
                     </div>
                 </div>
                 <div class="col-md-6 mb-2">
@@ -100,7 +107,7 @@
                 <div class="col-md-6 mb-2">
                     <div class="form-group mt-3">
                         <label class="pb-2" for="price">Mức giá</label>
-                        <select class="form-control form-select form-control-a"  name="price" id="price">
+                        <select class="form-control form-select form-control-a" name="price" id="price">
                             <option value="0 - 100000000000">Tất cả</option>
                             <option value="0 - 500000000">Dưới 500 triệu</option>
                             <option value="500000000 - 2000000000">500 triệu - 2 tỷ</option>
@@ -128,7 +135,8 @@
         </span>
     </div>
     <div class="container">
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault"
+                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span></span>
             <span></span>
             <span></span>
@@ -153,7 +161,8 @@
                         <div class="dropdown-menu">
                             {{#each nameChild}}
                                 {{#if (equal this.parentID ../this.id)}}
-                                    <a class="dropdown-item " href="/{{../this.calling}}/{{this.catID}}">{{this.name}}</a>
+                                    <a class="dropdown-item "
+                                       href="/{{../this.calling}}/{{this.catID}}">{{this.name}}</a>
                                 {{/if}}
                             {{/each}}
                         </div>
@@ -164,7 +173,8 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xem thêm</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xem thêm</a>
                     <div class="dropdown-menu">
                         {{#each catSeemore}}
                             {{#if (equal this.name "Tin tức")}}
@@ -176,17 +186,34 @@
                         <a class="dropdown-item " href="agent-single.html">Về chúng tôi</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item " href="property-single.html">Đăng nhập</a>
-                        <a class="dropdown-item " href="blog-single.html">Đăng ký</a>
-                    </div>
-                </li>
+                {{#if user}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="/user/profile">
+                            Chào, {{user.firstName}}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item " href="/user/profile">Profile</a>
+                            <form method="POST" action="/authen/logout">
+                                <button class="dropdown-item ">Log out</button>
+                            </form>
+                        </div>
+                    </li>
+                {{else}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/authen/login" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item " href="/authen/login">Đăng nhập</a>
+                            <a class="dropdown-item " href="/authen/register">Đăng ký</a>
+                        </div>
+                    </li>
+                {{/if}}
+
             </ul>
         </div>
 
-        <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
+        <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo01">
             <i class="bi bi-search"></i>
         </button>
 

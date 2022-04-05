@@ -18,7 +18,6 @@ router.get("/",async function (req,res){
         estateModels.searchFullText(key,ward,type,bedroom,bathroom, minprice,maxprice,9,offset),
         estateModels.searchFullTextTotal(key,ward,type,bedroom,bathroom, minprice,maxprice),
     ]);
-    console.log(list)
     res.render("product/search-grid",{
         productByCatID:list,
         numberPage:Math.ceil(total.length/9),
