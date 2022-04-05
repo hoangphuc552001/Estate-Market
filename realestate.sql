@@ -8,9 +8,9 @@ create table categoryparent
     name    varchar(50) charset utf8 not null,
     calling varchar(50) charset utf8 null
 );
-INSERT INTO categoryparent (id, name) VALUES (1, 'Nhà đất bán');
-INSERT INTO categoryparent (id, name) VALUES (2, 'Nhà đất cho thuê');
-INSERT INTO categoryparent (id, name) VALUES (3, 'Dự án');
+INSERT INTO categoryparent (id, name) VALUES (1, 'Nhà đất bán','nha-dat-ban');
+INSERT INTO categoryparent (id, name) VALUES (2, 'Nhà đất cho thuê','nha-dat-cho-thue');
+INSERT INTO categoryparent (id, name) VALUES (3, 'Dự án','du-an');
 INSERT INTO categoryparent (id, name) VALUES (4, 'Tin tức');
 
 
