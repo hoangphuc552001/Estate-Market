@@ -9,6 +9,10 @@ export default {
     findUserByEmail(email){
         return db("user").where("user.email",email)
     },
+    findNameAndEmail(email){
+        return db("user").select("user.email","user.name").where("user.email",email)
+    }
+    ,
     async comparePasswordUser(user,password){
         let isMatch=await bcrypt.compare(password,user.password)
         if (isMatch) return true

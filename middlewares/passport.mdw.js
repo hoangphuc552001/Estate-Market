@@ -31,10 +31,10 @@ let initPassportLocal=()=>{
         }));
 }
 passport.serializeUser((user,done)=>{
-    done(null,user.id)
+    done(null,user.email)
 })
-passport.deserializeUser((id, done) => {
-    loginService.findUserByID(id).then((user) => {
+passport.deserializeUser((email, done) => {
+    loginService.findUserByEmail(email).then((user) => {
         return done(null, user);
     }).catch(error => {
         return done(error, null)

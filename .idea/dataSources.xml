@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@eu-cdbr-west-02.cleardb.net" uuid="1d179db1-40ee-468d-b025-c163d4511f0c">
+    <data-source source="LOCAL" name="@us-cdbr-east-05.cleardb.net" uuid="36db14c2-462c-4485-9635-6ee0d386f308">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://us-cdbr-east-05.cleardb.net:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
