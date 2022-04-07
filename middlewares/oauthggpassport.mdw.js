@@ -5,7 +5,7 @@ import loginService from "../services/loginService.js";
 passport.use(new GoogleStrategy.Strategy({
         clientID:"917266315294-p1a7qm4dr3f90qkb8n1cdn7rn7mdiv04.apps.googleusercontent.com",
         clientSecret:"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",
-        callbackURL:"http://localhost:3000/auth/google/callback",
+        callbackURL:"https://estate-market.herokuapp.com/auth/google/callback",
         passReqToCallback   : true
     },
     async function(request, accessToken, refreshToken, profile, done) {
