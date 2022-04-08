@@ -17,7 +17,7 @@ router.get('/',async function (req,res){
 });
 router.get('/:detailID',async function (req,res){
     const detailID=req.params.detailID||0;
-    const pro=await estateModel.findDetailProByID(detailID||0)
+    const pro= await estateModel.findDetailProByID(detailID)
     res.render('product/new-single',{
         pro:pro[0]
     })

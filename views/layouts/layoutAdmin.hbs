@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Real Estate Market</title>
+    <title>Admin Real Estate Market</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
     <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -13,38 +13,41 @@
     <link href="/public/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="/public/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="/public/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" id="theme-style" href="/public/assets/css/app.css">
     <link rel="shortcut icon" type="image/x-icon" href="/public/assets/estate/realestate.png">
     <link href="/public/assets/css/iconds.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/assets/css/vendor.css">
+    <link rel="stylesheet" href="/public/assets/css/app.css">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./public/assets/css/vendor.css">
-    {{{_sections.css}}}
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Place favicon.ico in the root directory -->
+    {{{_sections.cssAdmin}}}
 </head>
 <body>
-{{>header}}
+{{>headerAdmin}}
 {{{body}}}
-{{>footer}}
+{{>footerAdmin}}
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
-
 <!-- Vendor JS Files -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/public/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="/public/assets/vendor/php-email-form/validate.js"></script>
-<script src="/public/assets/js/ggmap.js"></script>
-<script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfS9QiriXI65D_GGvE-z6BUxGdrivEt8A&callback=initMap">
+<script src="/public/assets/js/vendor.js"></script>
+<script src="/public/assets/js/app.js"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfS9QiriXI65D_GGvE-z6BUxGdrivEt8A&callback=initMap">
 </script><!-- Template Main JS File -->
-<script src="/public/assets/js/main.js"></script>
-{{{_sections.js}}}
+<!--<script src="/public/assets/js/main.js"></script>-->
+{{{_sections.jsAdmin}}}
 </body>
 </html>

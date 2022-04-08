@@ -21,6 +21,9 @@ export default function (app) {
             time(val){
                 return moment(val).format('DD-MM-YYYY')
             },
+            check(index){
+                return index===0
+            },
 
         },
     }));

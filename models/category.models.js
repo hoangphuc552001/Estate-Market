@@ -16,5 +16,13 @@ export default {
     findCatParentByID(CatID){
         return db('categoryparent')
             .where('categoryparent.id',CatID)
+    },
+    //tìm tất cả danh mục bằng id danh mục cha
+    findCategoryByParent(parent){
+        return db('category').select('category.*','categoryparent.name as nameParent' ).join('categoryparent','category.parent','categoryparent.id')
+            .where('category.parent',parent)
+    },
+    findTotalCategoryByParent(parent){
+        return db("category").count('parent', {as: 'total'}).where('parent',parent);
     }
 }
