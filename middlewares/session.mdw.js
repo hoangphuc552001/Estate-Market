@@ -11,12 +11,13 @@ export default function (app){
         resave: true,
         saveUninitialized: true,
         cookie: { secure: false, maxAge: 10800000},
-        store: new MySQLStore({
+
+store: new MySQLStore({
     connectionLimit: 100,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'realestate',
+    host: 'us-cdbr-east-05.cleardb.net',
+    user: 'b8e5dbe7be1f41',
+    password: 'bbb92f05',
+    database: 'heroku_59394531068dea2',
     charset: 'utf8mb4_general_ci',
     schema: {
         tableName: 'sessions',
@@ -26,7 +27,8 @@ export default function (app){
             data: 'data'
         }
     }
-}),
+
+    }),
     }))
     app.use(connectFlash())
     app.use(passport.initialize())
