@@ -20,6 +20,7 @@ export default function (app){
         const cate=await categoryModel.findCategory();
         const catePa1=await categoryModel.findCategoryParent(2,0);
         const catePa2=await categoryModel.findCategoryParent(1,3);
+        const totalCate=await categoryModel.findCategoryParent(4,0);
         const category=[]
         catePa1.forEach(i=>{
             let k=i

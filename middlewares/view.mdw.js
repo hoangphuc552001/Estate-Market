@@ -10,6 +10,7 @@ export default function (app) {
                 val=numeral(val).format('0,0')
                 return val+' VNĐ'
             },
+
             section: express_handlebars_sections(),
             equal(first, second) {
                 return first === second;
@@ -23,6 +24,9 @@ export default function (app) {
             },
             check(index){
                 return index===0
+            },
+            checkTrue(index){
+                return index===true
             },
 
         },
