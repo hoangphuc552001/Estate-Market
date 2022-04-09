@@ -27,11 +27,12 @@ export default {
                 db('estate').min('start'))
     },
     //tìm thông tin chi tiết bđs
-    findDetailProByID(ProID){
-        return db('estate') .where('estate.id',ProID)
+    async findDetailProByID(ProID){
+        const data= await db('estate') .where('estate.id',ProID)
             .join('detail_des','detail_des.pro_id','estate.id')
             .join('img_detail','img_detail.proid','estate.id')
             .join('category','category.id','estate.category')
+        return data;
     },
     //tìm full text
     async searchFullText(proName,ward_,type,bedroom,bathroom,minprice,maxprice,limit_,offset_){
@@ -124,5 +125,9 @@ export default {
     },
     insertToConact(contact){
         return db("contact").insert(contact)
+    },
+    //tìm tổng sản phẩm bằng category id
+    findTotalByID(CatID){
+        return db("estate").count('category', {as: 'total'}).where('category',CatID);
     }
 }

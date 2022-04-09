@@ -1,15 +1,11 @@
 
-
-
-
-
 <section class="intro-single">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-lg-8">
                 <div class="title-single-box">
                     <h1 class="title-single">{{catIDProduct.name}}</h1>
-                   <!-- <span class="color-text-a">Grid News</span>-->
+
                 </div>
             </div>
             <div class="col-md-12 col-lg-4">
@@ -35,15 +31,15 @@
                 <div class="col-md-4">
                     <div class="card-box-b card-shadow news-box">
                         <div class="img-box-b">
-                            <img src="{{image}}" alt="" class="img-b img-fluid" style="width: 400px;height: 300px;object-fit: cover" href="/tin-tuc/{{id}}">
+                            <img src="{{this.image}}" alt="" class="img-b img-fluid" style="width: 400px;height: 300px;object-fit: cover" href="/tin-tuc/{{id}}">
                         </div>
                         <div class="card-overlay">
                             <div class="card-header-b">
 
                                 <div class="card-title-b">
                                     <h2 class="title-2">
-                                        <a href="/tin-tuc/{{id}}">{{tittle}}
-                                            <br> {{title}}</a>
+                                        <a href="/tin-tuc/{{this.id}}">{{this.tittle}}
+                                            <br> {{this.title}}</a>
                                     </h2>
                                 </div>
                                 <div class="card-date">
