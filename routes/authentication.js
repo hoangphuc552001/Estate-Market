@@ -20,17 +20,10 @@ let checkLoggedOut = (req, res, next) => {
     next();
 };
 
-let postLogOut = (req, res,next) => {
-    if (req.session) {
-        // delete session object
-        req.session.destroy(function(err) {
-            if(err) {
-                return next(err);
-            } else {
-                return res.redirect('/');
-            }
-        });
-    }
+let postLogOut = (req, res) => {
+    req.session.destroy(function(err) {
+        return res.redirect("/authen/login");
+    });
 };
 router.get('/login',checkLoggedOut,(req,res)=>{
     res.render('authentication/signin',{

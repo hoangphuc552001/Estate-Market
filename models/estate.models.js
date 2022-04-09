@@ -119,13 +119,6 @@ export default {
             .limit(limit)
             .offset(offset)
     },
-    findUserByProductOwned(proID){
-        return db("user").select("user.*").join("estate","user.id","estate.seller")
-            .where("estate.id",proID)
-    },
-    insertToConact(contact){
-        return db("contact").insert(contact)
-    },
     //tìm tổng sản phẩm bằng category id
     findTotalByID(CatID){
         return db("estate").count('category', {as: 'total'}).where('category',CatID);
