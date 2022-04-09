@@ -57,7 +57,7 @@
 
                             <div class="item-col item-col-header item-col-category">
                                 <div class="no-overflow">
-                                    <span>Trạng thái</span>
+                                    <span>Số lượng sản phẩm</span>
                                 </div>
                             </div>
                             <div class="item-col item-col-header item-col-author">
@@ -85,28 +85,22 @@
                                 <div class="item-col fixed pull-left item-col-title">
                                     <div class="item-heading">Tên danh mục</div>
                                     <div>
-                                        <a href="views/admin/category-add.hbs" class="">
+                                        <a  class="">
                                             <h4 class="item-title"> {{this.name}} </h4>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="item-col item-col-category no-overflow">
-                                    <div class="item-heading">Trạng thái</div>
-                                    {{#if this.status}}
-                                        <div class="no-overflow">
-                                            <a href="#">{{this.status}}</a>
-                                        </div>
-                                    {{else}}
-                                        <div class="no-overflow">
-                                            <a href="#">Vẫn còn</a>
-                                        </div>
-                                    {{/if}}
+                                    <div class="item-heading">Số lượng sản phẩm</div>
+                                    <div class="no-overflow">
+                                        <a >{{product this.total}}</a>
+                                    </div>
 
                                 </div>
                                 <div class="item-col item-col-author">
                                     <div class="item-heading">Người thêm</div>
                                     <div class="no-overflow">
-                                        <a href="#">Hoàng Huy</a>
+                                        <a >Hoàng Huy</a>
                                     </div>
                                 </div>
                                 <div class="item-col item-col-date">
@@ -123,20 +117,22 @@
                                                     <i class="fa fa-chevron-circle-right"></i>
                                                 </span>
                                         </a>
-                                        <div class="item-actions-block">
-                                            <ul class="item-actions-list">
-                                                <li>
-                                                    <a class="remove" href="#" data-toggle="modal" data-target="#confirm-modal">
-                                                        <i class="fa fa-trash-o "></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="edit" href="sua-danh-muc/{{this.parent}}/{{this.id}}">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <form method="post">
+                                            <div class="item-actions-block">
+                                                <ul class="item-actions-list">
+                                                    <li>
+                                                        <a class="remove" href="" id="deleteCategory" name="{{this.id}}">
+                                                            <i class="fa fa-trash-o "></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="edit" href="sua-danh-muc/{{this.parent}}/{{this.id}}">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -268,8 +264,18 @@
 
 {{#section 'jsAdmin'}}
     <script>
-        /*jQuery("#btn").click(function (){
-            var inputCategory=$("input[name='nameCategory']").val();
-            console.log(inputCategory);
-        })*/
+       /* function temp() {
+            $.ajax({
+
+            })
+        }*/
+       $(".remove").click(function(){
+        $.post("/admin/danh-muc/:calling/xoa-danh-muc",{parent:{{parentID}},id:this.name},function (data,status){
+            console.log(data);
+            if(data){
+                alert("Hello")
+            }
+           });
+       });
+    </script>
 {{/section}}

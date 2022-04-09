@@ -46,5 +46,12 @@ export default {
         return db("categoryparent").where(function (){
             this.whereNot('categoryparent.id',3).andWhereNot('categoryparent.id',4);
         })
+    },
+    //Xóa danh mục bằng id và parent
+    async delCategoryByParentAndID(category){
+        const check= await db('category').where(function (){
+            this.where('id',category.id).andWhere('parent',category.parent)
+        }).del();
+        return check;
     }
 }

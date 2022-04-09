@@ -28,7 +28,9 @@ export default function (app) {
             checkTrue(index){
                 return index===true
             },
-
+            product(index){
+                return index+' Sản phẩm'
+            },
         },
     }));
     app.set('view engine', 'hbs');
