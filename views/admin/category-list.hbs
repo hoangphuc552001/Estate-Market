@@ -11,9 +11,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h3 class="title"> {{nameParent}}
-                                <a href="/admin/danh-muc/them-danh-muc/{{parentID}}" class="btn btn-primary btn-sm rounded-s"> Add New </a>
-                                <!--
-         -->
+                                <a href="them-danh-muc/{{parentID}}" class="btn btn-primary btn-sm rounded-s"> Add New </a>
                                 <div class="action dropdown">
                                     <button class="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More actions... </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -87,7 +85,7 @@
                                 <div class="item-col fixed pull-left item-col-title">
                                     <div class="item-heading">Tên danh mục</div>
                                     <div>
-                                        <a href="views/admin/category-editor.hbs" class="">
+                                        <a href="views/admin/category-add.hbs" class="">
                                             <h4 class="item-title"> {{this.name}} </h4>
                                         </a>
                                     </div>
@@ -133,7 +131,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="edit" href="views/admin/category-editor.hbs">
+                                                    <a class="edit" href="sua-danh-muc/{{this.parent}}/{{this.id}}">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </li>
@@ -267,3 +265,11 @@
     </div>
 </div>
 </body>
+
+{{#section 'jsAdmin'}}
+    <script>
+        /*jQuery("#btn").click(function (){
+            var inputCategory=$("input[name='nameCategory']").val();
+            console.log(inputCategory);
+        })*/
+{{/section}}
