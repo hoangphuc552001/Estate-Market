@@ -13,10 +13,10 @@ export default function (app){
         cookie: { secure: false, maxAge: 10800000},
         store: new MySQLStore({
             connectionLimit: 100,
-            host: 'us-cdbr-east-05.cleardb.net',
-            user: 'b8e5dbe7be1f41',
-            password: 'bbb92f05',
-            database: 'heroku_59394531068dea2',
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'realestate',
             charset: 'utf8mb4_general_ci',
             schema: {
                 tableName: 'sessions',
@@ -33,3 +33,37 @@ export default function (app){
     app.use(passport.session())
 
 }
+//
+// store: new MySQLStore({
+//     connectionLimit: 100,
+//     host: 'us-cdbr-east-05.cleardb.net',
+//     user: 'b8e5dbe7be1f41',
+//     password: 'bbb92f05',
+//     database: 'heroku_59394531068dea2',
+//     charset: 'utf8mb4_general_ci',
+//     schema: {
+//         tableName: 'sessions',
+//         columnNames: {
+//             session_id: 'session_id',
+//             expires: 'expires',
+//             data: 'data'
+//         }
+//     }
+// }),
+
+// store: new MySQLStore({
+//     connectionLimit: 100,
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'realestate',
+//     charset: 'utf8mb4_general_ci',
+//     schema: {
+//         tableName: 'sessions',
+//         columnNames: {
+//             session_id: 'session_id',
+//             expires: 'expires',
+//             data: 'data'
+//         }
+//     }
+// }),

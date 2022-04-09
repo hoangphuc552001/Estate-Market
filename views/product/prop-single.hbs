@@ -1,3 +1,10 @@
+{{#section 'js'}}
+    <script>
+        function approveSending(e){
+            var e=document.forms["myForm"].submit()
+        }
+    </script>
+{{/section}}
 <main id="main">
     {{#with pro as | pro |}}
         <!-- ======= Intro Single ======= -->
@@ -37,13 +44,13 @@
                         <div id="property-single-carousel" class="swiper">
                             <div class="swiper-wrapper">
                                 <div class="carousel-item-b swiper-slide">
-                                    <img src="{{pro.image1}}" alt="" >
+                                    <img src="{{pro.image1}}" alt="">
                                 </div>
                                 <div class="carousel-item-b swiper-slide">
                                     <img src="{{pro.image2}}" alt="">
                                 </div>
                                 <div class="carousel-item-b swiper-slide">
-                                    <img src="{{pro.image3}}" alt="" >
+                                    <img src="{{pro.image3}}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -95,7 +102,7 @@
                                             <li class="d-flex justify-content-between">
                                                 <strong>Diện tích:</strong>
                                                 <span>{{pro.acreage}}
-                          <sup>2</sup>
+                                                    <sup>2</sup>
                         </span>
                                             </li>
                                             <li class="d-flex justify-content-between">
@@ -124,26 +131,26 @@
                                         {{{pro.des}}}
                                     </p>
                                 </div>
-<!--                                <div class="row section-t3">-->
-<!--                                    <div class="col-sm-12">-->
-<!--                                        <div class="title-box-d">-->
-<!--                                            <h3 class="title-d">Amenities</h3>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="amenities-list color-text-a">-->
-<!--                                    <ul class="list-a no-margin">-->
-<!--                                        <li>Balcony</li>-->
-<!--                                        <li>Outdoor Kitchen</li>-->
-<!--                                        <li>Cable Tv</li>-->
-<!--                                        <li>Deck</li>-->
-<!--                                        <li>Tennis Courts</li>-->
-<!--                                        <li>Internet</li>-->
-<!--                                        <li>Parking</li>-->
-<!--                                        <li>Sun Room</li>-->
-<!--                                        <li>Concrete Flooring</li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
+                                <!--                                <div class="row section-t3">-->
+                                <!--                                    <div class="col-sm-12">-->
+                                <!--                                        <div class="title-box-d">-->
+                                <!--                                            <h3 class="title-d">Amenities</h3>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="amenities-list color-text-a">-->
+                                <!--                                    <ul class="list-a no-margin">-->
+                                <!--                                        <li>Balcony</li>-->
+                                <!--                                        <li>Outdoor Kitchen</li>-->
+                                <!--                                        <li>Cable Tv</li>-->
+                                <!--                                        <li>Deck</li>-->
+                                <!--                                        <li>Tennis Courts</li>-->
+                                <!--                                        <li>Internet</li>-->
+                                <!--                                        <li>Parking</li>-->
+                                <!--                                        <li>Sun Room</li>-->
+                                <!--                                        <li>Concrete Flooring</li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -151,11 +158,11 @@
                     <div class="col-md-10 mt-5 offset-md-1">
                         <div class="container-fluid">
                             <div class="row">
-                                <div  class="col-6">
+                                <div class="col-6">
                                     <h5>Thông tin chi tiết</h5>
                                     {{{pro.detail_description}}}
                                 </div>
-                                <div  class="col-6">
+                                <div class="col-6">
                                     <h5>Thông tin khác</h5>
                                     {{{pro.other_detail}}}
                                 </div>
@@ -167,28 +174,36 @@
                         <ul class="nav nav-pills-a nav-pills mb-3 section-t3" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active"
-                                   role="tab" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map" aria-controls="pills-map" aria-selected="false">Xem trên bản đồ</a>
+                                   role="tab" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map"
+                                   aria-controls="pills-map" aria-selected="false">Xem trên bản đồ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-plans-tab" data-bs-toggle="pill" href="#pills-plans" role="tab" aria-controls="pills-plans" aria-selected="false">Bất động sản liên quan</a>
+                                <a class="nav-link" id="pills-plans-tab" data-bs-toggle="pill" href="#pills-plans"
+                                   role="tab" aria-controls="pills-plans" aria-selected="false">Bất động sản liên
+                                    quan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-project-tab" data-bs-toggle="pill" href="#pills-project" role="tab" aria-controls="pills-project" aria-selected="false">Dự án</a>
+                                <a class="nav-link" id="pills-project-tab" data-bs-toggle="pill" href="#pills-project"
+                                   role="tab" aria-controls="pills-project" aria-selected="false">Dự án</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-new-tab" data-bs-toggle="pill" href="#pills-new" role="tab" aria-controls="pills-new" aria-selected="false">Tin tức</a>
+                                <a class="nav-link" id="pills-new-tab" data-bs-toggle="pill" href="#pills-new"
+                                   role="tab" aria-controls="pills-new" aria-selected="false">Tin tức</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
+                            <div class="tab-pane fade show active" id="pills-map" role="tabpanel"
+                                 aria-labelledby="pills-map-tab">
                                 <div style="height: 400px;width: 100%" id="map"></div>
                             </div>
-                            <div class="tab-pane fade" id="pills-plans" role="tabpanel" aria-labelledby="pills-plans-tab">
+                            <div class="tab-pane fade" id="pills-plans" role="tabpanel"
+                                 aria-labelledby="pills-plans-tab">
                                 <div class="intro intro-carousel swiper position-relative">
                                     <div class="swiper-wrapper ">
                                         {{a}}
                                         {{#each ../listRelatedPro as | related |}}
-                                            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({{this.image}})">
+                                            <div class="swiper-slide carousel-item-a intro-item bg-image"
+                                                 style="background-image: url({{this.image}})">
                                                 <div class="overlay overlay-a"></div>
                                                 <div class="intro-content display-table">
                                                     <div class="table-cell">
@@ -201,13 +216,16 @@
                                                                         </p>
                                                                         <h1 class="intro-title mb-4 ">
                                                                             <span class="color-b">{{related.title}}
-                                                                                <br>{{related.acreage}} <sup>2</sup></span>
+                                                                                <br>{{related.acreage}}
+                                                                                <sup>2</sup></span>
                                                                         </h1>
                                                                         <p class="intro-subtitle intro-price">
                                                                             {{#if (equal related.parentID 2)}}
-                                                                                <a href="/nha-dat-cho-thue/{{related.category}}/{{related.id}}"><span class="price-a">{{related.current}}</span></a>
+                                                                                <a href="/nha-dat-cho-thue/{{related.category}}/{{related.id}}"><span
+                                                                                        class="price-a">{{related.current}}</span></a>
                                                                             {{else}}
-                                                                                <a href="/nha-dat-ban/{{related.category}}/{{related.id}}"><span class="price-a">{{related.current}}</span></a>
+                                                                                <a href="/nha-dat-ban/{{related.category}}/{{related.id}}"><span
+                                                                                        class="price-a">{{related.current}}</span></a>
                                                                             {{/if}}
                                                                         </p>
                                                                     </div>
@@ -224,12 +242,14 @@
                             </div>
 
 
-                            <div class="tab-pane fade" id="pills-project" role="tabpanel" aria-labelledby="pills-project-tab">
+                            <div class="tab-pane fade" id="pills-project" role="tabpanel"
+                                 aria-labelledby="pills-project-tab">
                                 <div class="intro intro-carousel swiper position-relative">
                                     <div class="swiper-wrapper ">
                                         {{a}}
                                         {{#each ../listProjectPro as | project |}}
-                                            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({{project.image}})">
+                                            <div class="swiper-slide carousel-item-a intro-item bg-image"
+                                                 style="background-image: url({{project.image}})">
                                                 <div class="overlay overlay-a"></div>
                                                 <div class="intro-content display-table">
                                                     <div class="table-cell">
@@ -242,10 +262,12 @@
                                                                         </p>
                                                                         <h1 class="intro-title mb-4 ">
                                                                             <span class="color-b">{{project.title}}
-                                                                                <br>{{project.acreage}} <sup>2</sup></span>
+                                                                                <br>{{project.acreage}}
+                                                                                <sup>2</sup></span>
                                                                         </h1>
                                                                         <p class="intro-subtitle intro-price">
-                                                                            <a href="/du-an/{{project.id}}"><span class="price-a">{{project.current}}</span></a>
+                                                                            <a href="/du-an/{{project.id}}"><span
+                                                                                    class="price-a">{{project.current}}</span></a>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -261,13 +283,13 @@
                             </div>
 
 
-
                             <div class="tab-pane fade" id="pills-new" role="tabpanel" aria-labelledby="pills-new-tab">
                                 <div class="intro intro-carousel swiper position-relative">
                                     <div class="swiper-wrapper ">
                                         {{a}}
                                         {{#each ../listNewPro as | new |}}
-                                            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({{new.image}})">
+                                            <div class="swiper-slide carousel-item-a intro-item bg-image"
+                                                 style="background-image: url({{new.image}})">
                                                 <div class="overlay overlay-a"></div>
                                                 <div class="intro-content display-table">
                                                     <div class="table-cell">
@@ -282,7 +304,8 @@
                                                                                 <br>{{new.acreage}} <sup>2</sup></span>
                                                                         </h1>
                                                                         <p class="intro-subtitle intro-price">
-                                                                            <a href="/du-an/{{new.id}}"><span class="price-a">Xem thêm</span></a>
+                                                                            <a href="/du-an/{{new.id}}"><span
+                                                                                    class="price-a">Xem thêm</span></a>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -297,117 +320,116 @@
                                 </div><!-- End Intro Section -->
                             </div>
 
-
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
 
                     <div class="col-md-12">
                         <div class="row section-t3">
                             <div class="col-sm-12">
                                 <div class="title-box-d">
-                                    <h3 class="title-d">Contact Agent</h3>
+                                    <h3 class="title-d">Thông tin liên lạc</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
-                                <img src="assets/img/agent-4.jpg" alt="" class="img-fluid">
+                                <img src="/public/assets/img/agent-4.jpg" alt="" class="img-fluid">
                             </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="property-agent">
-                                    <h4 class="title-agent">Anabella Geller</h4>
-                                    <p class="color-text-a">
-                                        Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula
-                                        elementum sed sit amet
-                                        dui. Quisque velit nisi,
-                                        pretium ut lacinia in, elementum id enim.
-                                    </p>
-                                    <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between">
-                                            <strong>Phone:</strong>
-                                            <span class="color-text-a">(222) 4568932</span>
-                                        </li>
-                                        <li class="d-flex justify-content-between">
-                                            <strong>Mobile:</strong>
-                                            <span class="color-text-a">777 287 378 737</span>
-                                        </li>
-                                        <li class="d-flex justify-content-between">
-                                            <strong>Email:</strong>
-                                            <span class="color-text-a">annabella@example.com</span>
-                                        </li>
-                                        <li class="d-flex justify-content-between">
-                                            <strong>Skype:</strong>
-                                            <span class="color-text-a">Annabela.ge</span>
-                                        </li>
-                                    </ul>
-                                    <div class="socials-a">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <i class="bi bi-facebook" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <i class="bi bi-twitter" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <i class="bi bi-instagram" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <i class="bi bi-linkedin" aria-hidden="true"></i>
-                                                </a>
+                            {{#with ../userInfor}}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="property-agent">
+                                        <h4 class="title-agent">{{name}}</h4>
+                                        <p class="color-text-a">
+                                            Thông tin người đăng.
+                                        </p>
+                                        <ul class="list-unstyled">
+                                            <li class="d-flex">
+                                                <strong>Email:</strong>
+                                                <span class="color-text-a">&nbsp;{{email}}</span>
                                             </li>
                                         </ul>
+
+                                        <div class="socials-a">
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="#">
+                                                        <i class="bi bi-facebook" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">
+                                                        <i class="bi bi-twitter" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">
+                                                        <i class="bi bi-instagram" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#">
+                                                        <i class="bi bi-linkedin" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {{/with}}
                             <div class="col-md-12 col-lg-4">
                                 <div class="property-contact">
-                                    <form class="form-a">
-                                        <div class="row">
-                                            <div class="col-md-12 mb-1">
-                                                <div class="form-group">
-                                                    <input type="text"
-                                                           class="form-control form-control-lg form-control-a"
-                                                           id="inputName" placeholder="Name *" required>
+                                    {{#if ../user}}
+                                        <button>Kết nối</button>
+                                    {{else}}
+                                        <form  id="myForm" class="form-a" method="post">
+                                            <div class="row">
+                                                <div class="col-md-12 mb-1">
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-lg form-control-a"
+                                                               id="inputName" name="name" placeholder="Tên *" required>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12 mb-1">
-                                                <div class="form-group">
-                                                    <input type="email"
-                                                           class="form-control form-control-lg form-control-a"
-                                                           id="inputEmail1" placeholder="Email *" required>
+                                                <div class="col-md-12 mb-1">
+                                                    <div class="form-group">
+                                                        <input type="email"
+                                                               class="form-control form-control-lg form-control-a"
+                                                               id="inputEmail1" name="email" placeholder="Email *" required>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12 mb-1">
-                                                <div class="form-group">
+                                                <div class="col-md-12 mb-1">
+                                                    <div class="form-group">
                                                     <textarea id="textMessage" class="form-control"
-                                                              placeholder="Comment *" name="message" cols="45" rows="8"
+                                                              placeholder="Lời nhắn *" name="message" cols="45" rows="8"
                                                               required></textarea>
+                                                    </div>
                                                 </div>
+                                                <div class="col-md-12 mt-3">
+                                                    <button type="button" class="btn btn-a" data-bs-toggle="modal" data-bs-target="#alertModal">Gửi</button>
+                                                    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Bạn có đồng ý gửi?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                    <button type="button" onclick="approveSending()" class="btn btn-primary">Có</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                            <div class="col-md-12 mt-3">
-                                                <button type="submit" class="btn btn-a">Send Message</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    {{/if}}
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -415,5 +437,47 @@
             </div>
         </section><!-- End Property Single-->
     {{/with}}
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded mr-2" alt="...">
+            <strong class="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
 
 </main><!-- End #main -->
+<div class="position-absolute w-100 d-flex flex-column p-4">
+    <div class="toast ml-auto" role="alert" data-delay="700" data-autohide="false">
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">Toast</strong>
+            <small class="text-muted">3 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body"> Hey, there! This is a Bootstrap 4 toast. </div>
+    </div>
+    <div class="toast ml-auto" role="alert" data-delay="700" data-autohide="false">
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">Another Toast</strong>
+            <small class="text-muted">8 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body"> Hey, there! This is a Bootstrap 4 toast. </div>
+    </div>
+</div>
+<div class="container py-4">
+    <h1 class="font-weight-light"> Page Content Here.... </h1>
+    <p>This is an example of using the new Bootstrap 4 Toast component that was introducing in Bootstrap 4.3. Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
+    <p>Toasts are lightweight notifications designed to mimic the push notifications that have been popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy to align and position. To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use display: flex, allowing easy alignment of content thanks to our margin and flexbox utilities. Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your “toasted” content and strongly encourage a dismiss button.</p>
+</div>
+
+

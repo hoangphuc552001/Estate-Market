@@ -117,5 +117,12 @@ export default {
             .where("estate.category",catID)
             .limit(limit)
             .offset(offset)
+    },
+    findUserByProductOwned(proID){
+        return db("user").select("user.*").join("estate","user.id","estate.seller")
+            .where("estate.id",proID)
+    },
+    insertToConact(contact){
+        return db("contact").insert(contact)
     }
 }

@@ -8,6 +8,7 @@ import chothueRoute from '../routes/thueRoute.js'
 import tintucRoute from "../routes/tintucRoute.js"
 import userRoute from "../routes/userRoute.js";
 import oauthentication from "../routes/oauthentication.js";
+import api from "../routes/api.js"
 export default function (app) {
     app.get('/', async (req,res)=>{
         const top3EstateHouse= await estateModel.findProTopByEstateID(1,3)
@@ -34,6 +35,7 @@ export default function (app) {
     app.use("/authen",authenRoute)
     app.use("/user",userRoute)
     app.use("/auth",oauthentication)
+    app.use("/api/v1",api)
     app.use(function (req, res,next) {
         res.render("error/404", { layout: false });
     });
