@@ -14,7 +14,7 @@ let initPassportLocal=()=>{
                     if (!user) {
                         return done(null, false, req.flash("errors", `Email "${email}" không tồn tại`));
                     }
-                    if (user) {
+                    else {
                         let match = await loginService.comparePasswordUser(user, password);
                         if (match === true) {
                             return done(null, user, null)
@@ -29,15 +29,17 @@ let initPassportLocal=()=>{
                 return done(null, false, { message: err });
             }
         }));
-}
-passport.serializeUser((user,done)=>{
-    done(null,user.email)
-})
-passport.deserializeUser((email, done) => {
-    loginService.findUserByEmail(email).then((user) => {
-        return done(null, user);
-    }).catch(error => {
-        return done(error, null)
+    passport.serializeUser((user,done)=>{
+        console.log(user)
+        done(null,user.email)
+    })
+    passport.deserializeUser((email, done) => {
+        loginService.findUserByEmail(email).then((user) => {
+            done(null, user);
+        }).catch(error => {
+            console.log(error)
+            return done(error, null)
+        });
     });
-});
+}
 export default initPassportLocal
