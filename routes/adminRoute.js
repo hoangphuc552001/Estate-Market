@@ -50,6 +50,14 @@ router.post("/danh-muc/:calling/xoa-danh-muc",async (req,res)=>{
 })
 
 
+router.post("/danh-muc/:calling/sua-danh-muc",async (req,res)=>{
+    const updateCategory= await categoryModels.updateCategoryByParentAndID(req.body)
+   /* res.redirect("admin")*/
+    res.send("true")
+})
+
+
+
 router.get("/danh-muc/:calling/them-danh-muc/:catID", async (req,res)=> {
         const listCategory = await categoryModels.findCategoryByParent(req.params.catID || 0);
         res.render('admin/category-add', {
@@ -65,8 +73,6 @@ router.get("/danh-muc/:calling/sua-danh-muc/:parentID/:catID", async (req,res)=>
         const catID=req.params.catID||0;
         const list = await categoryModels.findAllCategoryParent();
         const listcatID=await categoryModels.findCatByID(catID);
-        console.log(listcatID[0])
-
         list.forEach(u => {
             if (u.id === parseInt(parentID)) {
                 u.check = true;
@@ -76,14 +82,11 @@ router.get("/danh-muc/:calling/sua-danh-muc/:parentID/:catID", async (req,res)=>
         });
         res.render('admin/category-editor', {
             layout: 'layoutAdmin.hbs',
-            catID: req.params.parentID,
+            catID: req.params.catID,
             listCategoryParent: list,
-            listcatID:listcatID[0]
+            listcatID:listcatID[0],
+            calling:req.params.calling
         })
-})
-router.post("/danh-muc/:calling/sua-danh-muc/:parentID/:catID", async (req,res)=> {
-    console.log(req.body.categoryParent);
-    console.log(req.body.nameCategory)
 })
 router.get("/danh-muc/:calling/them-danh-muc/:catID/:catName", async (req,res)=>{
     const catName=req.params.catName||0;
@@ -92,8 +95,8 @@ router.get("/danh-muc/:calling/them-danh-muc/:catID/:catName", async (req,res)=>
 })
 
 router.post("/danh-muc/:calling/them-danh-muc/:catID",async (req,res)=>{
-   console.log(req.body.nameCategory);
-   console.log(req.params.catID);
+   /*console.log(req.body.nameCategory);
+   console.log(req.params.catID);*/
    const insert=await categoryModels.insertCategoryByNameAndParentID(req.body.nameCategory,req.params.catID);
    res.redirect("/admin/danh-muc/"+req.params.calling+"/"+req.params.catID)
 });
