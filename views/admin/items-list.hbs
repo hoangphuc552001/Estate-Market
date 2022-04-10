@@ -99,14 +99,14 @@
                                     </label>
                                 </div>
                                 <div class="item-col fixed item-col-img md">
-                                    <a href="views/admin/category-add.hbs">
+                                    <a>
                                         <div class="item-img rounded" style="background-image: url({{this.image}})"></div>
                                     </a>
                                 </div>
                                 <div class="item-col fixed pull-left item-col-title">
                                     <div class="item-heading">Tên tiêu đề</div>
                                     <div>
-                                        <a href="views/admin/category-add.hbs" class="">
+                                        <a  class="">
                                             <h4 class="item-title"> {{this.title}} </h4>
                                         </a>
                                     </div>
@@ -128,7 +128,7 @@
                                 <div class="item-col item-col-category no-overflow">
                                     <div class="item-heading">Trạng thái</div>
                                     {{#if this.status}}
-                                        <div class="no-overflow">
+                                        <div>
                                             <a href="#">{{this.status}}</a>
                                         </div>
                                     {{else}}
@@ -141,7 +141,7 @@
                                 <div class="item-col item-col-author">
                                     <div class="item-heading">Người đăng</div>
                                     <div class="no-overflow">
-                                        <a href="#">Hoàng Huy</a>
+                                        <a >Hoàng Huy</a>
                                     </div>
                                 </div>
                                 <div class="item-col item-col-date">
@@ -161,14 +161,21 @@
                                         <div class="item-actions-block">
                                             <ul class="item-actions-list">
                                                 <li>
-                                                    <a class="remove" href="#" data-toggle="modal" data-target="#confirm-modal">
+                                                    <a class="remove" id="{{this.id}}" href="" >
                                                         <i class="fa fa-trash-o "></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="edit" href="views/admin/category-add.hbs">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
+                                                    {{#if this.check}}
+                                                        <a class="edit" href="sua-san-pham/{{this.id}}">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    {{else}}
+                                                        <a class="edit" href="views/admin/category-add.hbs">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    {{/if}}
+
                                                 </li>
                                             </ul>
                                         </div>
@@ -265,30 +272,6 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal -->
-        <div class="modal fade" id="confirm-modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            <i class="fa fa-warning"></i> Alert</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure want to do this?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
     </div>
 </div>
 <!-- Reference block for JS -->
@@ -300,3 +283,16 @@
     </div>
 </div>
 </body>
+
+{{#section 'jsAdmin'}}
+<script>
+    $(".remove").click(function(){
+        $.post("/admin/danh-muc/:calling/xoa-san-pham",{proID:this.id},function (data,status){
+            console.log(data);
+            if(data){
+                alert("Hello")
+            }
+        });
+    });
+</script>
+{{/section}}

@@ -129,5 +129,24 @@ export default {
     //tìm tổng sản phẩm bằng category id
     findTotalByID(CatID){
         return db("estate").count('category', {as: 'total'}).where('category',CatID);
-    }
+    },
+    findAllWard(){
+        return db('estate').select('estate.ward').groupBy('estate.ward')
+    },
+    findImageDetailByProID(proID){
+        return db('img_detail').where('proID',proID)
+    },
+    async updateDesByProID(proID,product){
+        console.log(product.des)
+        const checkDes=await db('detail_des').where('pro_id',proID).update('des',product.des)
+        const check=db('estate').where('id',proID).update({
+            'title':product.title,
+            'ward':product.ward
+        })
+        return checkDes,check;
+    },
+    async delProductByID(id){
+        const check= await db('estate').where('estate.id',id).del();
+        return check;
+    },
 }

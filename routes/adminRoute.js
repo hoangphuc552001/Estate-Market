@@ -3,6 +3,7 @@ import {validationResult} from "express-validator"
 import auth from '../validation/authValidation.js'
 import registerService from "../services/registerService.js"
 import passport from "passport"
+import xmldom from'xmldom'
 import initPassportLocal from '../middlewares/passport.mdw.js'
 import estateModel from '../models/estate.models.js'
 import categoryModels from "../models/category.models.js";
@@ -16,36 +17,85 @@ router.get("/",(req,res)=>{
     )
 })
 router.get("/san-pham/:calling/:catID",async (req,res)=>{
-    const catID=req.params.catID||0
-    const nameCategory=await  categoryModels.findCatByID(catID);
-    const listProduct = await estateModel.findByEstateID(catID);
-    const totalProduct=await estateModel.findTotalByID(catID);
-    res.render('admin/items-list',{
-            layout:'layoutAdmin.hbs',
-            list:listProduct,
-            nameCategory:nameCategory[0],
-            totalProduct:totalProduct[0]
-        }
-    )
-})
-router.get("/danh-muc/:calling/:catID", async (req,res)=>{
-    const listCategory=await categoryModels.findCategoryByParent(req.params.catID||0);
-    const totalCategory =await  categoryModels.findTotalCategoryByParent(req.params.catID||0);
-    for (const u of listCategory) {
-        const temp= await estateModel.findTotalByID(u.id);
-        u.total=temp[0].total
+    if((req.params.calling!=="du-an")&&(req.params.calling!="tin-tuc")) {
+        const catID = req.params.catID || 0
+        const nameCategory = await categoryModels.findCatByID(catID);
+        const listProduct = await estateModel.findByEstateID(catID);
+        const totalProduct = await estateModel.findTotalByID(catID);
+        res.render('admin/items-list', {
+                layout: 'layoutAdmin.hbs',
+                list: listProduct,
+                nameCategory: nameCategory[0],
+                totalProduct: totalProduct[0]
+            }
+        )
     }
-    res.render('admin/category-list',{
-            layout:'layoutAdmin.hbs',
-            listCategory:listCategory,
-            nameParent:listCategory[0].nameParent,
-            parentID:listCategory[0].parent,
-            totalCategory:totalCategory[0]
+    else{
+        const catID = req.params.catID || 0
+        const nameCategory = await categoryModels.findCatByID(catID);
+        const listProduct = await estateModel.findByEstateID(catID);
+        const totalProduct = await estateModel.findTotalByID(catID);
+         for (const u of listProduct) {
+            u.check = true
         }
-    )
+        res.render('admin/items-list', {
+                layout: 'layoutAdmin.hbs',
+                list: listProduct,
+                nameCategory: nameCategory[0],
+                totalProduct: totalProduct[0]
+            }
+        )
+    }
+
+})
+router.get("/san-pham/:calling/sua-san-pham/:proID",async (req,res)=>{
+    const list =await estateModel.findDetailProByID(req.params.proID);
+
+    const listward= await estateModel.findAllWard();
+    listward.forEach(u=>{
+        if(u.ward===list[0].ward){
+            u.check=true;
+        }
+    })
+    res.render("admin/new-product-editor",{
+        layout: 'layoutAdmin.hbs',
+        list:list[0],
+        listward,
+    });
+
+});
+router.post("/san-pham/:calling/sua-san-pham/:catID",async (req,res)=>{
+    const update=await estateModel.updateDesByProID(req.params.catID,req.body);
+
+});
+
+
+router.get("/danh-muc/:calling/:catID", async (req,res)=>{
+        const listCategory = await categoryModels.findCategoryByParent(req.params.catID || 0);
+        const totalCategory = await categoryModels.findTotalCategoryByParent(req.params.catID || 0);
+        for (const u of listCategory) {
+            const temp = await estateModel.findTotalByID(u.id);
+            u.total = temp[0].total
+        }
+        res.render('admin/category-list', {
+                layout: 'layoutAdmin.hbs',
+                listCategory: listCategory,
+                nameParent: listCategory[0].nameParent,
+                parentID: listCategory[0].parent,
+                totalCategory: totalCategory[0]
+            }
+        )
 });
 router.post("/danh-muc/:calling/xoa-danh-muc",async (req,res)=>{
+    console.log(req.body);
     const delCategory= await categoryModels.delCategoryByParentAndID(req.body)
+    res.send(true)
+})
+
+router.post("/danh-muc/:calling/xoa-san-pham",async (req,res)=>{
+
+    console.log(req.body);
+    const delProduct=await estateModel.delProductByID(req.body.proID)
     res.send(true)
 })
 
@@ -95,8 +145,6 @@ router.get("/danh-muc/:calling/them-danh-muc/:catID/:catName", async (req,res)=>
 })
 
 router.post("/danh-muc/:calling/them-danh-muc/:catID",async (req,res)=>{
-   /*console.log(req.body.nameCategory);
-   console.log(req.params.catID);*/
    const insert=await categoryModels.insertCategoryByNameAndParentID(req.body.nameCategory,req.params.catID);
    res.redirect("/admin/danh-muc/"+req.params.calling+"/"+req.params.catID)
 });

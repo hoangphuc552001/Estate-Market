@@ -7,6 +7,7 @@ let validateRegister=[
     check("passwordConfirmation","Mật khẩu không khớp").
         custom((value,{req})=>{
     return value === req.body.password
-        })
+        }),
+
 ]
 export default validateRegister
