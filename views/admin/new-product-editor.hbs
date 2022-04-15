@@ -9,7 +9,7 @@
                     <span class="sparkline bar" data-type="bar"></span>
                 </h3>
             </div>
-            <form name="item">
+            <!--<form name="item" method="post">-->
                 <div class="card card-block">
                     <div class="form-group row">
                         <label class="col-sm-2 form-control-label text-xs-right"> Tiêu đề: </label>
@@ -144,18 +144,16 @@
                                         <a href="#" class="control-btn move">
                                             <i class="fa fa-arrows"></i>
                                         </a>
-                                        <!--
-                        -->
-                                        <a href="#" class="add-image " data-toggle="modal" data-target="#modal-media">
+
+                                        <a href="#" class="add-image " id="addImage1" name="{{list.image1}}" data-toggle="modal" data-target="#modal-media">
                                             <i class="fa fa-plus" h></i>
                                         </a>
-                                        <!--
-                        -->
+
                                         <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
-                                    <div class="image" style="background-image:url('{{list.image1}}')"></div>
+                                    <div class="image" id="image1" style="background-image:url('{{list.image1}}')"></div>
                                 </div>
                                 <div class="image-container">
                                     <div class="controls">
@@ -164,7 +162,7 @@
                                         </a>
                                         <!--
                         -->
-                                        <a href="#" class="add-image " data-toggle="modal" data-target="#modal-media">
+                                        <a href="#" class="add-image " id="addImage2" name="{{list.image2}}"data-toggle="modal" data-target="#modal-media">
                                             <i class="fa fa-plus" h></i>
                                         </a>
                                         <!--
@@ -173,55 +171,33 @@
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
-                                    <div class="image" style="background-image:url('{{list.image2}}')"></div>
+                                    <div class="image" id="image2" style="background-image:url('{{list.image2}}')"></div>
                                 </div>
                                 <div class="image-container">
                                     <div class="controls">
                                         <a href="#" class="control-btn move">
                                             <i class="fa fa-arrows"></i>
                                         </a>
-                                        <a href="#" class="add-image " data-toggle="modal" data-target="#modal-media">
+                                        <a href="#" class="add-image " id="addImage3" name="{{list.image3}}"data-toggle="modal" data-target="#modal-media">
                                             <i class="fa fa-plus" h></i>
                                         </a>
                                         <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
-                                    <div class="image" style="background-image:url('{{list.image3}}')"></div>
+                                    <div class="image" id="image3" style="background-image:url('{{list.image3}}')"></div>
                                 </div>
-                                <a href="#" class="add-image" data-toggle="modal" data-target="#modal-media">
-                                    <div class="image-container new">
-                                        <div class="image">
-                                            <i class="fa fa-plus"></i>
-                                        </div>
-                                    </div>
-                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <button type="submit" id="submitbtn" class="btn btn-primary"> Submit </button>
+                            <button type="submit" id="submitbtn22" class="btn btn-primary"> Xác nhận </button>
                         </div>
                     </div>
                 </div>
-            </form>
+            <!--</form>-->
         </article>
-        <footer class="footer">
-            <div class="footer-block buttons">
-                <iframe class="footer-github-btn" src="https://ghbtns.com/github-btn.html?user=modularcode&amp;repo=modular-admin-html&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="140px" height="20px"></iframe>
-            </div>
-            <div class="footer-block author">
-                <ul>
-                    <li> created by
-                        <a href="https://github.com/modularcode">ModularCode</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/modularcode/modular-admin-html#get-in-touch">get in touch</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
         <div class="modal fade" id="modal-media">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -241,89 +217,15 @@
                                 <a class="nav-link active" href="#upload" data-toggle="tab" role="tab">Upload</a>
                             </li>
                         </ul>
+                        <form method="post" action="/admin/upload/{{list.pro_id}}" enctype="multipart/form-data">
                         <div class="tab-content modal-tab-content">
-                            <div class="tab-pane fade" id="gallery" role="tabpanel">
-                                <div class="images-container">
-                                    <div class="row">
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/eduardo_olv/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/eduardo_olv/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/eduardo_olv/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg')"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                            <div class="image-container">
-                                                <div class="image" style="background-image:url('../../s3.amazonaws.com/uifaces/faces/twitter/eduardo_olv/128.jpg')"></div>
-                                            </div>
-                                        </div>
+                                <div class="tab-pane fade active in" id="upload" role="tabpanel">
+                                    <div class="file-loading">
+                                        <input id="input-21"  type="file" name="image" >
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade active in" id="upload" role="tabpanel">
-                                <div class="upload-container">
-                                    <div id="dropzone">
-                                        <form action="https://modularcode.io/" method="POST" enctype="multipart/form-data" class="dropzone needsclick dz-clickable" id="demo-upload">
-                                            <div class="dz-message-block">
-                                                <div class="dz-message needsclick"> Drop files here or click to upload. </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="image">Insert Selected</button>
+                        </form>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -364,13 +266,71 @@
         <div class="color-secondary"></div>
     </div>
 </div>
-
+{{#section 'cssAdmin'}}
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+{{/section}}
 {{#section 'jsAdmin'}}
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js" integrity="sha512-ywJxJU8HX2ZyXikj/iM4gW2vWIhnGCjfehz9kMU0oqo0GDdr3w8E2E3DZlzgIBTNKU8jovkg09pWktiw0mOFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $('#submitbtn').click(function (){
+
+        $('#submitbtn22').click(function (){
             var des=$('#des').html().replace('contenteditable="true"',"contenteditable=false");
-            $.post("/admin/san-pham/du-an/sua-san-pham/{{list.proid}}",{title:$('#title').val(),des:des,ward:$("#ward option:selected").val()},function (data,status){
+            $.post("/admin/san-pham/du-an/sua-san-pham/{{list.proid}}",{title:$('#title').val(),des:des,ward:$("#ward option:selected").val(),check:true},function (data,status){
+                if(data){
+                    alert("Chỉnh sửa thành công")
+                }
             });
         });
+    </script>
+    <script>
+        $(document).ready(function() {
+            let temp=0;
+            $("#addImage1").click(function() {
+                /*$("#modal-medial #selection option[value='file']").attr('selected', 'selected');*/
+                temp=this.name;
+                $.post("/admin/url-image",{url:temp},function (data,status){
+                    if(data){
+                        console("getlinksucess")
+                    }
+                });
+            });
+            });
+            $("#addImage2").click(function() {
+                temp=this.name;
+                $.post("/admin/url-image",{url:temp},function (data,status){
+                    if(data){
+                        console("getlinksucess")
+                    }
+                });
+            });
+            $("#addImage3").click(function() {
+                temp=this.name;
+                $.post("/admin/url-image",{url:temp},function (data,status){
+                    console.log(data);
+                    if(data){
+                        console("getlinksucess")
+                    }
+                });
+            });
+            $("#input-21").fileinput({
+                overwriteInitial: false,
+                validateInitialCount: true,
+                previewFileType: "image",
+                browseClass: "btn btn-success",
+                browseLabel: "Chọn hình",
+                browseIcon: "<i class=\"bi-file-image\"></i> ",
+                removeClass: "btn btn-danger",
+                removeLabel: "Xóa",
+                removeIcon: "<i class=\"bi-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                uploadLabel: "Upload hình",
+                uploadIcon: "<i class=\"bi-upload\"></i> ",
+                theme:'fa',
+                language:'vi',
+                allowedFileExtensions:['jpg'],
+            });
+
     </script>
 {{/section}}

@@ -13,27 +13,25 @@ export default function (app){
         cookie: { secure: false, maxAge: 10800000},
 
 store: new MySQLStore({
-    connectionLimit: 100,
-    host: 'us-cdbr-east-05.cleardb.net',
-    user: 'b8e5dbe7be1f41',
-    password: 'bbb92f05',
-    database: 'heroku_59394531068dea2',
+     connectionLimit: 100,
+     host: 'localhost',
+     user: 'root',
+     password: '123456',
+     database: 'realstate',
     charset: 'utf8mb4_general_ci',
     schema: {
-        tableName: 'sessions',
-        columnNames: {
-            session_id: 'session_id',
-            expires: 'expires',
+         tableName: 'sessions',
+         columnNames: {
+             session_id: 'session_id',
+             expires: 'expires',
             data: 'data'
         }
-    }
-
+     }
     }),
     }))
     app.use(connectFlash())
     app.use(passport.initialize())
     app.use(passport.session())
-
 }
 //
 // store: new MySQLStore({

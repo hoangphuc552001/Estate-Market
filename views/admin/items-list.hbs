@@ -160,19 +160,19 @@
                                         </a>
                                         <div class="item-actions-block">
                                             <ul class="item-actions-list">
-                                                <li>
+                                               <!-- <li>
                                                     <a class="remove" id="{{this.id}}" href="" >
                                                         <i class="fa fa-trash-o "></i>
                                                     </a>
-                                                </li>
+                                                </li>-->
                                                 <li>
                                                     {{#if this.check}}
                                                         <a class="edit" href="sua-san-pham/{{this.id}}">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                     {{else}}
-                                                        <a class="edit" href="views/admin/category-add.hbs">
-                                                            <i class="fa fa-pencil"></i>
+                                                        <a class="edit" href="/admin/xem-chi-tiet-san-pham/{{this.id}}">
+                                                            <i class="fa fa-eye"></i>
                                                         </a>
                                                     {{/if}}
 

@@ -137,7 +137,6 @@ export default {
         return db('img_detail').where('proID',proID)
     },
     async updateDesByProID(proID,product){
-        console.log(product.des)
         const checkDes=await db('detail_des').where('pro_id',proID).update('des',product.des)
         const check=db('estate').where('id',proID).update({
             'title':product.title,

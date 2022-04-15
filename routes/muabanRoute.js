@@ -95,6 +95,7 @@ router.post('/:estateID/:detailID',async function (req,res){
         html:output
     };
 
+
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);
