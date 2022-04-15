@@ -30,7 +30,6 @@ let initPassportLocal=()=>{
             }
         }));
     passport.serializeUser((user,done)=>{
-        console.log(user)
         done(null,user.email)
     })
     passport.deserializeUser((email, done) => {

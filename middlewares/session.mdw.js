@@ -14,10 +14,10 @@ export default function (app){
 
 store: new MySQLStore({
     connectionLimit: 100,
-    host: 'us-cdbr-east-05.cleardb.net',
-    user: 'b8e5dbe7be1f41',
-    password: 'bbb92f05',
-    database: 'heroku_59394531068dea2',
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'realestate',
     charset: 'utf8mb4_general_ci',
     schema: {
         tableName: 'sessions',
@@ -27,8 +27,7 @@ store: new MySQLStore({
             data: 'data'
         }
     }
-
-    }),
+}),
     }))
     app.use(connectFlash())
     app.use(passport.initialize())

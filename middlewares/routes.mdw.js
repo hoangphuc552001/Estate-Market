@@ -10,23 +10,9 @@ import userRoute from "../routes/userRoute.js";
 import oauthentication from "../routes/oauthentication.js";
 import api from "../routes/api.js"
 import adminRoute from "../routes/adminRoute.js";
+import mainRoute from "../routes/mainRoute.js";
 export default function (app) {
-    app.get('/', async (req,res)=>{
-        const top3EstateHouse= await estateModel.findProTopByEstateID(1,3)
-        const top3EstateGround= await estateModel.findProTopByEstateID(5,3)
-        const sellPro=top3EstateGround.concat(top3EstateHouse)
-        const top4Latest=await estateModel.findProTopLatest(4,0)
-        const top6RentPro= await estateModel.findProTopByEstateID(6,6)
-        const top5Project = await estateModel.findProByCatParentID(3)
-        const top5News=await estateModel.findProByCatParentID(4)
-        res.render('product/index',{
-            sellPro,
-            top4Latest,
-            top6RentPro,
-            top5Project,
-            top5News
-        })
-    })
+    app.use('/',mainRoute)
     app.use("/nha-dat-ban",muabanRoute)
     app.use("/tim-kiem",timkiemRoute)
     app.use("/du-an",duanRoute)

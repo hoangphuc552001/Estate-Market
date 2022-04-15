@@ -37,6 +37,7 @@ router.get('/:estateID/:detailID',async function (req,res){
     const listRelatedPro=await estateModel.findProTopByEstateID(req.params.estateID||0,5)
     const listProjectPro=await  estateModel.findProByCatParentID(3)
     const listNewPro=await  estateModel.findProByCatParentID(4)
+    const userOwned=await estateModel.findUserByProductOwned(req.params.detailID||0)
     listRelatedPro.forEach(i=>{
         i.parentID=2;
     })
@@ -44,7 +45,8 @@ router.get('/:estateID/:detailID',async function (req,res){
         pro:pro[0],
         listRelatedPro,
         listProjectPro,
-        listNewPro
+        listNewPro,
+        userInfor:userOwned[0]
     })
 });
 export default router;

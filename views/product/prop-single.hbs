@@ -1,7 +1,39 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/assets/modal/successfully.css">
+{{/section}}
 {{#section 'js'}}
     <script>
-        function approveSending(e){
-            var e=document.forms["myForm"].submit()
+        function approveSending(e) {
+            const name=document.getElementById("inputName").value
+            const email=document.getElementById("inputEmail").value
+            const message=document.getElementById("textMessage").value
+            const title=document.getElementById("proTitle").textContent
+            const price=document.getElementById("proPrice").textContent
+            const ward=document.getElementById("proWard").textContent
+            const id=document.getElementById("proID").textContent
+            const type=document.getElementById("proName").textContent
+            const state=document.getElementById("proSta").textContent
+            const acreage=document.getElementById("proAcreage").textContent
+            const bed=document.getElementById("proBed").textContent
+            const bath=document.getElementById("proBath").textContent
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/mailer",
+                data: {name,email,message,title,price,ward,
+                id,type,state,acreage,bed,bath},
+                contentType: 'application/x-www-form-urlencoded',
+                dataType: 'html',
+                success: function (data) {
+                    $("#ignismyModal").modal('show');
+                    document.getElementById("inputName").value=""
+                    document.getElementById("inputEmail").value=""
+                    document.getElementById("textMessage").value=""
+                },
+                err: function (xhr, ajaxOptions, thrownError) {
+                    alert("Lỗi")
+                }
+            })
         }
     </script>
 {{/section}}
@@ -13,7 +45,7 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-8">
                         <div class="title-single-box">
-                            <h1 class="title-single">{{pro.title}}</h1>
+                            <h1 class="title-single" id="proTitle">{{pro.title}}</h1>
                             <span class="color-text-a">{{pro.ward}}</span>
                         </div>
                     </div>
@@ -69,7 +101,7 @@
                                             <span class="bi bi-cash">$</span>
                                         </div>
                                         <div class="card-title-c align-self-center">
-                                            <h5 class="title-c">{{pro.current}}</h5>
+                                            <h5 class="title-c" id="proPrice">{{pro.current}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -85,35 +117,34 @@
                                         <ul class="list">
                                             <li class="d-flex justify-content-between">
                                                 <strong>Mã sản phẩm:</strong>
-                                                <span>{{pro.proid}}</span>
+                                                <span id="proID">{{pro.proid}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Địa chỉ:</strong>
-                                                <span>{{pro.ward}}</span>
+                                                <span id="proWard">{{pro.ward}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Loại:</strong>
-                                                <span>{{pro.name}}</span>
+                                                <span id="proName">{{pro.name}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Trạng thái:</strong>
-                                                <span>Đang bán</span>
+                                                <span id="proSta">Đang bán</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Diện tích:</strong>
-                                                <span>{{pro.acreage}}
+                                                <span id="proAcreage">{{pro.acreage}}
                                                     <sup>2</sup>
                         </span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Phòng ngủ:</strong>
-                                                <span>{{pro.bedroom}}</span>
+                                                <span id="proBed">{{pro.bedroom}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Phòng tắm:</strong>
-                                                <span>{{pro.bathroom}}</span>
+                                                <span id="proBath">{{pro.bathroom}}</span>
                                             </li>
-
                                         </ul>
                                     </div>
                                 </div>
@@ -378,55 +409,67 @@
                             {{/with}}
                             <div class="col-md-12 col-lg-4">
                                 <div class="property-contact">
-                                    {{#if ../user}}
-                                        <button>Kết nối</button>
-                                    {{else}}
-                                        <form  id="myForm" class="form-a" method="post">
-                                            <div class="row">
-                                                <div class="col-md-12 mb-1">
-                                                    <div class="form-group">
-                                                        <input type="text"
-                                                               class="form-control form-control-lg form-control-a"
-                                                               id="inputName" name="name" placeholder="Tên *" required>
-                                                    </div>
+                                    <form id="myForm" class="form-a" method="post">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-1">
+                                                <div class="form-group">
+                                                    <input type="text"
+                                                           class="form-control form-control-lg form-control-a"
+                                                           id="inputName" name="name" placeholder="Tên *" required>
                                                 </div>
-                                                <div class="col-md-12 mb-1">
-                                                    <div class="form-group">
-                                                        <input type="email"
-                                                               class="form-control form-control-lg form-control-a"
-                                                               id="inputEmail1" name="email" placeholder="Email *" required>
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-12 mb-1">
+                                                <div class="form-group">
+                                                    <input type="email"
+                                                           class="form-control form-control-lg form-control-a"
+                                                           id="inputEmail" name="email" placeholder="Email *"
+                                                           required>
                                                 </div>
-                                                <div class="col-md-12 mb-1">
-                                                    <div class="form-group">
+                                            </div>
+                                            <div class="col-md-12 mb-1">
+                                                <div class="form-group">
                                                     <textarea id="textMessage" class="form-control"
                                                               placeholder="Lời nhắn *" name="message" cols="45" rows="8"
                                                               required></textarea>
-                                                    </div>
                                                 </div>
-                                                <div class="col-md-12 mt-3">
-                                                    <button type="button" class="btn btn-a" data-bs-toggle="modal" data-bs-target="#alertModal">Gửi</button>
-                                                    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Bạn có đồng ý gửi?
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                                    <button type="button" onclick="approveSending()" class="btn btn-primary">Có</button>
-                                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mt-3">
+                                                <button type="button" class="btn btn-a" data-bs-toggle="modal"
+                                                        data-bs-target="#alertModal">Gửi
+                                                </button>
+                                                <div class="modal fade" id="alertModal" tabindex="-1"
+                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Xác
+                                                                    nhận</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Bạn có đồng ý gửi?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Hủy
+                                                                </button>
+                                                                <button type="button" onclick="approveSending()"
+                                                                        data-bs-dismiss="modal" class="btn btn-primary">Có
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
-                                        </form>
+
+                                        </div>
+                                    </form>
+                                    {{#if ../user}}
+                                        <button style="margin-top:10px" type="button" class="btn btn-a" data-bs-toggle="modal"
+                                                data-bs-target="#alertModal">Kết nối ngay
+                                        </button>
                                     {{/if}}
                                 </div>
 
@@ -437,47 +480,27 @@
             </div>
         </section><!-- End Property Single-->
     {{/with}}
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            Hello, world! This is a toast message.
+    <div class="modal fade" id="ignismyModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button style="position: absolute;right: 5px;top:3px" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label=""><span>×</span></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="thank-you-pop">
+                        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                        <h1>Cảm ơn!</h1>
+                        <p>Chủ nhà sẽ liên hệ đến bạn trong thời gian sớm nhất</p>
+                        <h3 class="cupon-pop">Trân trọng: <span>HAGL</span></h3>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
-
 </main><!-- End #main -->
-<div class="position-absolute w-100 d-flex flex-column p-4">
-    <div class="toast ml-auto" role="alert" data-delay="700" data-autohide="false">
-        <div class="toast-header">
-            <strong class="mr-auto text-primary">Toast</strong>
-            <small class="text-muted">3 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="toast-body"> Hey, there! This is a Bootstrap 4 toast. </div>
-    </div>
-    <div class="toast ml-auto" role="alert" data-delay="700" data-autohide="false">
-        <div class="toast-header">
-            <strong class="mr-auto text-primary">Another Toast</strong>
-            <small class="text-muted">8 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="toast-body"> Hey, there! This is a Bootstrap 4 toast. </div>
-    </div>
-</div>
-<div class="container py-4">
-    <h1 class="font-weight-light"> Page Content Here.... </h1>
-    <p>This is an example of using the new Bootstrap 4 Toast component that was introducing in Bootstrap 4.3. Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
-    <p>Toasts are lightweight notifications designed to mimic the push notifications that have been popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy to align and position. To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use display: flex, allowing easy alignment of content thanks to our margin and flexbox utilities. Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your “toasted” content and strongly encourage a dismiss button.</p>
-</div>
-
 
