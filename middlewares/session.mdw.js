@@ -17,7 +17,7 @@ export default function (app){
             host: 'localhost',
             user: 'root',
             password: '',
-            database: 'realstate',
+            database: 'realestate',
             charset: 'utf8mb4_general_ci',
             schema: {
                 tableName: 'sessions',
