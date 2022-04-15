@@ -46,5 +46,33 @@ export default {
         return db("categoryparent").where(function (){
             this.whereNot('categoryparent.id',3).andWhereNot('categoryparent.id',4);
         })
-    }
+    },
+    //Xóa danh mục bằng id và parent
+    async delCategoryByParentAndID(category){
+        const check= await db('category').where(function (){
+            this.where('id',category.id).andWhere('parent',category.parent)
+        }).del();
+        return check;
+    },
+    async delCategoryOldParent(category){
+        console.log(category.parent)
+        console.log(category.id)
+        console.log(category.name)
+        console.log(category.parentOld)
+        const del =await db('category').where(function (){
+            this.where('id',category.id).andWhere('parent',category.parentOld)
+        }).del();
+        return del;
+    },
+    //Cập nhật danh mục bằng id và parent
+    async  updateCategoryByParentAndID(category){
+        const id=category.id;
+        const del =await this.delCategoryOldParent(category);
+        const insert=await db('category').insert({
+            id:category.id,
+            name:category.name,
+            parent:category.parent
+        });
+        return insert;
+    },
 }

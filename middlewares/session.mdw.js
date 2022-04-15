@@ -12,27 +12,26 @@ export default function (app){
         saveUninitialized: true,
         cookie: { secure: false, maxAge: 10800000},
 
-store: new MySQLStore({
-    connectionLimit: 100,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'realestate',
-    charset: 'utf8mb4_general_ci',
-    schema: {
-        tableName: 'sessions',
-        columnNames: {
-            session_id: 'session_id',
-            expires: 'expires',
-            data: 'data'
-        }
-    }
-}),
+        store: new MySQLStore({
+            connectionLimit: 100,
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'realstate',
+            charset: 'utf8mb4_general_ci',
+            schema: {
+                tableName: 'sessions',
+                columnNames: {
+                    session_id: 'session_id',
+                    expires: 'expires',
+                    data: 'data'
+                }
+            }
+        }),
     }))
     app.use(connectFlash())
     app.use(passport.initialize())
     app.use(passport.session())
-
 }
 //
 // store: new MySQLStore({

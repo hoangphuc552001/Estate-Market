@@ -52,26 +52,6 @@ router.get('/:estateID/:detailID',async function (req,res){
 });
 
 
-router.post('/:estateID/:detailID',async function (req,res){
-    const pro=await estateModel.findDetailProByID(req.params.detailID||0)
-    const listRelatedPro=await estateModel.findProTopByEstateID(req.params.estateID||0,5)
-    const listProjectPro=await  estateModel.findProByCatParentID(3)
-    const listNewPro=await  estateModel.findProByCatParentID(4)
-    const userOwned=await estateModel.findUserByProductOwned(req.params.detailID||0)
-    listRelatedPro.forEach(i=>{
-        i.parentID=1;
-    })
-    const getData=req.body
-    var contact={
-        proid:req.params.detailID,
-        sellerid:userOwned[0].id,
-        contactname:getData.name,
-        contactemail:getData.email,
-        contactcontent:getData.message,
-        timeSend:new Date()
-    }
-    await estateModel.insertToConact(contact)
 
-});
 
 export default router;

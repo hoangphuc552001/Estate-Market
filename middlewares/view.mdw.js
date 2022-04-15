@@ -28,7 +28,12 @@ export default function (app) {
             checkTrue(index){
                 return index===true
             },
-
+            product(index){
+                return index+' Sản phẩm'
+            },
+            blockAccount(index){
+                return index===-1;
+            }
         },
     }));
     app.set('view engine', 'hbs');
