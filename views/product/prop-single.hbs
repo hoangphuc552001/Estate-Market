@@ -16,12 +16,13 @@
             const acreage=document.getElementById("proAcreage").textContent
             const bed=document.getElementById("proBed").textContent
             const bath=document.getElementById("proBath").textContent
+            const seller=document.getElementById("proSeller").textContent
             $.ajax({
                 async: false,
                 type: "POST",
                 url: "/mailer",
                 data: {name,email,message,title,price,ward,
-                id,type,state,acreage,bed,bath},
+                id,type,state,acreage,bed,bath,seller},
                 contentType: 'application/x-www-form-urlencoded',
                 dataType: 'html',
                 success: function (data) {
@@ -35,6 +36,42 @@
                 }
             })
         }
+    </script>
+    <script>
+        $("#sendMsg").click(function (){
+            $("#fulfill").modal("hide")
+            const name=document.getElementById("inputNameUser").value
+            const email=document.getElementById("inputEmailUser").value
+            const message=document.getElementById("message-text").value
+            const title=document.getElementById("proTitle").textContent
+            const price=document.getElementById("proPrice").textContent
+            const ward=document.getElementById("proWard").textContent
+            const id=document.getElementById("proID").textContent
+            const type=document.getElementById("proName").textContent
+            const state=document.getElementById("proSta").textContent
+            const acreage=document.getElementById("proAcreage").textContent
+            const bed=document.getElementById("proBed").textContent
+            const bath=document.getElementById("proBath").textContent
+            const seller=document.getElementById("proSeller").textContent
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/mailer",
+                data: {name,email,message,title,price,ward,
+                    id,type,state,acreage,bed,bath,seller},
+                contentType: 'application/x-www-form-urlencoded',
+                dataType: 'html',
+                success: function (data) {
+                    $("#ignismyModal").modal('show');
+                    document.getElementById("inputName").value=""
+                    document.getElementById("inputEmail").value=""
+                    document.getElementById("textMessage").value=""
+                },
+                err: function (xhr, ajaxOptions, thrownError) {
+                    alert("Lỗi")
+                }
+            })
+        })
     </script>
 {{/section}}
 <main id="main">
@@ -376,7 +413,7 @@
                                         <ul class="list-unstyled">
                                             <li class="d-flex">
                                                 <strong>Email:</strong>
-                                                <span class="color-text-a">&nbsp;{{email}}</span>
+                                                <span id="proSeller" class="color-text-a">&nbsp;{{email}}</span>
                                             </li>
                                         </ul>
 
@@ -468,8 +505,14 @@
                                     </form>
                                     {{#if ../user}}
                                         <button style="margin-top:10px" type="button" class="btn btn-a" data-bs-toggle="modal"
-                                                data-bs-target="#alertModal">Kết nối ngay
+                                                data-bs-target="#fulfill">Kết nối ngay
                                         </button>
+                                        <input type="hidden"
+                                               class="form-control form-control-lg form-control-a"
+                                               id="inputNameUser" value="{{../user.name}}">
+                                        <input type="hidden"
+                                               class="form-control form-control-lg form-control-a"
+                                               id="inputEmailUser" value="{{../user.email}}">
                                     {{/if}}
                                 </div>
 
@@ -480,25 +523,43 @@
             </div>
         </section><!-- End Property Single-->
     {{/with}}
+<!--    Modal successfully-->
     <div class="modal fade" id="ignismyModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button style="position: absolute;right: 5px;top:3px" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label=""><span>×</span></button>
                 </div>
-
                 <div class="modal-body">
-
                     <div class="thank-you-pop">
                         <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
                         <h1>Cảm ơn!</h1>
                         <p>Chủ nhà sẽ liên hệ đến bạn trong thời gian sớm nhất</p>
                         <h3 class="cupon-pop">Trân trọng: <span>HAGL</span></h3>
-
                     </div>
-
                 </div>
-
+            </div>
+        </div>
+    </div>
+<!--    Modal fulfill form-->
+    <div class="modal fade" id="fulfill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Liên lạc</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Lời nhắn:</label>
+                            <textarea rows="7" class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="sendMsg" class="btn btn-primary">Send message</button>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import express from "express";
 import estateModel from "../models/estate.models.js";
 import nodemailer from "nodemailer";
+import userModel from "../models/user.model.js";
 const router=express.Router();
 
 router.get('/',async function (req,res){
@@ -20,8 +21,19 @@ router.get('/',async function (req,res){
     })
 });
 router.post("/mailer",async (req,res)=>{
-    const contact=req.body
-    const output=`
+    try{
+        const contact=req.body
+        const idSeller=await userModel.findUserByEmail(contact.seller.toString().trim())
+        const data={
+            proid: contact.id,
+            sellerid: idSeller[0].id,
+            contactname:contact.name,
+            contactemail:contact.email,
+            contactcontent:contact.message,
+            timeSend:new Date()
+        }
+        await estateModel.insertToConact(data)
+        const output=`
     <h1><i>You have a new contact request</i></h1>
     <h3>Property Details</h3>
     <h5>${contact.title}</h5>
@@ -67,28 +79,31 @@ router.post("/mailer",async (req,res)=>{
     <hr>
     <h3 style="color: green">HAGL</h3>
     `
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'hagl.realestatemarket@gmail.com',
-            pass: 'hoanganhgialai'
-        }
-    });
-    var mailOptions = {
-        from: 'hagl.realestatemarket@gmail.com',
-        to: contact.email,
-        subject: 'HAGL Notification',
-        text: 'Notification from HAGL',
-        html:output
-    };
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'hagl.realestatemarket@gmail.com',
+                pass: 'hoanganhgialai'
+            }
+        });
+        var mailOptions = {
+            from: 'hagl.realestatemarket@gmail.com',
+            to: contact.email,
+            subject: 'HAGL Notification',
+            text: 'Notification from HAGL',
+            html:output
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        res.status(200).send("OK")
+    }catch (e) {
+        res.status(500).send("Error")
+    }
 
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-    res.status(200).send("OK")
 })
 export default router;
