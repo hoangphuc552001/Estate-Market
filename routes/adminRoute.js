@@ -1,9 +1,10 @@
 import express from "express";
-import {validationResult} from "express-validator"
+import {check, validationResult} from "express-validator"
 import auth from '../validation/authValidation.js'
 import registerService from "../services/registerService.js"
 import passport from "passport"
 import xmldom from'xmldom'
+import bodyParser from "body-parser";
 import multer from 'multer'
 import initPassportLocal from '../middlewares/passport.mdw.js'
 import estateModel from '../models/estate.models.js'
@@ -12,8 +13,8 @@ import userModel from "../models/user.model.js";
 import * as Console from "console";
 /*import {list} from "../public/assets/js/vendor.js";*/
 import fs from 'fs';
+/*import {list} from "../public/assets/js/vendor.js";*/
 const router=express.Router();
-
 
 
 var urlImage=0;
@@ -28,7 +29,6 @@ router.post("/url-image",(req,res)=>{
     urlImage=req.body;
 })
 
-/*const upload= multer({dest: 'uploads/'})*/
 router.post("/upload/:id", async (req,res)=>{
     let pos;
     urlImage=urlImage.url.toString();
@@ -37,10 +37,10 @@ router.post("/upload/:id", async (req,res)=>{
     const fileName=urlImage.substring(pos+1,urlImage.length);
 
     const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
+        destination:async function (req, file, cb) {
             cb(null, '.'+url)
         },
-        filename: function (req, file, cb) {
+        filename:async function (req, file, cb) {
             const uniqueSuffix = fileName;
             cb(null, uniqueSuffix)
         }
@@ -57,18 +57,20 @@ router.post("/upload/:id", async (req,res)=>{
                     u.check = true;
                 }
             });
-            res.render("admin/new-product-editor", {
+            return res.send({"detail": urlImage});
+          /*  res.render("admin/new-product-editor", {
                 layout: 'layoutAdmin.hbs',
                 list: list[0],
                 listward,
-            });
+            });*/
         }
     })
 });
 router.post("/san-pham/:calling/sua-san-pham/:catID",async (req,res)=>{
     if(req.body.check){
         const update=await estateModel.updateDesByProID(req.params.catID,req.body);
-        return res.redirect('/san-pham/:calling/sua-san-pham/:catID');
+        return res.send({"update":true});
+      /*  return res.redirect('/san-pham/:calling/sua-san-pham/:catID');*/
     }
 });
 
@@ -78,35 +80,24 @@ router.get("/",(req,res)=>{
         }
     )
 });
-router.post("/quan-li-tai-khoan/khoa-tai-khoan",async (req,res)=>{
-    console.log(req.body.check)
-    console.log(req.body.id)
-    if(req.body.check) {
-        const unlockEmail = await userModel.unblockEmailByID(req.body.id);
-        console.log("da mo khoa")
-
-    }
-    else{
-        const blockEmail = await userModel.blockEmailByID(req.body.id);
-        console.log("da khoa")
-
-
-    }
-    const listEmail= await userModel.findAllAccount();
-    console.log(listEmail)
-    res.render('admin/perform-account',{
-        layout: false,
-        list:listEmail
-    })
+router.post("/quan-li-tai-khoan/mo-khoa-tai-khoan/:ID",async (req,res)=>{
+    const unlockEmail = await userModel.unblockEmailByID(req.params.ID);
+    res.redirect("/admin/quan-li-tai-khoan?check=1")
+});
+router.post("/quan-li-tai-khoan/khoa-tai-khoan/:ID",async (req,res)=>{
+    const lockEmail = await userModel.blockEmailByID(req.params.ID);
+    res.redirect("/admin/quan-li-tai-khoan?check=0")
 });
 router.get("/quan-li-tai-khoan",async (req,res)=>{
     const listEmail= await userModel.findAllAccount();
-    const totalEmail= await userModel.findTotalEmail();
-    res.render('admin/account_management',{
-        layout:'layoutAdmin.hbs',
-        list:listEmail,
-        totalEmail:totalEmail[0]
+    const totalEmail= await userModel.findTotalEmail().then(async (u)=>{
+        return res.render('admin/account_management',{
+            layout:'layoutAdmin.hbs',
+            list:listEmail,
+            totalEmail:u[0]
+        })
     })
+
 })
 router.get("/san-pham/:calling/:catID",async (req,res)=>{
     if((req.params.calling!=="du-an")&&(req.params.calling!="tin-tuc")) {

@@ -211,17 +211,17 @@
                     <div class="modal-body modal-tab-container">
                         <ul class="nav nav-tabs modal-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" href="#gallery" data-toggle="tab" role="tab">Gallery</a>
+                                <a class="nav-link active" href="#gallery" data-toggle="tab" role="tab">Gallery</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#upload" data-toggle="tab" role="tab">Upload</a>
+                                <a class="nav-link" href="#upload" data-toggle="tab" role="tab">Upload</a>
                             </li>
                         </ul>
-                        <form method="post" action="/admin/upload/{{list.pro_id}}" enctype="multipart/form-data">
+                        <form method="post"  enctype="multipart/form-data">
                         <div class="tab-content modal-tab-content">
                                 <div class="tab-pane fade active in" id="upload" role="tabpanel">
                                     <div class="file-loading">
-                                        <input id="input-21"  type="file" name="image" >
+                                        <input id="input-700"  type="file" name="image" >
                                     </div>
                                 </div>
                         </div>
@@ -238,17 +238,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            <i class="fa fa-warning"></i> Alert</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-warning"></i> Xác nhận cập nhật sản phẩm</h4>
+                        <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure want to do this?</p>
+                        <p>Bạn có chắc chắn muốn cập nhật sản phẩm này?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" id="submitUpdate" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                        <button type="button" id="no" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -267,22 +267,32 @@
     </div>
 </div>
 {{#section 'cssAdmin'}}
-    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!--<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />-->
 {{/section}}
 {{#section 'jsAdmin'}}
-    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js" integrity="sha512-ywJxJU8HX2ZyXikj/iM4gW2vWIhnGCjfehz9kMU0oqo0GDdr3w8E2E3DZlzgIBTNKU8jovkg09pWktiw0mOFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
     <script>
-
+        $('#no').click(function (){
+            $('#confirm-modal').modal('hide');
+        })
+        $('#close').click(function (){
+            $('#confirm-modal').modal('hide');
+        })
         $('#submitbtn22').click(function (){
+            $('#confirm-modal').modal('show');
+        });
+        $('#submitUpdate').click(function (){
             var des=$('#des').html().replace('contenteditable="true"',"contenteditable=false");
             $.post("/admin/san-pham/du-an/sua-san-pham/{{list.proid}}",{title:$('#title').val(),des:des,ward:$("#ward option:selected").val(),check:true},function (data,status){
                 if(data){
-                    alert("Chỉnh sửa thành công")
+                    $('#confirm-modal').modal('hide');
+                    /*console.log(data.update)*/
+                  /*  location.reload();*/
                 }
             });
-        });
+        })
     </script>
     <script>
         $(document).ready(function() {
@@ -292,7 +302,8 @@
                 temp=this.name;
                 $.post("/admin/url-image",{url:temp},function (data,status){
                     if(data){
-                        console("getlinksucess")
+                        console("getlinksucess");
+
                     }
                 });
             });
@@ -314,9 +325,10 @@
                     }
                 });
             });
-            $("#input-21").fileinput({
+            $("#input-700").fileinput({
                 overwriteInitial: false,
                 validateInitialCount: true,
+                initialPreviewAsData: true,
                 previewFileType: "image",
                 browseClass: "btn btn-success",
                 browseLabel: "Chọn hình",
@@ -327,9 +339,17 @@
                 uploadClass: "btn btn-info",
                 uploadLabel: "Upload hình",
                 uploadIcon: "<i class=\"bi-upload\"></i> ",
+                uploadUrl: "/admin/upload/{{list.pro_id}}",
+                initialPreviewConfig: [
+                    {caption: "People-1.jpg", description: 'This is a representative placeholder description for this image.', size: 576237, width: "120px", url: "/site/file-delete", key: 1},
+                ],
                 theme:'fa',
                 language:'vi',
                 allowedFileExtensions:['jpg'],
+            }).on('fileuploaded', function(e, params) {
+                console.log('file uploaded', e, params);
+                console.log(params.response.detail);
+                location.reload();
             });
 
     </script>

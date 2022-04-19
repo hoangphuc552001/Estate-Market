@@ -2,11 +2,11 @@ import fn from "knex";
 const knex = fn({
     client: 'mysql2',
     connection: {
-host : 'localhost',
+    host : 'localhost',
     user : 'root',
     port:3306,
-    password : '',
-    database : 'realestate'
+    password : '123456',
+    database : 'realstate'
     },
     pool: { min: 0, max: 10 },
 });
@@ -21,3 +21,13 @@ export default knex;
 //     port:3306,
 //     password : '',
 //     database : 'realestate'
+
+
+
+
+/*host : 'localhost',
+    user : 'root',
+    port:3306,
+    password : '123456',
+    database : 'realstate'
+},*/
