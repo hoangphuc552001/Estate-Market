@@ -11,7 +11,6 @@ export default function (app){
         resave: true,
         saveUninitialized: true,
         cookie: { secure: false, maxAge: 10800000},
-
         store: new MySQLStore({
             connectionLimit: 100,
             host: 'localhost',

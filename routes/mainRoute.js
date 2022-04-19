@@ -2,6 +2,7 @@ import express from "express";
 import estateModel from "../models/estate.models.js";
 import nodemailer from "nodemailer";
 import userModel from "../models/user.model.js";
+import commentModel from "../models/comment.model.js";
 const router=express.Router();
 
 router.get('/',async function (req,res){
@@ -20,6 +21,17 @@ router.get('/',async function (req,res){
         top5News
     })
 });
+router.post("/comment",async (req,res)=>{
+    const user=await userModel.findUserByEmail(req.body.email)
+    const id=user[0].id
+    const object={userid:id,content:req.body.message,timecmt:new Date(),proid:req.body.id}
+    await commentModel.insertComment(object)
+    const comment=await commentModel.findAllCommentWithUser()
+    res.render("product/commentLayout",{
+        comment,
+        layout:false
+    })
+})
 router.post("/mailer",async (req,res)=>{
     try{
         const contact=req.body

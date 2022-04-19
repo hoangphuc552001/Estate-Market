@@ -55,10 +55,6 @@ export default {
         return check;
     },
     async delCategoryOldParent(category){
-        console.log(category.parent)
-        console.log(category.id)
-        console.log(category.name)
-        console.log(category.parentOld)
         const del =await db('category').where(function (){
             this.where('id',category.id).andWhere('parent',category.parentOld)
         }).del();

@@ -73,6 +73,34 @@
             })
         })
     </script>
+    <script>
+        $("#cmtBtn").on("click",function (){
+            if (document.getElementById("inputNameUser")!=null && document.getElementById("inputEmailUser")!=null){
+                const name=document.getElementById("inputNameUser").value
+                const email=document.getElementById("inputEmailUser").value
+                const message=document.getElementById("textMessageCmt").value
+                const id=document.getElementById("proID").textContent
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: "/comment",
+                    data: {name,email,message,id},
+                    contentType: 'application/x-www-form-urlencoded',
+                    dataType: 'html',
+                    success: function (data) {
+                        document.getElementById("textMessageCmt").value=""
+                        $("#list-comments").replaceWith(data)
+                    },
+                    err: function (xhr, ajaxOptions, thrownError) {
+                        alert("Lỗi")
+                    }
+                })
+            }else{
+                $("#modalLogin").modal("show")
+            }
+
+        })
+    </script>
 {{/section}}
 <main id="main">
     {{#with pro as | pro |}}
@@ -199,26 +227,6 @@
                                         {{{pro.des}}}
                                     </p>
                                 </div>
-                                <!--                                <div class="row section-t3">-->
-                                <!--                                    <div class="col-sm-12">-->
-                                <!--                                        <div class="title-box-d">-->
-                                <!--                                            <h3 class="title-d">Amenities</h3>-->
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="amenities-list color-text-a">-->
-                                <!--                                    <ul class="list-a no-margin">-->
-                                <!--                                        <li>Balcony</li>-->
-                                <!--                                        <li>Outdoor Kitchen</li>-->
-                                <!--                                        <li>Cable Tv</li>-->
-                                <!--                                        <li>Deck</li>-->
-                                <!--                                        <li>Tennis Courts</li>-->
-                                <!--                                        <li>Internet</li>-->
-                                <!--                                        <li>Parking</li>-->
-                                <!--                                        <li>Sun Room</li>-->
-                                <!--                                        <li>Concrete Flooring</li>-->
-                                <!--                                    </ul>-->
-                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -387,7 +395,6 @@
                                     <div class="swiper-pagination"></div>
                                 </div><!-- End Intro Section -->
                             </div>
-
                         </div>
                     </div>
 
@@ -519,6 +526,48 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="title-box-d">
+                            <h3 class="title-d">Bình luận</h3>
+                        </div>
+                        <div class="box-comments">
+                            <ul id="list-comments" class="list-comments">
+                                {{#each ../comment}}
+                                    <li class="comment-children">
+                                        <div class="comment-avatar">
+                                            <img src="/public/assets/img/author-1.jpg" alt="">
+                                        </div>
+                                        <div class="comment-details">
+                                            <h4 class="comment-author">{{name}}</h4>
+                                            <span>{{time timecmt}}</span>
+                                            <p class="comment-description">
+                                              {{content}}
+                                            </p>
+                                            <a href="3">Reply</a>
+                                        </div>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="form-comments">
+                            <div class="title-box-d">
+                                <h3 class="title-d">Trả lời</h3>
+                            </div>
+                            <form class="form-a">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <label for="textMessage">Nhập bình luận</label>
+                                            <textarea id="textMessageCmt" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="button" id="cmtBtn" class="btn btn-a">Gửi</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section><!-- End Property Single-->
@@ -559,6 +608,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" id="sendMsg" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    Modal Login Required-->
+    <!-- Modal HTML -->
+    <div id="modalLogin" class="modal fade">
+        <div class="modal-dialog modal-login">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="/examples/actions/confirmation.php" method="post">
+                        <div class="form-group">
+                            <h5 style="justify-content: center;display: flex">Vui lòng đăng nhập</h5>
+                        </div>
+                        <div class="form-group" style="justify-content: center;display: flex">
+                            <button formaction="/authen/login" type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#">Chuyển trang đăng nhập?</a>
                 </div>
             </div>
         </div>
