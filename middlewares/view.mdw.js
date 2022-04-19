@@ -31,9 +31,6 @@ export default function (app) {
             product(index){
                 return index+' Sản phẩm'
             },
-            blockAccount(index){
-                return index===-1;
-            }
         },
     }));
     app.set('view engine', 'hbs');

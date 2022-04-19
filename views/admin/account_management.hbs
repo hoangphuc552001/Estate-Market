@@ -1,19 +1,16 @@
-
-<body>
+<body id="post">
 <div class="main-wrapper">
     <div class="app" id="app">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
         <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
         <div class="mobile-menu-handle"></div>
-        <article class="content items-list-page">
+        <article class="content items-list-page" id="ajaxAccount">
             <div class="title-search-block">
                 <div class="title-block">
                     <div class="row">
                         <div class="col-md-6">
                             <h3 class="title"> Quản lý tài khoản
                                 <a href="views/admin/category-add.hbs" class="btn btn-primary btn-sm rounded-s"> Add New </a>
-                                <!--
-         -->
                                 <div class="action dropdown">
                                     <button class="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More actions... </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -24,7 +21,7 @@
                                     </div>
                                 </div>
                             </h3>
-                            <p class="title-description"> Tổng tài khoản: {{totalEmail.total}} </p>
+                            <p class="title-description"> Tổng tài khoản: {{totalEmail.total}}</p>
                         </div>
                     </div>
                 </div>
@@ -41,7 +38,7 @@
                     </form>
                 </div>
             </div>
-            <div class="card items" id="ajaxAccount">
+            <div class="card items" >
                 <ul class="item-list striped">
                     <li class="item item-list-header">
                         <div class="item-row">
@@ -99,10 +96,9 @@
                                         </div>
                                     {{else}}
                                         <div class="no-overflow">
-                                            <a href="#">Đã Khóa</a>
+                                            <a>Đã Khóa</a>
                                         </div>
                                     {{/if}}
-
                                 </div>
                                 <div class="item-col item-col-author">
                                     <div class="item-heading">Người dùng</div>
@@ -115,34 +111,19 @@
                                     <div class="no-overflow"> {{time this.start}} </div>
                                 </div>
                                 <div class="item-col fixed item-col-actions-dropdown">
-                                    <div class="item-actions-dropdown">
-                                        <a class="item-actions-toggle-btn">
-                                                <span class="inactive">
-                                                    <i class="fa fa-cog"></i>
-                                                </span>
-                                            <span class="active">
-                                                    <i class="fa fa-chevron-circle-right"></i>
-                                                </span>
-                                        </a>
-                                        <div class="item-actions-block">
-                                            <ul class="item-actions-list">
-                                                <li>
-                                                    {{#if (check this.permissions)}}
-                                                        <a class="remove" title="Nhấn vào để khóa tài khoản" name="{{this.id}}" id="unlock" href="" >
-                                                            <i class="fa fa-unlock" aria-hidden="true"></i>
-                                                        </a>
-                                                    {{else}}
-                                                        <a class="remove" title="Nhấn vào để mở khóa tài khoản" name="{{this.id}}" id="lock" href="" >
-                                                            <i class="fa fa-lock" aria-hidden="true"></i>
-                                                        </a>
-
-                                                    {{/if}}
-                                                </li>
-                                            </ul>
+                                        <div class="item-actions-block"  id="BlockAccount">
+                                            {{#if (check this.permissions)}}
+                                                <a class="remove" title="Nhấn vào để khóa tài khoản"  type="submit"  href="" name="{{this.id}}" id="lock"  >
+                                                    <i class="fa fa-unlock" aria-hidden="true"></i>
+                                                </a>
+                                            {{else}}
+                                                <a class="remove"  title="Nhấn vào để mở khóa tài khoản"  type="submit"  href="" name="{{this.id}}"  id="unlock" >
+                                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                                </a>
+                                            {{/if}}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </li>
                     {{/each}}
                     <nav class="text-right">
@@ -234,33 +215,36 @@
 
 {{#section 'jsAdmin'}}
     <script>
-        $("#lock").click(function(){
-            $.ajax({
-                url : "/admin/quan-li-tai-khoan/khoa-tai-khoan",
-                type : "POST",
-                data : {
-                    id:$("#lock").prop('name'),
-                    check:true,
-                },
-                success : function (result){
-                    $("#ajaxAccount").replaceWith(result)
-                    console.log(result)
+        function unblock(id){
+            $.post("/admin/quan-li-tai-khoan/mo-khoa-tai-khoan/"+id,{title:"mo khoa tai khoan"},function (data,status){
+                if(data){
                 }
-            });
-        });
-        $("#unlock").click(function(){
-            $.ajax({
-                url : "/admin/quan-li-tai-khoan/khoa-tai-khoan",
-                type : "POST",
-                data : {
-                    id:$("#unlock").prop('name'),
-                    check:false,
-                },
-                success : function (result){
-                    $("#ajaxAccount").replaceWith(result)
-                    
+
+            })
+        }
+    </script>
+    <script>
+        function block(id){
+            $.post("/admin/quan-li-tai-khoan/khoa-tai-khoan/"+id,{title:"khoa tai khoan"},function (data,status){
+                if(data){
+                    /*alert("Khoa tai khoan thanh cong")*/
+
                 }
-            });
-        });
+            })
+        }
+    </script>
+    <script>
+
+    </script>
+    <script>
+        $("#BlockAccount a").click(function (){
+            console.log(this.id)
+            if(this.id==="unlock"){
+                unblock(this.name);
+            }
+            else{
+             block(this.name);
+            }
+        })
     </script>
 {{/section}}
