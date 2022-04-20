@@ -26,7 +26,7 @@ router.post("/comment",async (req,res)=>{
     const id=user[0].id
     const object={userid:id,content:req.body.message,timecmt:new Date(),proid:req.body.id}
     await commentModel.insertComment(object)
-    const comment=await commentModel.findAllCommentWithUser()
+    const comment=await commentModel.findAllCommentWithUser(req.body.id)
     res.render("product/commentLayout",{
         comment,
         layout:false

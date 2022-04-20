@@ -43,7 +43,7 @@ router.get('/:estateID/:detailID',async function (req,res){
     listRelatedPro.forEach(i=>{
         i.parentID=1;
     })
-    const comment=await commentModel.findAllCommentWithUser()
+    const comment=await commentModel.findAllCommentWithUser(req.params.detailID)
     res.render('product/prop-single',{
         pro:pro[0],
         listRelatedPro,
