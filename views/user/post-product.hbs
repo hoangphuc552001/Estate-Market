@@ -1,0 +1,493 @@
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single" id="proTitle">Đăng sản phẩm</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="../">Sản phẩm</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<form method="post" action="/user/product/post-product">
+<section class="agent-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-5 section-md-t3">
+                        <div class="agent-info-box">
+                            <div class="agent-title">
+                                <div class="title-box-d">
+                                    <h3 class="title-d">
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="agent-content mb-3">
+                                <div class="info-agents color-a">
+                                    <p>
+                                        <strong>Tiêu đề: </strong>
+                                        <input type="text" name="title"  class="form-control" placeholder="Nhâp tiêu đề" aria-label="Username" aria-describedby="basic-addon1">
+                                    </p>
+                                    <p>
+                                        <strong>Giá tiền: </strong>
+                                        <input type="text" name="price" id="Price"  data-type="currency" placeholder="1,000,000.00">
+                                        <!--<input type="text" name="price"  id="Price" class="form-control" placeholder="Nhâp giá tiền" aria-label="Username" aria-describedby="basic-addon1">-->
+                                    </p>
+                                    <p>
+                                        <strong>Mô tả chi tiết: </strong>
+                                        <textarea id="detaildes" name="detaildes"></textarea>
+                                    </p>
+                                    <p>
+                                        <strong>Tổng hợp: </strong>
+                                        <span class="color-text-a">
+                                        <li class="d-flex justify-content-between">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Địa chỉ:</span>
+                                                <select name="ward" class="c-select form-control boxed" >
+                                                    {{#each listWard}}
+                                                        {{#if this.check}}
+                                                            <option selected>{{this.ward}}</option>
+                                                        {{else}}
+                                                            <option >{{this.ward}}</option>
+                                                        {{/if}}
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Loại danh mục:</span>
+                                            <select name="categoryParent" id="categoryParent" class="c-select form-control boxed">
+                                                {{#each listParent}}
+                                                        <option  selected value="{{this.id}}">{{this.name}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1" >Loại:</span>
+                                                <select id="category" name="category"class="c-select form-control boxed" >
+
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Trạng thái:</span>
+                                                <select  name="quantity"class="c-select form-control boxed" id="quantity">
+                                                    {{#if (check pro.quantity)}}
+                                                        <option selected value="0">Đã bán</option>
+                                                        <option value="1">Đang bán</option>
+                                                    {{else}}
+                                                        <option value="0">Đã bán</option>
+                                                        <option selected value="1">Đang bán</option>
+                                                    {{/if}}
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Diện tích:</span>
+                                                <input name="acreage" type="text" value="{{pro.acreage}}" class="form-control" placeholder="Nhập diện tích" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Phòng ngủ:</span>
+                                                <input type="text" name="bedroom" value="{{pro.bedroom}}" class="form-control" placeholder="Nhập số phòng" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Phòng tắm:</span>
+                                                <input type="text" name="bathroom" value="{{pro.bathroom}}" class="form-control" placeholder="Nhập số phòng" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </li>
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <strong>Thông tin chi tiết: </strong>
+                                        <textarea id="des" name="des"></textarea>
+                                    </p>
+                                    <p>
+                                        <strong>Thông tin khác: </strong>
+                                        <textarea id="otherdes" name="otherdes"></textarea>
+                                    </p>
+                                    <p>
+                                        <p>
+                                            <button class="btn btn-b" type="submit"  >Tiếp theo</button>
+                                        </p>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="socials-footer">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="bi bi-facebook" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="bi bi-twitter" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="bi bi-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="bi bi-linkedin" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</form>
+
+
+
+
+
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/assets/modal/successfully.css">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+{{/section}}
+{{#section 'js'}}
+    <script src="https://cdn.tiny.cloud/1/p1fwo21pu5sn0tp0vy4twc8487p3m1at2uussi5efjxyyylq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js" integrity="sha512-ywJxJU8HX2ZyXikj/iM4gW2vWIhnGCjfehz9kMU0oqo0GDdr3w8E2E3DZlzgIBTNKU8jovkg09pWktiw0mOFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tinymce.init({
+            selector: '#des',
+            /* width and height of the editor */
+            width: "100%",
+            height: 600,
+
+            /* display statusbar */
+            statusbar: true,
+
+            /* plugin */
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+
+            /* toolbar */
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+            /* style */
+            style_formats: [
+                {title: "Headers", items: [
+                        {title: "Header 1", format: "h1"},
+                        {title: "Header 2", format: "h2"},
+                        {title: "Header 3", format: "h3"},
+                        {title: "Header 4", format: "h4"},
+                        {title: "Header 5", format: "h5"},
+                        {title: "Header 6", format: "h6"}
+                    ]},
+                {title: "Inline", items: [
+                        {title: "Bold", icon: "bold", format: "bold"},
+                        {title: "Italic", icon: "italic", format: "italic"},
+                        {title: "Underline", icon: "underline", format: "underline"},
+                        {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                        {title: "Superscript", icon: "superscript", format: "superscript"},
+                        {title: "Subscript", icon: "subscript", format: "subscript"},
+                        {title: "Code", icon: "code", format: "code"}
+                    ]},
+                {title: "Blocks", items: [
+                        {title: "Paragraph", format: "p"},
+                        {title: "Blockquote", format: "blockquote"},
+                        {title: "Div", format: "div"},
+                        {title: "Pre", format: "pre"}
+                    ]},
+                {title: "Alignment", items: [
+                        {title: "Left", icon: "alignleft", format: "alignleft"},
+                        {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                        {title: "Right", icon: "alignright", format: "alignright"},
+                        {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                    ]}
+            ],
+        });
+    </script>
+
+    <script>
+        tinymce.init({
+            selector: '#detaildes',
+            /* width and height of the editor */
+            width: "100%",
+            height: 600,
+
+            /* display statusbar */
+            statusbar: true,
+
+            /* plugin */
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+
+            /* toolbar */
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+            /* style */
+            style_formats: [
+                {title: "Headers", items: [
+                        {title: "Header 1", format: "h1"},
+                        {title: "Header 2", format: "h2"},
+                        {title: "Header 3", format: "h3"},
+                        {title: "Header 4", format: "h4"},
+                        {title: "Header 5", format: "h5"},
+                        {title: "Header 6", format: "h6"}
+                    ]},
+                {title: "Inline", items: [
+                        {title: "Bold", icon: "bold", format: "bold"},
+                        {title: "Italic", icon: "italic", format: "italic"},
+                        {title: "Underline", icon: "underline", format: "underline"},
+                        {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                        {title: "Superscript", icon: "superscript", format: "superscript"},
+                        {title: "Subscript", icon: "subscript", format: "subscript"},
+                        {title: "Code", icon: "code", format: "code"}
+                    ]},
+                {title: "Blocks", items: [
+                        {title: "Paragraph", format: "p"},
+                        {title: "Blockquote", format: "blockquote"},
+                        {title: "Div", format: "div"},
+                        {title: "Pre", format: "pre"}
+                    ]},
+                {title: "Alignment", items: [
+                        {title: "Left", icon: "alignleft", format: "alignleft"},
+                        {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                        {title: "Right", icon: "alignright", format: "alignright"},
+                        {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                    ]}
+            ],
+        });
+    </script>
+
+    <script>
+        tinymce.init({
+            selector: '#otherdes',
+            /* width and height of the editor */
+            width: "100%",
+            height: 600,
+
+            /* display statusbar */
+            statusbar: true,
+
+            /* plugin */
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+
+            /* toolbar */
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+            /* style */
+            style_formats: [
+                {title: "Headers", items: [
+                        {title: "Header 1", format: "h1"},
+                        {title: "Header 2", format: "h2"},
+                        {title: "Header 3", format: "h3"},
+                        {title: "Header 4", format: "h4"},
+                        {title: "Header 5", format: "h5"},
+                        {title: "Header 6", format: "h6"}
+                    ]},
+                {title: "Inline", items: [
+                        {title: "Bold", icon: "bold", format: "bold"},
+                        {title: "Italic", icon: "italic", format: "italic"},
+                        {title: "Underline", icon: "underline", format: "underline"},
+                        {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                        {title: "Superscript", icon: "superscript", format: "superscript"},
+                        {title: "Subscript", icon: "subscript", format: "subscript"},
+                        {title: "Code", icon: "code", format: "code"}
+                    ]},
+                {title: "Blocks", items: [
+                        {title: "Paragraph", format: "p"},
+                        {title: "Blockquote", format: "blockquote"},
+                        {title: "Div", format: "div"},
+                        {title: "Pre", format: "pre"}
+                    ]},
+                {title: "Alignment", items: [
+                        {title: "Left", icon: "alignleft", format: "alignleft"},
+                        {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                        {title: "Right", icon: "alignright", format: "alignright"},
+                        {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                    ]}
+            ],
+        });
+    </script>
+    <script>
+        function imagemodal(url) {
+            if (url === 1) {
+                $.post("/user/product/url-image", {url: $("#uploadimage1").attr('name')}, function (data, status) {
+                    if (data) {
+                        $("#image").prop('id',"1.jpg")
+                        $('#imagemodal').modal('show');
+                    }
+                });
+            }
+            else if (url === 2) {
+                $.post("/user/product/url-image", {url: $("#uploadimage2").attr('name')}, function (data, status) {
+                    if (data) {
+                        $("#image").prop('id',"2.jpg")
+                        $('#imagemodal').modal('show');
+                    }
+                });
+            }
+            else if (url === 3) {
+                $.post("/user/product/url-image", {url: $("#uploadimage3").attr('name')}, function (data, status) {
+                    if (data) {
+                        $("#image").prop('id',"3.jpg")
+                        $('#imagemodal').modal('show');
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
+        $("input[data-type='currency']").on({
+            keyup: function() {
+                formatCurrency($(this));
+            },
+            blur: function() {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+
+        function formatNumber(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+        function formatCurrency(input, blur) {
+            // appends $ to value, validates decimal side
+            // and puts cursor back in right position.
+
+            // get input value
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") { return; }
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(".") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+
+                // validate right side
+                right_side = formatNumber(right_side);
+
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+
+                // join number by .
+                input_val =  + left_side + "." + right_side;
+
+            } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val =  input_val +" VNĐ";
+
+                // final formatting
+               /* if (blur === "blur") {
+                    input_val += ".00";
+                }*/
+            }
+
+            // send updated string to input
+            input.val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+    </script>
+    <script>
+
+        /*$("#Price").on('change',function (){
+            console.log($("#Price").val());
+            $.getJSON("/user/checkprice/"+$("#Price").val(),function (data){
+                if(data){
+                    console.log(data)
+                }
+            })
+        })*/
+    </script>
+    <script>
+        $("#category").prop('disabled', true);
+        $("#categoryParent").on("change",function (){
+            const Category=$("#categoryParent option:selected").val();
+            $("#category").empty();
+            $.getJSON('/user/select-category-parent/'+Category, function (data){
+                if(data){
+                    $("#category").prop('disabled', false);
+                    data.forEach(u=>{
+                        console.log(u.name);
+                        $("#category").append(
+                                `<option value="${u.id}">
+                            ${u.name}</option>`)
+                    })
+                }
+            });
+        })
+
+    </script>
+
+{{/section}}
+
+
+

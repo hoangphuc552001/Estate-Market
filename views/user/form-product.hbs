@@ -75,28 +75,34 @@
             tinymce.activeEditor.setContent($("#description").html());
         });*/
         $("#summary").dblclick(function (){
+
             $('#summarymodal').modal('show');
 
         });
 
        $("#detailDescription").dblclick(function (){
+           $("#tiny").prop('action','/user/update-product/detaildes/{{pro.proid}}')
            tinymce.activeEditor.setContent($("#detailDescription").html());
            $('#tinymodal').modal('show');
        });
 
        $("#description").dblclick(function (){
+           $("#tiny").prop('action','/user/update-product/des/{{pro.proid}}')
            tinymce.activeEditor.setContent($("#description").html());
            $('#tinymodal').modal('show');
        });
        $("#otherDetail").dblclick(function (){
+           $("#tiny").prop('action','/user/update-product/otherdetail/{{pro.proid}}')
            tinymce.activeEditor.setContent($("#otherDetail").html());
            $('#tinymodal').modal('show');
        });
         $( "#proPrice" ).dblclick(function() {
+            $("#tiny").prop('action','/user/update-product/price/{{pro.proid}}');
             tinymce.activeEditor.setContent($("#proPrice").html());
             $('#tinymodal').modal('show');
         });
         $("#closebtn1").click(function (){
+
             $('#summarymodal').modal('hide');
         })
 
@@ -241,7 +247,7 @@
                                             <span class="bi bi-cash">$</span>
                                         </div>
                                         <div class="card-title-c align-self-center" id="price" type="button" href="#">
-                                            <h5 class="title-c" id="proPrice" >Giá tiền</h5>
+                                            <h5 class="title-c" id="proPrice" >{{{pro.current}}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -257,33 +263,37 @@
                                         <ul class="list">
                                             <li class="d-flex justify-content-between">
                                                 <strong>Mã sản phẩm:</strong>
-                                                <span id="proID">{{pro.proid}}Mã sản phẩm</span>
+                                                <span id="proID">{{pro.proid}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Địa chỉ:</strong>
-                                                <span id="proWard">Địa chỉ{{pro.ward}}</span>
+                                                <span id="proWard">{{pro.ward}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Loại:</strong>
-                                                <span id="proName">Loại{{pro.name}}</span>
+                                                <span id="proName">{{pro.name}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Trạng thái:</strong>
-                                                <span id="proSta">Đang bán</span>
+                                                    {{#if (check pro.quantity)}}
+                                                        <span id="proSta">Đã bán</span>
+                                                    {{else}}
+                                                        <span id="proSta">Đang bán</span>
+                                                    {{/if}}
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Diện tích:</strong>
-                                                <span id="proAcreage">Diện tích{{pro.acreage}}
+                                                <span id="proAcreage">{{pro.acreage}}
                                                     <sup>2</sup>
                                                 </span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Phòng ngủ:</strong>
-                                                <span id="proBed">Phòng ngủ{{pro.bedroom}}</span>
+                                                <span id="proBed">{{pro.bedroom}}</span>
                                             </li>
                                             <li class="d-flex justify-content-between">
                                                 <strong>Phòng tắm:</strong>
-                                                <span id="proBath">Phòng tắm{{pro.bathroom}}</span>
+                                                <span id="proBath">{{pro.bathroom}}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -416,7 +426,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post"  action="/user/update-product/{{pro.parent}}" >
+            <form method="post"  action="/user/update-product/summary/{{pro.proid}}" >
             <div class="modal-body">
                 <ul class="list modal-dialog modal-content">
                     <li class="d-flex justify-content-between">
@@ -538,9 +548,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="/user/update-product">
+            <form method="post" id="tiny" action="/user/update-product">
             <div class="modal-body" >
-                <textarea id="mytextarea"></textarea>
+                <textarea id="mytextarea" name="text"></textarea>
             </div>
             <div class="modal-footer">
                 <button id="no" class="btn btn-danger">No</button>

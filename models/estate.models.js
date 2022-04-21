@@ -153,5 +153,70 @@ export default {
     },
     findProDuctOwnedByUserByTop(userid,limit_,offset_){
         return db("estate").where("seller",userid).limit(limit_).offset(offset_)
+    },
+    async updateSummaryByID(entity){
+        console.log(entity)
+        const checkDes=await db('estate').where('estate.id',entity.proID).update({
+            'ward': entity.ward,
+            'bathroom':entity.bathroom,
+            'bedroom':entity.bedroom,
+            'quantity':entity.quantity,
+            'acreage':entity.acreage,
+            'category':entity.category,
+        });
+        return checkDes;
+    },
+    async updateDesByID(id,text){
+        const checkDes=await db('detail_des').where('pro_id',id).update({
+            'des':text
+        });
+        return checkDes;
+    },
+
+    async updateDetailDesByID(id,text){
+        const checkDes=await db('detail_des').where('pro_id',id).update({
+            'detail_description':text
+        });
+        return checkDes;
+    },
+    async updateOtherDetailByID(id,text){
+        const checkDes=await db('detail_des').where('pro_id',id).update({
+            'other_detail':text
+        });
+        return checkDes;
+    },
+
+    async updatePriceByID(id,text){
+        const checkDes=await db('estate').where('estate.id',id).update({
+            'current':text
+        });
+        return checkDes;
+    },
+    async insertNewProduct(entity) {
+
+        const check=await db("estate").insert({
+            title:entity.title,
+            current:entity.current,
+            quantity:entity.quantity,
+            ward:entity.ward,
+            category:entity.category,
+            acreage:entity.acreage,
+            bedroom:entity.bedroom,
+            bathroom:entity.bathroom,
+            seller: entity.seller,
+            price:entity.price,
+            image:"1"
+
+
+        });
+
+        const check2=await db("detail_des").insert({
+            des:entity.des,
+            detail_description:entity.detaildes,
+            other_detail:entity.otherdes
+        });
+
+        return check,check2;
     }
+
 }

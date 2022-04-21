@@ -57,7 +57,7 @@
                                     </p>
                                     <form method="get" action="/user/product/post-product">
                                     <p>
-                                        <button class="btn btn-b" >Đăng sản phẩm</button>
+                                        <button class="btn btn-b"  >Đăng sản phẩm</button>
                                     </p>
                                     </form>
                                 </div>
@@ -118,14 +118,14 @@
                                 <div class="card-overlay-a-content">
                                     <div class="card-header-a">
                                         <h2 class="card-title-a">
-                                            <a href="/{{this.calling}}/{{this.category}}/{{this.id}}">{{this.title}}</a>
+                                            <a href="/{{this.calling}}/{{this.category}}/{{this.proid}}">{{this.title}}</a>
                                         </h2>
                                     </div>
                                     <div class="card-body-a">
                                         <div class="price-box d-flex">
                                             <span class="price-a">{{this.current}}</span>
                                         </div>
-                                        <a href="/{{this.calling}}/{{this.category}}/{{this.id}}" class="link-a">Click here to view
+                                        <a href="/{{this.calling}}/{{this.category}}/{{this.proid}}" class="link-a">Click here to view
                                             <span class="bi bi-chevron-right"></span>
                                         </a>
                                     </div>
@@ -144,6 +144,14 @@
                                             <li>
                                                 <h4 class="card-info-title">Baths</h4>
                                                 <span>{{this.bathroom}}</span>
+                                            </li>
+
+                                            <li>
+                                                <form method="get" action="/user/product/edit-product/{{this.proid}}">
+                                                <button  class="btn btn-b-n" >
+                                                    <i class="fa fa-pencil"></i> &nbsp;Chỉnh sửa sản phẩm</h4>
+                                                </button>
+                                                </form>
                                             </li>
                                         </ul>
                                     </div>
