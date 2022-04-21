@@ -1,0 +1,558 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/assets/modal/successfully.css">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+{{/section}}
+{{#section 'js'}}
+    <script src="https://cdn.tiny.cloud/1/p1fwo21pu5sn0tp0vy4twc8487p3m1at2uussi5efjxyyylq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js" integrity="sha512-ywJxJU8HX2ZyXikj/iM4gW2vWIhnGCjfehz9kMU0oqo0GDdr3w8E2E3DZlzgIBTNKU8jovkg09pWktiw0mOFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+
+            /* width and height of the editor */
+            width: "100%",
+            height: 600,
+
+            /* display statusbar */
+            statusbar: true,
+
+            /* plugin */
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+
+            /* toolbar */
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+            /* style */
+            style_formats: [
+                {title: "Headers", items: [
+                        {title: "Header 1", format: "h1"},
+                        {title: "Header 2", format: "h2"},
+                        {title: "Header 3", format: "h3"},
+                        {title: "Header 4", format: "h4"},
+                        {title: "Header 5", format: "h5"},
+                        {title: "Header 6", format: "h6"}
+                    ]},
+                {title: "Inline", items: [
+                        {title: "Bold", icon: "bold", format: "bold"},
+                        {title: "Italic", icon: "italic", format: "italic"},
+                        {title: "Underline", icon: "underline", format: "underline"},
+                        {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                        {title: "Superscript", icon: "superscript", format: "superscript"},
+                        {title: "Subscript", icon: "subscript", format: "subscript"},
+                        {title: "Code", icon: "code", format: "code"}
+                    ]},
+                {title: "Blocks", items: [
+                        {title: "Paragraph", format: "p"},
+                        {title: "Blockquote", format: "blockquote"},
+                        {title: "Div", format: "div"},
+                        {title: "Pre", format: "pre"}
+                    ]},
+                {title: "Alignment", items: [
+                        {title: "Left", icon: "alignleft", format: "alignleft"},
+                        {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                        {title: "Right", icon: "alignright", format: "alignright"},
+                        {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                    ]}
+            ],
+        });
+    </script>
+    <script>
+       /* $("#detailDescription").click(function (){
+            tinymce.activeEditor.setContent($("#detailDescription").html());
+        });*/
+
+        /*$("#otherDetail").click(function (){
+            tinymce.activeEditor.setContent($("#otherDetail").html());
+        });*/
+        /*$("#description").click(function (){
+            tinymce.activeEditor.setContent($("#description").html());
+        });*/
+        $("#summary").dblclick(function (){
+            $('#summarymodal').modal('show');
+
+        });
+
+       $("#detailDescription").dblclick(function (){
+           tinymce.activeEditor.setContent($("#detailDescription").html());
+           $('#tinymodal').modal('show');
+       });
+
+       $("#description").dblclick(function (){
+           tinymce.activeEditor.setContent($("#description").html());
+           $('#tinymodal').modal('show');
+       });
+       $("#otherDetail").dblclick(function (){
+           tinymce.activeEditor.setContent($("#otherDetail").html());
+           $('#tinymodal').modal('show');
+       });
+        $( "#proPrice" ).dblclick(function() {
+            tinymce.activeEditor.setContent($("#proPrice").html());
+            $('#tinymodal').modal('show');
+        });
+        $("#closebtn1").click(function (){
+            $('#summarymodal').modal('hide');
+        })
+
+       $("#closebtn").click(function (){
+           $('#tinymodal').modal('hide');
+       })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#image").fileinput({
+                overwriteInitial: false,
+                validateInitialCount: true,
+                initialPreviewAsData: true,
+                previewFileType: "image",
+                browseClass: "btn btn-success",
+                browseLabel: "Chọn hình",
+                browseIcon: "<i class=\"bi-file-image\"></i> ",
+                removeClass: "btn btn-danger",
+                removeLabel: "Xóa",
+                removeIcon: "<i class=\"bi-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                uploadLabel: "Upload hình",
+                uploadIcon: "<i class=\"bi-upload\"></i> ",
+                initialPreviewConfig: [
+                    {caption: "People-1.jpg", description: 'This is a representative placeholder description for this image.', size: 576237, width: "120px", url: "/site/file-delete", key: 1},
+                ],
+                uploadUrl: "/user/upload/{{pro.proid}}",
+                theme:'fa',
+                language:'vi',
+                allowedFileExtensions:['jpg'],
+            }).on('fileuploaded', function(e, params) {
+                console.log('file uploaded', e, params);
+                console.log(params.response.detail);
+                location.reload();
+            });
+        });
+        $("#saveImage").click(function (){
+            location.reload();
+        })
+
+        $("#cancelUploadImage").click(function (){
+            $('#imagemodal').modal('hide');
+        });
+        $("#closebtn").click(function (){
+            $('#imagemodal').modal('hide');
+        });
+
+    </script>
+    <script>
+        function imagemodal(url){
+            if(url===1) {
+                console.log($("#uploadimage1").attr('name'))
+                $.post("/user/product/url-image", {url: $("#uploadimage1").attr('name')}, function (data, status) {
+                    if (data) {
+                        $('#imagemodal').modal('show');
+                    }
+                });
+            }
+
+            else if(url===2) {
+                console.log($("#uploadimage2").attr('name'))
+                $.post("/user/product/url-image", {url: $("#uploadimage2").attr('name')}, function (data, status) {
+                    if (data) {
+                        $('#imagemodal').modal('show');
+                    }
+                });
+            }
+
+            else if(url===3) {
+                console.log($("#uploadimage3").attr('name'))
+                $.post("/user/product/url-image", {url: $("#uploadimage3").attr('name')}, function (data, status) {
+                    if (data) {
+                        $('#imagemodal').modal('show');
+                    }
+                });
+            }
+        }
+    </script>
+{{/section}}
+<main id="main">
+        <!-- ======= Intro Single ======= -->
+        <section class="intro-single">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="title-single-box">
+                            <h1 class="title-single" id="proTitle">{{pro.title}}Tiêu đề</h1>
+                            <span class="color-text-a">{{pro.ward}}Quận</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/">Trang chủ</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="../">{{pro.name}}</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{pro.proid}}
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Intro Single-->
+
+        <!-- ======= Property Single ======= -->
+        <section class="property-single nav-arrow-b">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div id="property-single-carousel" class="swiper">
+                            <div class="swiper-wrapper">
+                                <div class="carousel-item-b swiper-slide">
+                                    <img id="image1" style="width: 400px;height: 300px;object-fit: cover" src="{{pro.image1}}" alt="Hình ảnh 1"href=" " >
+                                    <button class="btn btn-b" name="{{pro.image1}}"  onclick="imagemodal(1)" id="uploadimage1">Upload ảnh này</button>
+                                </div>
+                                <div class="carousel-item-b swiper-slide">
+                                    <img id="image2" style="width: 400px;height: 300px;object-fit: cover"src="{{pro.image2}}" alt="Hình ảnh 2"href=" " >
+                                    <button class="btn btn-b" onclick="imagemodal(2)"name="{{pro.image2}}"id="uploadimage2">Upload ảnh này</button>
+                                </div>
+                                <div   class="carousel-item-b swiper-slide">
+                                    <img  id="image3" style="width: 400px;height: 300px;object-fit: cover"src="{{pro.image3}}" alt="Hình ảnh 3"href=" ">
+                                    <button  class="btn btn-b" onclick="imagemodal(3)"name="{{pro.image3}}"id="uploadimage3">Upload ảnh này</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="property-single-carousel-pagination carousel-pagination">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-between">
+                            <div class="col-md-5 col-lg-4">
+                                <div class="property-price d-flex justify-content-center foo">
+                                    <div class="card-header-c d-flex">
+                                        <div class="card-box-ico">
+                                            <span class="bi bi-cash">$</span>
+                                        </div>
+                                        <div class="card-title-c align-self-center" id="price" type="button" href="#">
+                                            <h5 class="title-c" id="proPrice" >Giá tiền</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="property-summary" type="button" href="#">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="title-box-d section-t4">
+                                                <h3 class="title-d">Tổng hợp</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="summary-list" id="summary">
+                                        <ul class="list">
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Mã sản phẩm:</strong>
+                                                <span id="proID">{{pro.proid}}Mã sản phẩm</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Địa chỉ:</strong>
+                                                <span id="proWard">Địa chỉ{{pro.ward}}</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Loại:</strong>
+                                                <span id="proName">Loại{{pro.name}}</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Trạng thái:</strong>
+                                                <span id="proSta">Đang bán</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Diện tích:</strong>
+                                                <span id="proAcreage">Diện tích{{pro.acreage}}
+                                                    <sup>2</sup>
+                                                </span>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Phòng ngủ:</strong>
+                                                <span id="proBed">Phòng ngủ{{pro.bedroom}}</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                <strong>Phòng tắm:</strong>
+                                                <span id="proBath">Phòng tắm{{pro.bathroom}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-lg-7 section-md-t3">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="title-box-d">
+                                            <h3 class="title-d">Mô tả chi tiết</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="property-description">
+                                    <p class="description color-text-a">
+                                        Mô tả
+                                        <div id="description" type="button" href="#">
+                                        {{{pro.des}}}
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10 mt-5 offset-md-1">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Thông tin chi tiết</h5>
+                                    Danh mục
+                                    <div id="detailDescription" type="button" href="#">
+                                    {{{pro.detail_description}}}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <h5>Thông tin khác</h5>
+                                    Thông tin
+                                    <div id="otherDetail" type="button" href="#">
+                                    {{{pro.other_detail}}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-10 mt-5 offset-md-1">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12" style="display: flex; flex-direction: row;justify-content:center">
+                                    <button class="btn btn-b" >Lưu lại thông tin</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section><!-- End Property Single-->
+    <!--    Modal successfully-->
+    <div class="modal fade" id="ignismyModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button style="position: absolute;right: 5px;top:3px" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label=""><span>×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="thank-you-pop">
+                        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                        <h1>Cảm ơn!</h1>
+                        <p>Chủ nhà sẽ liên hệ đến bạn trong thời gian sớm nhất</p>
+                        <h3 class="cupon-pop">Trân trọng: <span>HAGL</span></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Modal fulfill form-->
+    <div class="modal fade" id="fulfill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Liên lạc</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Lời nhắn:</label>
+                            <textarea rows="7" class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="sendMsg" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Modal Login Required-->
+    <!-- Modal HTML -->
+    <div id="modalLogin" class="modal fade">
+        <div class="modal-dialog modal-login">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="/examples/actions/confirmation.php" method="post">
+                        <div class="form-group">
+                            <h5 style="justify-content: center;display: flex">Vui lòng đăng nhập</h5>
+                        </div>
+                        <div class="form-group" style="justify-content: center;display: flex">
+                            <button formaction="/authen/login" type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#">Chuyển trang đăng nhập?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- End #main -->
+
+<div class="modal fade" id="summarymodal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="fa fa-pencil"></i> &nbsp;Chỉnh sửa thông tin tổng hợp</h4>
+                <button type="button" id="closebtn1" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post"  action="/user/update-product/{{pro.parent}}" >
+            <div class="modal-body">
+                <ul class="list modal-dialog modal-content">
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text " id="basic-addon1">Mã sản phẩm:</span>
+                            <input type="text" name="proID" readonly value="{{pro.proid}}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Địa chỉ:</span>
+                            <select name="ward" class="c-select form-control boxed" >
+                                {{#each listWard}}
+                                    {{#if this.check}}
+                                        <option selected>{{this.ward}}</option>
+                                    {{else}}
+                                        <option >{{this.ward}}</option>
+                                    {{/if}}
+                                {{/each}}
+                            </select>
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Loại:</span>
+                            <select name="category"class="c-select form-control boxed">
+                                {{#each listCategory}}
+                                    {{#if this.check}}
+                                        <option selected value="{{this.id}}">{{this.name}}</option>
+                                    {{else}}
+                                        <option value="{{this.id}}">{{this.name}}</option>
+                                    {{/if}}
+                                {{/each}}
+                            </select>
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Trạng thái:</span>
+                            <select  name="quantity"class="c-select form-control boxed" id="quantity">
+                                {{#if (check pro.quantity)}}
+                                    <option selected value="0">Đã bán</option>
+                                    <option value="1">Đang bán</option>
+                                {{else}}
+                                    <option value="0">Đã bán</option>
+                                    <option selected value="1">Đang bán</option>
+                                {{/if}}
+                            </select>
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Diện tích:</span>
+                            <input name="acreage" type="text" value="{{pro.acreage}}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Phòng ngủ:</span>
+                            <input type="text" name="bedroom" value="{{pro.bedroom}}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Phòng tắm:</span>
+                            <input type="text" name="bathroom" value="{{pro.bathroom}}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+             <div class="modal-footer">
+                 <button id="no" class="btn btn-danger">Quay lại</button>
+                 <button class="btn btn-success">Lưu </button>
+             </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+<div class="modal fade" id="imagemodal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="fa fa-pencil"></i> &nbsp;Chỉnh sửa hình ảnh</h4>
+                <button type="button" id="closebtn" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <div class="form-group row">
+                    <label class="control-label">Select File</label>
+                    <input id="image" name="image" type="file" >
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelUploadImage" class="btn btn-danger">Quay lại</button>
+                <button class="btn btn-success" id="saveImage">Lưu </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="tinymodal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="fa fa-pencil"></i> &nbsp;Chỉnh sửa thông tin</h4>
+                <button type="button" id="closebtn" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="/user/update-product">
+            <div class="modal-body" >
+                <textarea id="mytextarea"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="no" class="btn btn-danger">No</button>
+                <button class="btn btn-success">Lưu </button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+

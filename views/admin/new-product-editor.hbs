@@ -238,7 +238,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            <i class="fa fa-warning"></i> Xác nhận cập nhật sản phẩm</h4>
+                            <i class="fa fa-pencil"></i>  &nbsp; Xác nhận cập nhật sản phẩm</h4>
                         <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -266,6 +266,32 @@
         <div class="color-secondary"></div>
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="success-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="fa fa-check"></i> &nbsp;Thông tin sản phẩm</h4>
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Đã cập nhật sản phẩm thành công !!</p>
+            </div>
+           <!-- <div class="modal-footer">
+                <button type="button" id="submitUpdate" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                <button type="button" id="no" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>-->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 {{#section 'cssAdmin'}}
     <!--<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />-->
 {{/section}}
@@ -276,6 +302,7 @@
     <script>
         $('#no').click(function (){
             $('#confirm-modal').modal('hide');
+
         })
         $('#close').click(function (){
             $('#confirm-modal').modal('hide');
@@ -283,13 +310,22 @@
         $('#submitbtn22').click(function (){
             $('#confirm-modal').modal('show');
         });
+        function myGreeting(){
+            location.reload();
+        }
         $('#submitUpdate').click(function (){
             var des=$('#des').html().replace('contenteditable="true"',"contenteditable=false");
             $.post("/admin/san-pham/du-an/sua-san-pham/{{list.proid}}",{title:$('#title').val(),des:des,ward:$("#ward option:selected").val(),check:true},function (data,status){
                 if(data){
                     $('#confirm-modal').modal('hide');
-                    /*console.log(data.update)*/
-                  /*  location.reload();*/
+                    $('#success-modal').modal('show');
+                    $('#success-modal').click(function (e) {
+                        $('#success-modal').modal('toggle');
+                        location.reload();
+                    });
+                    const myTimeout = setTimeout(myGreeting, 5000);
+                 /*   console.log(data.update)
+                    location.reload();*/
                 }
             });
         })

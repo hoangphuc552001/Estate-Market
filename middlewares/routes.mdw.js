@@ -23,7 +23,7 @@ export default function (app) {
     app.use("/user",userRoute)
     app.use("/auth",oauthentication)
     app.use("/api/v1",api)
-    app.use("/admin",adminRoute)
+    app.use("/admin",adminRoute);
     app.use(function (req, res,next) {
         res.render("error/404", { layout: false });
     });
