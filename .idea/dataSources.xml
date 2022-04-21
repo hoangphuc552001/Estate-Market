@@ -8,13 +8,6 @@
       <jdbc-url>jdbc:mysql://us-cdbr-east-05.cleardb.net:3306/heroku_59394531068dea2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="realstate@127.0.0.2 [2]" uuid="d3bb3fa2-e988-4ae5-a32b-40364307b4f1">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.2:3307/realstate</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="@localhost" uuid="cdf5b734-d6aa-4285-abf5-b4e4804d92d1">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
