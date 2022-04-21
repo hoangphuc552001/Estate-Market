@@ -148,4 +148,10 @@ export default {
         const check= await db('estate').where('estate.id',id).del();
         return check;
     },
+    findProDuctOwnedByUser(userid){
+        return db("estate").where("seller",userid)
+    },
+    findProDuctOwnedByUserByTop(userid,limit_,offset_){
+        return db("estate").where("seller",userid).limit(limit_).offset(offset_)
+    }
 }

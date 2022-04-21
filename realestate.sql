@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS realstate/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
-USE `realstate`;
+CREATE DATABASE  IF NOT EXISTS testrealestate/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
+USE `testrealestate`;
 DROP TABLE IF EXISTS `categoryparent`;
 create table categoryparent
 (
@@ -8,10 +8,10 @@ create table categoryparent
     name    varchar(50) charset utf8 not null,
     calling varchar(50) charset utf8 null
 );
-INSERT INTO categoryparent (id, name) VALUES (1, 'Nhà đất bán','nha-dat-ban');
-INSERT INTO categoryparent (id, name) VALUES (2, 'Nhà đất cho thuê','nha-dat-cho-thue');
-INSERT INTO categoryparent (id, name) VALUES (3, 'Dự án','du-an');
-INSERT INTO categoryparent (id, name) VALUES (4, 'Tin tức');
+INSERT INTO categoryparent (id, name,calling) VALUES (1, 'Nhà đất bán','nha-dat-ban');
+INSERT INTO categoryparent (id, name,calling) VALUES (2, 'Nhà đất cho thuê','nha-dat-cho-thue');
+INSERT INTO categoryparent (id, name,calling) VALUES (3, 'Dự án','du-an');
+INSERT INTO categoryparent (id, name,calling) VALUES (4, 'Tin tức','tin-tuc');
 
 
 DROP TABLE IF EXISTS `category`;
@@ -596,12 +596,49 @@ create table user
     email       varchar(100) charset utf8 null,
     password    longtext                  null,
     permissions int                       null,
+    birthday date,
+    address varchar(50) charset utf8 null,
+    phone varchar(12),
+
     constraint user_id_uindex
         unique (id)
 );
 
 
-INSERT INTO user (id, name, email, password, permissions) VALUES (2, 'Phuc Le', 'hoangphuc552001@gmail.com', '$2a$10$gb9x9D9ef4toTRg2F0lqSeoH53ZcanAGBSyjf/NF8VArSi4Z6IPfe', 0);
-INSERT INTO user (id, name, email, password, permissions) VALUES (3, 'Phuc Le', '19127059@student.hcmus.edu.vn', '$2a$10$4BVD.eVj8cAKXiig2LfOOeFSirIjJdBG33P7bGN0xq5n3u2LD0KP6', 0);
-INSERT INTO user (id, name, email, password, permissions) VALUES (4, '19127059-Lê Hoàng Phúc', 'hoangp1huc552001@gmail.com', '$2a$10$OYDS0UamCwIUs34HXclA1.lahaDoVX5HKO9w9UesTb01fm70aswWm', 0);
-INSERT INTO user (id, name, email, password, permissions) VALUES (5, 'GPT', '123@gmail.com', '$2a$10$svGqKd7sxxjTB68CY0BZs.9cV36eNhOyAEt8h.aKya2y9xpdDL18a', 0);
+INSERT INTO user (id, name, email, password, permissions,birthday,address,phone) VALUES (2, 'Phuc Le', 'hoangphuc552001@gmail.com', '$2a$10$gb9x9D9ef4toTRg2F0lqSeoH53ZcanAGBSyjf/NF8VArSi4Z6IPfe', 0,'2022-04-13','My Tho','09123413413');
+INSERT INTO user (id, name, email, password, permissions,birthday,address,phone) VALUES (3, 'Phuc Le', '19127059@student.hcmus.edu.vn', '$2a$10$4BVD.eVj8cAKXiig2LfOOeFSirIjJdBG33P7bGN0xq5n3u2LD0KP6', 0,'2022-04-13','My Tho','09123413413');
+INSERT INTO user (id, name, email, password, permissions,birthday,address,phone) VALUES (4, '19127059-Lê Hoàng Phúc', 'hoangp1huc552001@gmail.com', '$2a$10$OYDS0UamCwIUs34HXclA1.lahaDoVX5HKO9w9UesTb01fm70aswWm', 0,'2022-04-13','My Tho','09123413413');
+INSERT INTO user (id, name, email, password, permissions,birthday,address,phone) VALUES (5, 'GPT', '123@gmail.com', '$2a$10$svGqKd7sxxjTB68CY0BZs.9cV36eNhOyAEt8h.aKya2y9xpdDL18a', 0,'2022-04-13','My Tho','09123413413');
+create table contact
+(
+    id             int auto_increment
+        primary key,
+    proid          int                      null,
+    sellerid       int                      null,
+    contactname    varchar(50) charset utf8 null,
+    contactemail   varchar(50) charset utf8 null,
+    contactcontent text                     null,
+    timeSend       datetime                 null,
+    constraint contact_id_uindex
+        unique (id),
+    constraint contact_estate_id_fk
+        foreign key (proid) references estate (id),
+    constraint contact_user_id_fk
+        foreign key (sellerid) references user (id)
+);
+create table comments
+(
+    id      int auto_increment
+        primary key,
+    userid  int      null,
+    content longtext null,
+    timecmt datetime null,
+    proid   int      null,
+    constraint comments_id_uindex
+        unique (id),
+    constraint comments_estate_id_fk
+        foreign key (proid) references estate (id),
+    constraint comments_user_id_fk
+        foreign key (userid) references user (id)
+);
+

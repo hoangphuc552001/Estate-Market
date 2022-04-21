@@ -1,6 +1,7 @@
 import express from "express";
 import estateModel from '../models/estate.models.js'
 import categoryModel from '../models/category.models.js'
+import commentModel from "../models/comment.model.js";
 const router=express.Router();
 
 router.get('/',async function (req,res){
@@ -38,6 +39,7 @@ router.get('/:estateID/:detailID',async function (req,res){
     const listProjectPro=await  estateModel.findProByCatParentID(3)
     const listNewPro=await  estateModel.findProByCatParentID(4)
     const userOwned=await estateModel.findUserByProductOwned(req.params.detailID||0)
+    const comment=await commentModel.findAllCommentWithUser(req.params.detailID)
     listRelatedPro.forEach(i=>{
         i.parentID=2;
     })
@@ -46,7 +48,8 @@ router.get('/:estateID/:detailID',async function (req,res){
         listRelatedPro,
         listProjectPro,
         listNewPro,
-        userInfor:userOwned[0]
+        userInfor:userOwned[0],
+        comment
     })
 });
 export default router;
