@@ -3,6 +3,7 @@ import estateModel from '../models/estate.models.js'
 import categoryModel from '../models/category.models.js'
 import nodemailer from 'nodemailer'
 import commentModel from "../models/comment.model.js";
+import ratingModel from "../models/rating.model.js";
 const router=express.Router();
 
 router.get('/',async function (req,res){
@@ -43,6 +44,12 @@ router.get('/:estateID/:detailID',async function (req,res){
     listRelatedPro.forEach(i=>{
         i.parentID=1;
     })
+    if (res.locals.user){
+        var rating=await ratingModel.findRatingUser(res.locals.user.id,pro[0].proid)
+        if (rating.length>0){
+            var ratingscore=rating[0].ratingscore
+        }
+    }
     const comment=await commentModel.findAllCommentWithUser(req.params.detailID)
     res.render('product/prop-single',{
         pro:pro[0],
@@ -50,7 +57,8 @@ router.get('/:estateID/:detailID',async function (req,res){
         listProjectPro,
         listNewPro,
         userInfor:userOwned[0],
-        comment
+        comment,
+        ratingscore
     })
 });
 

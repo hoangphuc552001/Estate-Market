@@ -641,4 +641,11 @@ create table comments
     constraint comments_user_id_fk
         foreign key (userid) references user (id)
 );
-
+DELIMITER $$
+create procedure insertTableRating(IN userrate_ int(11),IN ratingscore_ int(11),IN idinsert_ int(11),IN type_ int(11))
+BEGIN
+    declare id_ INT DEFAULT 0;
+    insert into rating(id,ratingscore,userrate,type) values(idinsert_,ratingscore_,userrate_,type_);
+    insert into ratingestate(id) values (idinsert_);
+END $$
+DELIMITER ;

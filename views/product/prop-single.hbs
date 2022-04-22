@@ -1,35 +1,38 @@
 {{#section 'css'}}
     <link rel="stylesheet" href="/public/assets/modal/successfully.css">
+    <link rel="stylesheet" href="/public/assets/css/rating.css">
 {{/section}}
 {{#section 'js'}}
     <script>
         function approveSending(e) {
-            const name=document.getElementById("inputName").value
-            const email=document.getElementById("inputEmail").value
-            const message=document.getElementById("textMessage").value
-            const title=document.getElementById("proTitle").textContent
-            const price=document.getElementById("proPrice").textContent
-            const ward=document.getElementById("proWard").textContent
-            const id=document.getElementById("proID").textContent
-            const type=document.getElementById("proName").textContent
-            const state=document.getElementById("proSta").textContent
-            const acreage=document.getElementById("proAcreage").textContent
-            const bed=document.getElementById("proBed").textContent
-            const bath=document.getElementById("proBath").textContent
-            const seller=document.getElementById("proSeller").textContent
+            const name = document.getElementById("inputName").value
+            const email = document.getElementById("inputEmail").value
+            const message = document.getElementById("textMessage").value
+            const title = document.getElementById("proTitle").textContent
+            const price = document.getElementById("proPrice").textContent
+            const ward = document.getElementById("proWard").textContent
+            const id = document.getElementById("proID").textContent
+            const type = document.getElementById("proName").textContent
+            const state = document.getElementById("proSta").textContent
+            const acreage = document.getElementById("proAcreage").textContent
+            const bed = document.getElementById("proBed").textContent
+            const bath = document.getElementById("proBath").textContent
+            const seller = document.getElementById("proSeller").textContent
             $.ajax({
                 async: false,
                 type: "POST",
                 url: "/mailer",
-                data: {name,email,message,title,price,ward,
-                id,type,state,acreage,bed,bath,seller},
+                data: {
+                    name, email, message, title, price, ward,
+                    id, type, state, acreage, bed, bath, seller
+                },
                 contentType: 'application/x-www-form-urlencoded',
                 dataType: 'html',
                 success: function (data) {
                     $("#ignismyModal").modal('show');
-                    document.getElementById("inputName").value=""
-                    document.getElementById("inputEmail").value=""
-                    document.getElementById("textMessage").value=""
+                    document.getElementById("inputName").value = ""
+                    document.getElementById("inputEmail").value = ""
+                    document.getElementById("textMessage").value = ""
                 },
                 err: function (xhr, ajaxOptions, thrownError) {
                     alert("Lỗi")
@@ -38,34 +41,36 @@
         }
     </script>
     <script>
-        $("#sendMsg").click(function (){
+        $("#sendMsg").click(function () {
             $("#fulfill").modal("hide")
-            const name=document.getElementById("inputNameUser").value
-            const email=document.getElementById("inputEmailUser").value
-            const message=document.getElementById("message-text").value
-            const title=document.getElementById("proTitle").textContent
-            const price=document.getElementById("proPrice").textContent
-            const ward=document.getElementById("proWard").textContent
-            const id=document.getElementById("proID").textContent
-            const type=document.getElementById("proName").textContent
-            const state=document.getElementById("proSta").textContent
-            const acreage=document.getElementById("proAcreage").textContent
-            const bed=document.getElementById("proBed").textContent
-            const bath=document.getElementById("proBath").textContent
-            const seller=document.getElementById("proSeller").textContent
+            const name = document.getElementById("inputNameUser").value
+            const email = document.getElementById("inputEmailUser").value
+            const message = document.getElementById("message-text").value
+            const title = document.getElementById("proTitle").textContent
+            const price = document.getElementById("proPrice").textContent
+            const ward = document.getElementById("proWard").textContent
+            const id = document.getElementById("proID").textContent
+            const type = document.getElementById("proName").textContent
+            const state = document.getElementById("proSta").textContent
+            const acreage = document.getElementById("proAcreage").textContent
+            const bed = document.getElementById("proBed").textContent
+            const bath = document.getElementById("proBath").textContent
+            const seller = document.getElementById("proSeller").textContent
             $.ajax({
                 async: false,
                 type: "POST",
                 url: "/mailer",
-                data: {name,email,message,title,price,ward,
-                    id,type,state,acreage,bed,bath,seller},
+                data: {
+                    name, email, message, title, price, ward,
+                    id, type, state, acreage, bed, bath, seller
+                },
                 contentType: 'application/x-www-form-urlencoded',
                 dataType: 'html',
                 success: function (data) {
                     $("#ignismyModal").modal('show');
-                    document.getElementById("inputName").value=""
-                    document.getElementById("inputEmail").value=""
-                    document.getElementById("textMessage").value=""
+                    document.getElementById("inputName").value = ""
+                    document.getElementById("inputEmail").value = ""
+                    document.getElementById("textMessage").value = ""
                 },
                 err: function (xhr, ajaxOptions, thrownError) {
                     alert("Lỗi")
@@ -74,38 +79,108 @@
         })
     </script>
     <script>
-        $("#cmtBtn").on("click",function (){
-            if (document.getElementById("inputNameUser")!=null && document.getElementById("inputEmailUser")!=null){
-                const name=document.getElementById("inputNameUser").value
-                const email=document.getElementById("inputEmailUser").value
-                const message=document.getElementById("textMessageCmt").value
-                const id=document.getElementById("proID").textContent
+        $("#cmtBtn").on("click", function () {
+            if (document.getElementById("inputNameUser") != null && document.getElementById("inputEmailUser") != null) {
+                const name = document.getElementById("inputNameUser").value
+                const email = document.getElementById("inputEmailUser").value
+                const message = document.getElementById("textMessageCmt").value
+                const id = document.getElementById("proID").textContent
                 $.ajax({
                     async: false,
                     type: "POST",
                     url: "/comment",
-                    data: {name,email,message,id},
+                    data: {name, email, message, id},
                     contentType: 'application/x-www-form-urlencoded',
                     dataType: 'html',
                     success: function (data) {
-                        document.getElementById("textMessageCmt").value=""
+                        document.getElementById("textMessageCmt").value = ""
                         $("#list-comments").replaceWith(data)
                     },
                     err: function (xhr, ajaxOptions, thrownError) {
                         alert("Lỗi")
                     }
                 })
-            }else{
+            } else {
                 $("#modalLogin").modal("show")
             }
 
         })
+    </script>
+    <script>
+        $("input[class^='star'][type='radio']").on("click", function () {
+            {{#if ratingscore}}
+            {
+                const id = "star-" + "{{ratingscore}}"
+                document.getElementById(id).checked = "true"
+                $("#toast_n").toast("show")
+            }
+            {{else}}
+                if (document.getElementById("custId").value!=0){
+                    const id = "star-" + document.getElementById("custId").value
+                    document.getElementById(id).checked = "true"
+                    $("#toast_n").toast("show")
+                }else{
+                    const value = $("input[class^='star'][type='radio']:checked").val()
+                    const id = document.getElementById("proID").textContent
+                    const email = document.getElementById("inputEmailUser").value
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: "/rating",
+                        data: {value, id, email},
+                        contentType: 'application/x-www-form-urlencoded',
+                        dataType: 'html',
+                        success: function (data) {
+                            const id = "star-" + data
+                            document.getElementById(id).checked = "true"
+                            document.getElementById("custId").value=data
+                            $("#toast_s").toast("show")
+                        },
+                        err: function (xhr, ajaxOptions, thrownError) {
+                            alert("Lỗi")
+                        }
+                    })
+                }
+
+            {{/if}}
+        })
+    </script>
+    <script>
+        {{#if ratingscore}}
+        function checkedRadio() {
+            const id = "star-" + "{{ratingscore}}"
+            document.getElementById(id).checked = "true"
+        }
+        checkedRadio()
+        {{/if}}
     </script>
 {{/section}}
 <main id="main">
     {{#with pro as | pro |}}
         <!-- ======= Intro Single ======= -->
         <section class="intro-single">
+            <div aria-live="polite" aria-atomic="true" style="position: relative">
+                <div class="toast" id="toast_s" style="position: absolute; top: 50px; right: 0;">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Thông báo</strong>
+                    </div>
+                    <div class="toast-body">
+                        <i class="fa fa-check-circle" style="color: green" aria-hidden="true"></i>
+                        Bạn vừa đánh giá thành công
+                    </div>
+                </div>
+            </div>
+            <div aria-live="polite" aria-atomic="true" style="position: relative">
+                <div class="toast" id="toast_n" style="position: absolute; top: 50px; right: 0;">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Thông báo</strong>
+                    </div>
+                    <div class="toast-body">
+                        <i class="fa fa-ban" style="color: red" aria-hidden="true"></i>
+                        Bạn đã đánh giá rồi
+                    </div>
+                </div>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-lg-8">
@@ -113,6 +188,30 @@
                             <h1 class="title-single" id="proTitle">{{pro.title}}</h1>
                             <span class="color-text-a">{{pro.ward}}</span>
                         </div>
+                        {{#if ../user}}
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="stars" id="stars_space">
+                                            <form action="">
+                                                <input value="4" class="star star-4 disabled" id="star-4" type="radio"
+                                                       name="star"/>
+                                                <label class="star star-4" id="start-4_" for="star-4"></label>
+                                                <input value="3" class="star star-3" id="star-3" type="radio"
+                                                       name="star"/>
+                                                <label class="star star-3" id="start-3_" for="star-3"></label>
+                                                <input value="2" class="star star-2" id="star-2" type="radio"
+                                                       name="star"/>
+                                                <label class="star star-2" id="start-2_" for="star-2"></label>
+                                                <input value="1" class="star star-1" id="star-1" type="radio"
+                                                       name="star"/>
+                                                <label class="star star-1" id="start-1_" for="star-1"></label>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
                     </div>
                     <div class="col-md-12 col-lg-4">
                         <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
@@ -129,6 +228,7 @@
                             </ol>
                         </nav>
                     </div>
+
                 </div>
             </div>
         </section><!-- End Intro Single-->
@@ -249,12 +349,8 @@
                     <div class="col-md-10 offset-md-1">
                         <ul class="nav nav-pills-a nav-pills mb-3 section-t3" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active"
-                                   role="tab" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map"
-                                   aria-controls="pills-map" aria-selected="false">Xem trên bản đồ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-plans-tab" data-bs-toggle="pill" href="#pills-plans"
+                                <a class="nav-link active" id="pills-plans-tab" data-bs-toggle="pill"
+                                   href="#pills-plans"
                                    role="tab" aria-controls="pills-plans" aria-selected="false">Bất động sản liên
                                     quan</a>
                             </li>
@@ -266,13 +362,18 @@
                                 <a class="nav-link" id="pills-new-tab" data-bs-toggle="pill" href="#pills-new"
                                    role="tab" aria-controls="pills-new" aria-selected="false">Tin tức</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   role="tab" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map"
+                                   aria-controls="pills-map" aria-selected="false">Xem trên bản đồ</a>
+                            </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-map" role="tabpanel"
+                            <div class="tab-pane fade" id="pills-map" role="tabpanel"
                                  aria-labelledby="pills-map-tab">
                                 <div style="height: 400px;width: 100%" id="map"></div>
                             </div>
-                            <div class="tab-pane fade" id="pills-plans" role="tabpanel"
+                            <div class="tab-pane fade show active" id="pills-plans" role="tabpanel"
                                  aria-labelledby="pills-plans-tab">
                                 <div class="intro intro-carousel swiper position-relative">
                                     <div class="swiper-wrapper ">
@@ -500,7 +601,8 @@
                                                                         data-bs-dismiss="modal">Hủy
                                                                 </button>
                                                                 <button type="button" onclick="approveSending()"
-                                                                        data-bs-dismiss="modal" class="btn btn-primary">Có
+                                                                        data-bs-dismiss="modal" class="btn btn-primary">
+                                                                    Có
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -511,7 +613,8 @@
                                         </div>
                                     </form>
                                     {{#if ../user}}
-                                        <button style="margin-top:10px" type="button" class="btn btn-a" data-bs-toggle="modal"
+                                        <button style="margin-top:10px" type="button" class="btn btn-a"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#fulfill">Kết nối ngay
                                         </button>
                                         <input type="hidden"
@@ -541,7 +644,7 @@
                                             <h4 class="comment-author">{{name}}</h4>
                                             <span>{{time timecmt}}</span>
                                             <p class="comment-description">
-                                              {{content}}
+                                                {{content}}
                                             </p>
                                             <a href="3">Reply</a>
                                         </div>
@@ -558,7 +661,8 @@
                                     <div class="col-md-12 mb-3">
                                         <div class="form-group">
                                             <label for="textMessage">Nhập bình luận</label>
-                                            <textarea id="textMessageCmt" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                            <textarea id="textMessageCmt" class="form-control" placeholder="Comment *"
+                                                      name="message" cols="45" rows="8" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -572,12 +676,13 @@
             </div>
         </section><!-- End Property Single-->
     {{/with}}
-<!--    Modal successfully-->
+    <!--    Modal successfully-->
     <div class="modal fade" id="ignismyModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button style="position: absolute;right: 5px;top:3px" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label=""><span>×</span></button>
+                    <button style="position: absolute;right: 5px;top:3px" type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal" aria-label=""><span>×</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="thank-you-pop">
@@ -590,8 +695,9 @@
             </div>
         </div>
     </div>
-<!--    Modal fulfill form-->
-    <div class="modal fade" id="fulfill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--    Modal fulfill form-->
+    <div class="modal fade" id="fulfill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -612,7 +718,7 @@
             </div>
         </div>
     </div>
-<!--    Modal Login Required-->
+    <!--    Modal Login Required-->
     <!-- Modal HTML -->
     <div id="modalLogin" class="modal fade">
         <div class="modal-dialog modal-login">
@@ -633,5 +739,6 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="custId" name="custId" value="0">
 </main><!-- End #main -->
 
