@@ -206,17 +206,60 @@ export default {
             seller: entity.seller,
             price:entity.price,
             image:"1"
+        }).select('estate.id');
+        return check;
+    },
 
-
+    async ínsertDes(entity) {
+        entity=entity[0];
+        const check2 = await db("detail_des").insert({
+            des: entity.des,
+            detail_description: entity.detaildes,
+            other_detail: entity.otherdes,
+            pro_id:entity.id
         });
-
-        const check2=await db("detail_des").insert({
-            des:entity.des,
-            detail_description:entity.detaildes,
-            other_detail:entity.otherdes
+        return check2;
+    },
+    async insertNewImageInEstate(id,url){
+        const check=await db("estate").where("estate.id",id).update(
+            {
+            image:url
+        })
+        return check
+    },
+    async insertNewImage(id){
+        const check2=await db("img_detail").insert({
+            proid:id,
         });
+        return check2
+    },
 
-        return check,check2;
-    }
+      async updateNewImage(id, url, index) {
+           if(index.includes("1")){
+               console.log(index)
+               const check=await db("img_detail").where('img_detail.proid',id).update({
+                   proid:id,
+                   image1:url
+               });
+               return check
+           }
+           else  if(index.includes("2")){
+               console.log(index)
+               const check=await db("img_detail").where('img_detail.proid',id).update({
+                   proid:id,
+                   image2:url
+               });
+               return check
+           }
+           else   if(index.includes("3")){
+               console.log(index)
+               const check=await db("img_detail").where('img_detail.proid',id).update({
+                   proid:id,
+                   image3:url
+               });
+               return check
+           }
+      },
+
 
 }

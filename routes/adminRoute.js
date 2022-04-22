@@ -35,7 +35,7 @@ router.post("/upload/:id", async (req,res)=>{
     pos=urlImage.lastIndexOf("/");
     const url=urlImage.substring(0,pos) ;/*+ urlImage.substring(pos+1);*/
     const fileName=urlImage.substring(pos+1,urlImage.length);
-
+    const promise=new Promise((resolve,reject)=>{
     const storage = multer.diskStorage({
         destination:async function (req, file, cb) {
             cb(null, '.'+url)
@@ -57,14 +57,19 @@ router.post("/upload/:id", async (req,res)=>{
                     u.check = true;
                 }
             });
-            return res.send({"detail": urlImage});
+            resolve("hello");
           /*  res.render("admin/new-product-editor", {
                 layout: 'layoutAdmin.hbs',
                 list: list[0],
                 listward,
             });*/
         }
-    })
+    });
+    });
+    promise.then(async  function(data){
+        console.log(data);
+        return res.send({"detail": urlImage,"filename":fileName});
+    });
 });
 router.post("/san-pham/:calling/sua-san-pham/:catID",async (req,res)=>{
     if(req.body.check){
@@ -129,7 +134,6 @@ router.get("/san-pham/:calling/:catID",async (req,res)=>{
             }
         )
     }
-
 })
 router.get("/san-pham/:calling/sua-san-pham/:proID",async (req,res)=>{
     const list =await estateModel.findDetailProByID(req.params.proID);
@@ -234,6 +238,15 @@ router.get("/xem-chi-tiet-san-pham/:proID",async (req,res)=>{
         layout: 'layoutAdmin.hbs',
         list:list[0]
     });
+})
+
+router.post("/geturl",async (req,res) =>{
+
+    res.render("admin/perform-image",{
+        layout:false,
+        name:req.body.id,
+        url:req.body.url
+    })
 })
 
 export default router;

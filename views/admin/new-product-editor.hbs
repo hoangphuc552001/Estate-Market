@@ -383,9 +383,56 @@
                 language:'vi',
                 allowedFileExtensions:['jpg'],
             }).on('fileuploaded', function(e, params) {
-                console.log('file uploaded', e, params);
-                console.log(params.response.detail);
-                location.reload();
+                console.log(params.response.filename)
+                if(params.response.filename.includes("1")){
+                    console.log(params.response.detail);
+                    console.log("1");
+                    $.ajax({
+                        async:false,
+                        type:"POST",
+                        url:"/admin/geturl",
+                        data:{url:params.response.detail,id:"image1"},
+                        success:function (data){
+                            $("#image1").replaceWith(data)
+                        },
+                        err:function (xhr,ajaxOptions,thrownError){
+                            alert("Lỗi")
+                        }
+                    })
+                }
+                else if(params.response.filename.includes("2")){
+                    console.log(params.response.detail);
+                    console.log("2");
+                    $.ajax({
+                        async:false,
+                        type:"POST",
+                        url:"/admin/geturl",
+                        data:{url:params.response.detail,id:"image2"},
+                        success:function (data){
+                            $("#image2").replaceWith(data)
+                        },
+                        err:function (xhr,ajaxOptions,thrownError){
+                            alert("Lỗi")
+                        }
+                    })
+                }
+                else if(params.response.filename.includes("3")){
+                    console.log(params.response.detail);
+                    console.log("3");
+                    $.ajax({
+                        async:false,
+                        type:"POST",
+                        url:"/admin/geturl",
+                        data:{url:params.response.detail,id:"image3"},
+                        success:function (data){
+                            $("#image3").replaceWith(data);
+                            console.log(data);
+                        },
+                        err:function (xhr,ajaxOptions,thrownError){
+                            alert("Lỗi")
+                        }
+                    })
+                }
             });
 
     </script>

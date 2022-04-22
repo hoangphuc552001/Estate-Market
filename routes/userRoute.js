@@ -8,6 +8,7 @@ import fs from 'fs'
 import userModel from "../models/user.model.js";
 import estateModels from "../models/estate.models.js";
 import db from "../utils/db.js";
+import {reject} from "bcrypt/promises.js";
 
 const router=express.Router();
 let checkLoggedIn = (req, res, next) => {
@@ -18,7 +19,10 @@ let checkLoggedIn = (req, res, next) => {
 };
 
 var urlImage=0;
-
+router.post("/product/url",(req,res)=>{
+    urlImage="/public/assets/estate/"+req.body.parent+"/"+req.body.category+"/"+req.body.data+"/"+req.body.name;
+    res.send(true);
+});
 router.post("/product/url-image",(req,res)=>{
     urlImage=req.body;
     res.send(true);
@@ -45,49 +49,13 @@ router.post("/update-product/:name/:id",async (req,res)=>{
     res.redirect('/user/product/edit-product/'+req.params.id);
 
 });
-const upload = multer({});
-router.post("/post-product/upload/:id",upload.single('image'),async (req,res)=>{
-    /*let pos;
-    urlImage=urlImage.url.toString();
-    pos=urlImage.lastIndexOf("/");
-    const url=urlImage.substring(0,pos) ;/!*+ urlImage.substring(pos+1);*!/
-    const fileName=urlImage.substring(pos+1,urlImage.length);*/
-    const temp=req.body.initialPreviewConfig;
-    const temp2=JSON.parse(temp);
-    console.log(temp2);
-    /*console.log(req.body.initialPreviewConfig);
-    console.log(req.params.id)*/
-    const storage = multer.diskStorage({
-        destination:async function (req, file, cb) {
-            cb(null, '.'+url)
-        },
-        filename:async function (req, file, cb) {
-           /* const uniqueSuffix = fileName;*/
-            cb(null, uniqueSuffix)
-        }
-    });
-    /*const upload=multer({storage});
-    upload.single('image')(req,res,async function (err) {
-        if (err) {
-        } else {
-            const list = await estateModel.findDetailProByID(req.params.id);
-            const listward = await estateModel.findAllWard();
-            listward.forEach(u => {
-                if (u.ward === list[0].ward) {
-                    u.check = true;
-                }
-            });
-            return res.send({"detail": urlImage});
-        }
-    })*/
-});
+
 router.post("/upload/:id",(req,res)=>{
     let pos;
     urlImage=urlImage.url.toString();
     pos=urlImage.lastIndexOf("/");
     const url=urlImage.substring(0,pos) ;/*+ urlImage.substring(pos+1);*/
     const fileName=urlImage.substring(pos+1,urlImage.length);
-
     const storage = multer.diskStorage({
         destination:async function (req, file, cb) {
             cb(null, '.'+url)
@@ -178,7 +146,6 @@ router.get('/product/post-product',checkLoggedIn,async (req,res)=> {
     if (res.locals.user){
         const listParent=await categoryModels.findAllCategoryParent();
         const listWard=await estateModel.findAllWard();
-
         res.render("user/post-product",{
             listParent,
             listWard
@@ -190,52 +157,121 @@ router.post("/product/post-product",async (req, res) =>{
     if(req.isAuthenticated) {
         const list = req.body;
         list.seller = req.user.id;
-        console.log(list.price)
         const index=list.price.split(",");
         if(index.length===4){
             list.current=index[0]+" tỷ"
         }
-        if(index.length===3){
+        else if(index.length===3){
             list.current=index[0]+" triệu";
+        }
+        else{
+            list.current=index[0]+" nghìn";
         }
         list.price=list.price.replace(" VNĐ","");
         list.price=list.price.replaceAll(",","");
         list.price=parseFloat(list.price);
-        console.log(list);
         const check = await estateModel.insertNewProduct(list);
-        res.redirect("/user/product/post-image/"+list.categoryParent+"/"+list.category);
+        const listDes=[{
+            "des":list.des,
+            "detaildes":list.detaildes,
+            "otherdes":list.otherdes,
+            "id":check[0]
+        }];
+        const checkDes = await estateModel.ínsertDes(listDes);
+        let urlI;
+        let  urlImg="/public/assets/estate/"+list.categoryParent+"/"+list.category+"/";
+        const total=await estateModel.findTotalByID(list.category);
+        const myPromise=new Promise((resolve,reject)=>{
+            for (let i = 1; i < total[0].total; i++) {
+                if (!fs.existsSync('.'+urlImg+i)) {
+                    urlI=urlImg+i;
+                    resolve({i:i,url:urlI});
+
+                }
+            }
+        });
+
+        myPromise.then(async function (data) {
+            console.log(data);
+            fs.mkdirSync("."+data.url,{ recursive: true });
+            console.log(data);
+            const listEstate = await estateModel.insertNewImage(check[0]);
+            return res.render("user/post-image", {
+                id: check[0],
+                parent: list.categoryParent,
+                category: list.category,
+                url: data.i
+            })
+        })
+
     }
 });
-router.get("/select-category-parent/:parent",async (req,res) =>{
 
-    const listCate=await categoryModels.findCategoryByParent(req.params.parent);
-    res.json(listCate);
-});
-router.get('/product/post-image/:parent/:cate',async (req,res)=>{
-    const total=await estateModel.findTotalByID(req.params.cate);
-    console.log(total);
-    console.log('./public/assets/estate/'+req.params.parent+"/"+req.params.cate+"/"+parseInt(total[0].total+1));
-    fs.readdir('./public/assets/estate/'+req.params.parent+"/"+req.params.cate+"/"+parseInt(total[0].total+1),"utf-8",(err,data)=>{
-        console.log(data);
-        if(err){
-            console.log('./public/assets/estate/'+req.params.parent+"/"+req.params.cate+"/"+parseInt(total[0].total+1));
-        }
-        else
-        {
-            console.log(data);
+router.post("/post-product/upload/:id",(req,res)=>{
+    let pos;
+    urlImage=urlImage.toString();
+    pos=urlImage.lastIndexOf("/");
+    const url=urlImage.substring(0,pos) ;/*+ urlImage.substring(pos+1);*/
+    const fileName=urlImage.substring(pos+1,urlImage.length);
+    const storage = multer.diskStorage({
+        destination:async function (req, file, cb) {
+            cb(null, '.'+url)
+        },
+        filename:async function (req, file, cb) {
+            const uniqueSuffix = fileName;
+            cb(null, uniqueSuffix)
         }
     });
-
-    return res.render('user/post-image',{
+    const upload=multer({storage});
+    upload.single('image')(req,res,async function (err) {
+        if (err) {
+        } else {
+            console.log(req.params.id)
+            console.log(fileName)
+            if(fileName.includes("1")){
+                const list=await estateModel.updateNewImage(req.params.id||0,urlImage,"1");
+                const listEstate=await estateModel. insertNewImageInEstate(req.params.id||0,urlImage);
+                return res.send({"detail": urlImage,"position":"1"});
+            }
+            else if(fileName.includes("2")){
+                const list =await estateModel.updateNewImage(req.params.id||0,urlImage,"2");
+                return res.send({"detail": urlImage,"position":"2"});
+            }
+            else if(fileName.includes("3")){
+                const list =await estateModel.updateNewImage(req.params.id||0,urlImage,"3");
+                return res.send({"detail": urlImage,"position":"3"});
+            }
+        }
     })
+});
+
+router.get("/select-category-parent/:parent",async (req,res) =>{
+    const listCate=await categoryModels.findCategoryByParent(req.params.parent);
+    res.json(listCate);
 })
 
+
+router.post("/geturl",async (req,res) =>{
+    res.render("user/perform-image",{
+        layout:false,
+        name:req.body.id,
+        url:req.body.url
+    })
+})
 router.get("/checkprice/:price",async (req,res) =>{
-    console.log(req.params.price);
     const temp=req.params.price;
     if(temp.includes("tỷ")||temp.includes("tỉ")||temp.includes("triệu")){
         return res.json(true);
     }
     return res.json(false);
+});
+
+
+router.get("/check-title/:title",async (req,res) =>{
+    console.log(req.params.title.length)
+    if(req.params.title===""){
+        return res.json("fals3232e");
+    }
+    return res.json("tr323ue");
 });
 export default router;
