@@ -45,7 +45,7 @@ router.post("/rating",async (req,res)=>{
         estateid:parseInt(req.body.id)
     }
     await ratingModel.insert(object.userrate,object.ratingscore,object1.estateid,object.type)
-    res.status(200).send("OK")
+    res.status(200).send(object.ratingscore.toString())
 })
 router.post("/mailer",async (req,res)=>{
     try{

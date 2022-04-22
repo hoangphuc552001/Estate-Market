@@ -115,35 +115,44 @@
                 $("#toast_n").toast("show")
             }
             {{else}}
-                const value = $("input[class^='star'][type='radio']:checked").val()
-                const id = document.getElementById("proID").textContent
-                const email = document.getElementById("inputEmailUser").value
-                $.ajax({
-                    async: false,
-                    type: "POST",
-                    url: "/rating",
-                    data: {value, id, email},
-                    contentType: 'application/x-www-form-urlencoded',
-                    dataType: 'html',
-                    success: function (data) {
-                        $("#toast_s").toast("show")
-                    },
-                    err: function (xhr, ajaxOptions, thrownError) {
-                        alert("Lỗi")
-                    }
-                })
+                if (document.getElementById("custId").value!=0){
+                    const id = "star-" + document.getElementById("custId").value
+                    document.getElementById(id).checked = "true"
+                    $("#toast_n").toast("show")
+                }else{
+                    const value = $("input[class^='star'][type='radio']:checked").val()
+                    const id = document.getElementById("proID").textContent
+                    const email = document.getElementById("inputEmailUser").value
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: "/rating",
+                        data: {value, id, email},
+                        contentType: 'application/x-www-form-urlencoded',
+                        dataType: 'html',
+                        success: function (data) {
+                            const id = "star-" + data
+                            document.getElementById(id).checked = "true"
+                            document.getElementById("custId").value=data
+                            $("#toast_s").toast("show")
+                        },
+                        err: function (xhr, ajaxOptions, thrownError) {
+                            alert("Lỗi")
+                        }
+                    })
+                }
+
             {{/if}}
         })
     </script>
     <script>
-        if ({{ratingscore}}) {
-            function checkedRadio() {
-                const id = "star-" + "{{ratingscore}}"
-                document.getElementById(id).checked = "true"
-            }
-
-            checkedRadio()
+        {{#if ratingscore}}
+        function checkedRadio() {
+            const id = "star-" + "{{ratingscore}}"
+            document.getElementById(id).checked = "true"
         }
+        checkedRadio()
+        {{/if}}
     </script>
 {{/section}}
 <main id="main">
@@ -730,5 +739,6 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="custId" name="custId" value="0">
 </main><!-- End #main -->
 
