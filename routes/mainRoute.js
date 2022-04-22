@@ -3,6 +3,7 @@ import estateModel from "../models/estate.models.js";
 import nodemailer from "nodemailer";
 import userModel from "../models/user.model.js";
 import commentModel from "../models/comment.model.js";
+import ratingModel from "../models/rating.model.js";
 const router=express.Router();
 
 router.get('/',async function (req,res){
@@ -31,6 +32,20 @@ router.post("/comment",async (req,res)=>{
         comment,
         layout:false
     })
+})
+router.post("/rating",async (req,res)=>{
+    const userid=await userModel.findUserByEmail(req.body.email)
+    //type=0:product,type=1:user
+    const object={
+        ratingscore:parseInt(req.body.value),
+        userrate:userid[0].id,
+        type:0
+    }
+    const object1={
+        estateid:parseInt(req.body.id)
+    }
+    await ratingModel.insert(object.userrate,object.ratingscore,object1.estateid,object.type)
+    res.status(200).send("OK")
 })
 router.post("/mailer",async (req,res)=>{
     try{

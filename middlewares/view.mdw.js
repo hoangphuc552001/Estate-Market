@@ -31,6 +31,12 @@ export default function (app) {
             product(index){
                 return index+' Sản phẩm'
             },
+            equals(f,s){
+                return f==s
+            },
+            nequals(f,s){
+                return f!==s
+            }
         },
     }));
     app.set('view engine', 'hbs');
