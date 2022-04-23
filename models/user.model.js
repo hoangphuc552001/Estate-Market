@@ -40,8 +40,16 @@ export default {
             'permissions':0,
         });
         return check;
+    },
+    updateUser(object){
+        return db("user").where("user.email",object.email)
+            .update({
+                name:object.name,
+                phone:object.phone,
+                address:object.address,
+                birthday:object.birthday
+            })
     }
-
 
 
 }

@@ -5,6 +5,7 @@ import categoryModels from "../models/category.models.js";
 import multer from "multer";
 import fs from 'fs'
 import gulp from 'gulp'
+import moment from "moment";
 
 import userModel from "../models/user.model.js";
 import estateModels from "../models/estate.models.js";
@@ -130,6 +131,7 @@ router.get('/profile',checkLoggedIn,async (req,res)=>{
         const user=await userModel.findUserByID(res.locals.user.id)
         const listPro=await estateModels.findProDuctOwnedByUser(res.locals.user.id)
         let pro=await estateModel.findProDuctOwnedByUserByTop(res.locals.user.id,9,0)
+        console.log(user[0])
         res.render('user/profile',{
             userInfor:user[0],
             firstName:res.locals.user.firstName,
@@ -301,5 +303,39 @@ router.post("/product/remove-product",async (req,res)=>{
         const delEstate = await estateModel.removeEstateById(req.body.proid);
         return res.send(true);
     })
+})
+router.post("/updateprofile",async (req,res)=>{
+    const object=req.body
+    const dob = moment(object.birthday, 'DD/MM/YYYY').format('YYYY-MM-DD')
+    object.birthday=dob
+    await userModel.updateUser(object)
+    req.user.name=object.name
+    req.user.address=object.address
+    req.user.phone=object.phone
+    req.user.birthday=object.birthday
+    res.locals.user=req.user
+    var user_ = res.locals.user
+    user_ = user_.name
+    user_ = user_.split(" ")
+    user_ = user_[0]
+    res.locals.user.firstName = user_
+    if (res.locals.user){
+        const user=req.user
+        const listPro=await estateModels.findProDuctOwnedByUser(req.user.id)
+        let pro=await estateModel.findProDuctOwnedByUserByTop(req.user.id,9,0)
+        console.log(pro)
+        res.render('user/profile',{
+            userInfor:user,
+            firstName:res.locals.user.firstName,
+            listPro:pro,
+            currentPage:1,
+            totalOfPages:Math.ceil(listPro.length/9),
+            totalPro:listPro.length,
+            updateSuccess:"Cập nhật thành công"
+        })
+    }else{
+        res.status(500).send("False")
+    }
+
 })
 export default router;
