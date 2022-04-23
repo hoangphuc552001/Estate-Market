@@ -15,7 +15,7 @@ export default function (app){
             connectionLimit: 100,
             host: 'localhost',
             user: 'root',
-            password: '',
+            password: '123456',
             database: 'realestate',
             charset: 'utf8mb4_general_ci',
             schema: {

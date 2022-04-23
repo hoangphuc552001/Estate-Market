@@ -260,6 +260,25 @@ export default {
                return check
            }
       },
+    async removeDetailById(proid){
+        const check=db('detail_des').where('detail_des.pro_id',proid).del();
+        return check;
+    },
+    async removeEstateById(proid){
+        const check=db('estate').where('estate.id',proid).del();
+        return check;
+    },
+
+    async removeImageById(proid){
+        const check=db('img_detail').where('img_detail.proid',proid).del();
+        return check;
+    },
+
+    async findImageById(proid){
+        const check=db('estate').select('estate.image').where('estate.id',proid)
+        return check;
+    },
+
 
 
 }

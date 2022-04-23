@@ -241,7 +241,6 @@ router.get("/xem-chi-tiet-san-pham/:proID",async (req,res)=>{
 })
 
 router.post("/geturl",async (req,res) =>{
-
     res.render("admin/perform-image",{
         layout:false,
         name:req.body.id,

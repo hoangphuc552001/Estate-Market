@@ -141,7 +141,7 @@
                             <div class="images-container">
                                 <div class="image-container">
                                     <div class="controls">
-                                        <a href="#" class="control-btn move">
+                                        <a href="#" idclass="control-btn move">
                                             <i class="fa fa-arrows"></i>
                                         </a>
 
@@ -149,7 +149,7 @@
                                             <i class="fa fa-plus" h></i>
                                         </a>
 
-                                        <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
+                                        <a href="#" id="reload2" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
@@ -167,7 +167,7 @@
                                         </a>
                                         <!--
                         -->
-                                        <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
+                                        <a href="#" id="reload2" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
@@ -181,7 +181,7 @@
                                         <a href="#" class="add-image " id="addImage3" name="{{list.image3}}"data-toggle="modal" data-target="#modal-media">
                                             <i class="fa fa-plus" h></i>
                                         </a>
-                                        <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
+                                        <a href="#" id="reload2" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
@@ -332,6 +332,15 @@
     </script>
     <script>
         $(document).ready(function() {
+            /*$("#reload1").click(function (){
+                $("#step1Content").load('YourUrl');
+            })
+            $("#reload2").click(function (){
+                $("#step1Content").load('YourUrl');
+            })
+            $("#reload3").click(function (){
+                $("#step1Content").load('YourUrl');
+            })*/
             let temp=0;
             $("#addImage1").click(function() {
                 /*$("#modal-medial #selection option[value='file']").attr('selected', 'selected');*/
@@ -393,7 +402,7 @@
                         url:"/admin/geturl",
                         data:{url:params.response.detail,id:"image1"},
                         success:function (data){
-                            $("#image1").replaceWith(data)
+                            $("#image1").replaceWith(data);
                         },
                         err:function (xhr,ajaxOptions,thrownError){
                             alert("Lỗi")
@@ -408,12 +417,13 @@
                         type:"POST",
                         url:"/admin/geturl",
                         data:{url:params.response.detail,id:"image2"},
+
                         success:function (data){
                             $("#image2").replaceWith(data)
                         },
                         err:function (xhr,ajaxOptions,thrownError){
                             alert("Lỗi")
-                        }
+                        },
                     })
                 }
                 else if(params.response.filename.includes("3")){

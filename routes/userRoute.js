@@ -4,11 +4,13 @@ import estateModel from "../models/estate.models.js";
 import categoryModels from "../models/category.models.js";
 import multer from "multer";
 import fs from 'fs'
+import gulp from 'gulp'
 
 import userModel from "../models/user.model.js";
 import estateModels from "../models/estate.models.js";
 import db from "../utils/db.js";
 import {reject} from "bcrypt/promises.js";
+import EstateModels from "../models/estate.models.js";
 
 const router=express.Router();
 let checkLoggedIn = (req, res, next) => {
@@ -182,19 +184,21 @@ router.post("/product/post-product",async (req, res) =>{
         let  urlImg="/public/assets/estate/"+list.categoryParent+"/"+list.category+"/";
         const total=await estateModel.findTotalByID(list.category);
         const myPromise=new Promise((resolve,reject)=>{
-            for (let i = 1; i < total[0].total; i++) {
+            for (let i = 1; i < total[0].total+20; i++) {
                 if (!fs.existsSync('.'+urlImg+i)) {
+
                     urlI=urlImg+i;
                     resolve({i:i,url:urlI});
-
                 }
+                console.log('.'+urlImg+i)
             }
         });
 
         myPromise.then(async function (data) {
             console.log(data);
-            fs.mkdirSync("."+data.url,{ recursive: true });
-            console.log(data);
+            if (!fs.existsSync("."+data.url)) {
+                fs.mkdirSync("." + data.url, {recursive: true});
+            }
             const listEstate = await estateModel.insertNewImage(check[0]);
             return res.render("user/post-image", {
                 id: check[0],
@@ -274,4 +278,28 @@ router.get("/check-title/:title",async (req,res) =>{
     }
     return res.json("tr323ue");
 });
+
+router.post("/product/remove-product",async (req,res)=>{
+    console.log(req.body);
+    const myPromise=new Promise(async (resolve, reject) => {
+        const delImg = await estateModel.removeImageById(req.body.proid)
+        const delDetail = await estateModel.removeDetailById(req.body.proid);
+        let pos;
+        const urlImage = await estateModel.findImageById(req.body.proid);
+        let urlImageTemp=urlImage[0].image;
+        urlImageTemp= urlImageTemp.toString();
+        pos=urlImageTemp.lastIndexOf("/");
+        const url=urlImageTemp.substring(0,pos);/*+ urlImage.substring(pos+1);*/
+        resolve(url);
+    });
+    myPromise.then(async function (data) {
+        console.log("."+data);
+        if (fs.existsSync("."+data)) {
+            fs.rmdirSync("."+data,{ recursive: true });
+            console.log("done");
+        }
+        const delEstate = await estateModel.removeEstateById(req.body.proid);
+        return res.send(true);
+    })
+})
 export default router;
