@@ -19,7 +19,14 @@ let checkLoggedIn = (req, res, next) => {
     }
     next();
 };
-
+let checkIsLockAccount = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        if(req.user.permissions===-1){
+            return res.render("user/block-account");
+        }
+    }
+    next();
+};
 var urlImage=0;
 router.post("/product/url",(req,res)=>{
     urlImage="/public/assets/estate/"+req.body.parent+"/"+req.body.category+"/"+req.body.data+"/"+req.body.name;
@@ -84,7 +91,7 @@ router.post("/upload/:id",(req,res)=>{
 });
 
 
-router.get('/product',async (req,res)=>{
+router.get('/product',checkIsLockAccount,async (req,res)=>{
     if(req.isAuthenticated()){
         const list=await profileModel.findProfileByID(req.user.id);
         const total=await profileModel.totalProductByID(req.user.id);
@@ -99,7 +106,7 @@ router.get('/product',async (req,res)=>{
 
 
 
-router.get('/product/edit-product/:proid',async (req,res)=>{
+router.get('/product/edit-product/:proid',checkIsLockAccount,async (req,res)=>{
     if(req.isAuthenticated()){
         const list = await estateModel.findDetailProByID(req.params.proid);
         const listWard = await estateModel.findAllWard();
@@ -125,7 +132,7 @@ router.get('/product/edit-product/:proid',async (req,res)=>{
     }
     return res.redirect("/");
 })
-router.get('/profile',checkLoggedIn,async (req,res)=>{
+router.get('/profile',checkLoggedIn,checkIsLockAccount,async (req,res)=>{
     if (res.locals.user){
         const user=await userModel.findUserByID(res.locals.user.id)
         const listPro=await estateModels.findProDuctOwnedByUser(res.locals.user.id)
@@ -144,7 +151,7 @@ router.get('/profile',checkLoggedIn,async (req,res)=>{
 })
 
 
-router.get('/product/post-product',checkLoggedIn,async (req,res)=> {
+router.get('/product/post-product',checkLoggedIn,checkIsLockAccount,async (req,res)=> {
     if (res.locals.user){
         const listParent=await categoryModels.findAllCategoryParent();
         const listWard=await estateModel.findAllWard();
@@ -249,7 +256,7 @@ router.post("/post-product/upload/:id",(req,res)=>{
     })
 });
 
-router.get("/select-category-parent/:parent",async (req,res) =>{
+router.get("/select-category-parent/:parent",checkIsLockAccount,async (req,res) =>{
     const listCate=await categoryModels.findCategoryByParent(req.params.parent);
     res.json(listCate);
 })
@@ -262,14 +269,14 @@ router.post("/geturl",async (req,res) =>{
         url:req.body.url
     })
 })
-router.get("/checkprice/:price",async (req,res) =>{
+router.get("/checkprice/:price",checkIsLockAccount,async (req,res) =>{
     const temp=req.params.price;
     if(temp.includes("tỷ")||temp.includes("tỉ")||temp.includes("triệu")){
         return res.json(true);
     }
     return res.json(false);
 });
-router.get("/check-title/:title",async (req,res) =>{
+router.get("/check-title/:title",checkIsLockAccount,async (req,res) =>{
     console.log(req.params.title.length)
     if(req.params.title===""){
         return res.json("fals3232e");

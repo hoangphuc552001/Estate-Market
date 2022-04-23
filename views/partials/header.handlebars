@@ -194,6 +194,9 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item " href="/user/profile">Profile</a>
                             <a class="dropdown-item "  href="/user/product">Product</a>
+                            {{#if (checkAdmin user.permissions)}}
+                                <a class="dropdown-item " href="/admin">Di chuyển về admin</a>
+                            {{/if}}
                             <form method="POST" action="/authen/logout">
                                 <button class="dropdown-item ">Log out</button>
                             </form>

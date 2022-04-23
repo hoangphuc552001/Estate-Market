@@ -25,6 +25,12 @@ export default function (app) {
             check(index){
                 return index===0
             },
+            checkExist(index){
+                return index!==-1
+            },
+            checkAdmin(index){
+                return index===1
+            },
             checkTrue(index){
                 return index===true
             },

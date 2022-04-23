@@ -12,6 +12,7 @@ import api from "../routes/api.js"
 import adminRoute from "../routes/adminRoute.js";
 import mainRoute from "../routes/mainRoute.js";
 export default function (app) {
+
     app.use('/',mainRoute)
     app.use("/nha-dat-ban",muabanRoute)
     app.use("/tim-kiem",timkiemRoute)
@@ -24,6 +25,7 @@ export default function (app) {
     app.use("/auth",oauthentication)
     app.use("/api/v1",api)
     app.use("/admin",adminRoute);
+
     app.use(function (req, res,next) {
         res.render("error/404", { layout: false });
     });

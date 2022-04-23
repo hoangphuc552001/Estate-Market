@@ -15,10 +15,14 @@ let checkLoggedIn = (req, res, next) => {
 
 let checkLoggedOut = (req, res, next) => {
     if (req.isAuthenticated()) {
+        console.log(req.user);
         return res.redirect("/");
     }
     next();
 };
+
+
+
 
 let postLogOut = (req, res,next) => {
     if (req.session) {

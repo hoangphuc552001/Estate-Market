@@ -18,13 +18,17 @@ import {reject} from "bcrypt/promises.js";
 const router=express.Router();
 
 
-var urlImage=0;
-router.get("/test",(req,res)=>{
-    res.render('admin/test_editor',{
-            layout:'layoutAdmin.hbs'
+let checkIsAdmin = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        console.log(req.user)
+        if(req.user.permissions!==1){
+            return res.redirect("/");
         }
-    )
-});
+    }
+    next();
+};
+
+var urlImage=0;
 router.post("/url-image",(req,res)=>{
 
     urlImage=req.body;
@@ -79,7 +83,7 @@ router.post("/san-pham/:calling/sua-san-pham/:catID",async (req,res)=>{
     }
 });
 let categoryid=0;
-router.get("/",(req,res)=>{
+router.get("/",checkIsAdmin,(req,res)=>{
     res.render('admin/home',{
         layout:'layoutAdmin.hbs'
         }
@@ -93,7 +97,7 @@ router.post("/quan-li-tai-khoan/khoa-tai-khoan/:ID",async (req,res)=>{
     const lockEmail = await userModel.blockEmailByID(req.params.ID);
     res.redirect("/admin/quan-li-tai-khoan?check=0")
 });
-router.get("/quan-li-tai-khoan",async (req,res)=>{
+router.get("/quan-li-tai-khoan",checkIsAdmin ,async (req,res)=>{
     const listEmail= await userModel.findAllAccount();
     const totalEmail= await userModel.findTotalEmail().then(async (u)=>{
         return res.render('admin/account_management',{
@@ -104,7 +108,7 @@ router.get("/quan-li-tai-khoan",async (req,res)=>{
     })
 
 })
-router.get("/san-pham/:calling/:catID",async (req,res)=>{
+router.get("/san-pham/:calling/:catID",checkIsAdmin ,async (req,res)=>{
     if((req.params.calling!=="du-an")&&(req.params.calling!="tin-tuc")) {
         const catID = req.params.catID || 0
         const nameCategory = await categoryModels.findCatByID(catID);
@@ -148,7 +152,7 @@ router.get("/san-pham/:calling/:catID",async (req,res)=>{
         )
     }
 })
-router.get("/san-pham/:calling/sua-san-pham/:proID",async (req,res)=>{
+router.get("/san-pham/:calling/sua-san-pham/:proID",checkIsAdmin ,async (req,res)=>{
     const list =await estateModel.findDetailProByID(req.params.proID);
     const listward= await estateModel.findAllWard();
     listward.forEach(u=>{
@@ -169,7 +173,7 @@ router.get("/san-pham/:calling/sua-san-pham/:proID",async (req,res)=>{
 
 
 
-router.get("/danh-muc/:calling/:catID", async (req,res)=>{
+router.get("/danh-muc/:calling/:catID", checkIsAdmin ,async (req,res)=>{
     const listCategory = await categoryModels.findCategoryByParent(req.params.catID || 0);
         const totalCategory = await categoryModels.findTotalCategoryByParent(req.params.catID || 0);
         for (const u of listCategory) {
@@ -205,7 +209,7 @@ router.post("/danh-muc/:calling/sua-danh-muc",async (req,res)=>{
 
 
 
-router.get("/danh-muc/:calling/them-danh-muc/:catID", async (req,res)=> {
+router.get("/danh-muc/:calling/them-danh-muc/:catID", checkIsAdmin ,async (req,res)=> {
         const listCategory = await categoryModels.findCategoryByParent(req.params.catID || 0);
         res.render('admin/category-add', {
                 layout: 'layoutAdmin.hbs',
@@ -215,7 +219,7 @@ router.get("/danh-muc/:calling/them-danh-muc/:catID", async (req,res)=> {
         )
 })
 
-router.get("/danh-muc/:calling/sua-danh-muc/:parentID/:catID", async (req,res)=> {
+router.get("/danh-muc/:calling/sua-danh-muc/:parentID/:catID", checkIsAdmin ,async (req,res)=> {
         const parentID = req.params.parentID || 0;
         const catID=req.params.catID||0;
         const list = await categoryModels.findAllCategoryParent();
@@ -235,7 +239,7 @@ router.get("/danh-muc/:calling/sua-danh-muc/:parentID/:catID", async (req,res)=>
             calling:req.params.calling
         })
 })
-router.get("/danh-muc/:calling/them-danh-muc/:catID/:catName", async (req,res)=>{
+router.get("/danh-muc/:calling/them-danh-muc/:catID/:catName", checkIsAdmin ,async (req,res)=>{
     const catName=req.params.catName||0;
     const check=await categoryModels.searchCategoryByNameAndParentID(catName,req.params.catID)
     res.json(!!check);
@@ -246,7 +250,7 @@ router.post("/danh-muc/:calling/them-danh-muc/:catID",async (req,res)=>{
    res.redirect("/admin/danh-muc/"+req.params.calling+"/"+req.params.catID)
 });
 
-router.get("/xem-chi-tiet-san-pham/:proID",async (req,res)=>{
+router.get("/xem-chi-tiet-san-pham/:proID",checkIsAdmin ,async (req,res)=>{
     const list=await estateModel.findDetailProByID(req.params.proID);
 
     res.render("admin/detail-product",{

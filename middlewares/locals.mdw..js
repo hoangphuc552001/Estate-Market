@@ -15,7 +15,8 @@ export default function (app){
         }
         else res.locals.user=null
         next();
-    })
+    });
+
     app.use(async function (req, res, next) {
         const cate=await categoryModel.findCategory();
         const catePa1=await categoryModel.findCategoryParent(2,0);
