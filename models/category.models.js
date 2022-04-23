@@ -22,6 +22,9 @@ export default {
         return db('category').select('category.*','categoryparent.name as nameParent' ).join('categoryparent','category.parent','categoryparent.id')
             .where('category.parent',parent)
     },
+    findParentByCategory(cat){
+        return db('category').select('category.parent').where('category.id',cat);
+    },
     //Tìm tổng các danh mục bằng danh mục cha
     findTotalCategoryByParent(parent){
         return db("category").count('parent', {as: 'total'}).where('parent',parent);
