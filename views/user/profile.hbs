@@ -1,5 +1,111 @@
-<main id="main">
+{{#section 'css'}}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+          integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{{/section}}
+{{#section 'js'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+            integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#txtDob').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            mask: true
+        });
+    </script>
+    <script>
+        $("#txtDob").val("{{time userInfor.birthday}}");
+    </script>
+    <script>
+        function element(totalPages, currentPage) {
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/page/profile/{{userInfor.id}}/" + currentPage,
+                success: function (data) {
+                    $("#listProProfile").replaceWith(data)
+                },
+                err: function (xhr, ajaxOptions, thrownError) {
+                    alert("Lỗi")
+                }
+            })
+            const ulTag = document.querySelector("ul#pageUl")
+            let liTag = ''
+            let beforePages = currentPage - 1
+            let afterPages = currentPage + 1
+            let activeLi = ''
+            if (totalPages <= 4) {
+                for (let i = 1; i <= totalPages; i++) {
+                    if (currentPage == i) activeLi = 'active'
+                    else activeLi = ''
+                    liTag += `<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
+                                <a class="page-link">${i}</a>
+                            </li>`
+                }
+            } else {
+                if (currentPage > 1) {
+                    liTag += ` <li class="page-item" onclick="element(${totalPages},${currentPage - 1})">
+                                <a class="page-link" tabindex="-1">
+                                    <span class="bi bi-chevron-left"></span>
+                                </a>
+                            </li>`
+                }
+                if (currentPage > 2) {
+                    liTag += `<li class="page-item" onclick="element(${totalPages},1)">
+                                <a class="page-link">1</a>
+                            </li>`
+                    if (currentPage > 3) {
+                        liTag += `<li class="page-item">
+                                <a class="page-link">...</a>
+                            </li>`
+                    }
+                }
+                if (currentPage == totalPages) {
+                    beforePages = beforePages - 2
+                } else if (currentPage == totalPages - 1) {
+                    beforePages = beforePages - 1
+                }
+                if (currentPage == 1) {
+                    afterPages = afterPages + 2
+                } else if (currentPage == 2) {
+                    afterPages = afterPages + 1
+                }
+                for (let i = beforePages; i <= afterPages; i++) {
+                    if (i > totalPages) continue
+                    if (i == 0) i = i + 1
+                    if (currentPage == i) activeLi = 'active'
+                    else activeLi = ""
+                    liTag += `<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
+                                <a class="page-link">${i}</a>
+                            </li>`
+                }
+                if (currentPage < totalPages - 1) {
+                    if (currentPage < totalPages - 2) {
+                        liTag += `<li class="page-item">
+                                <a class="page-link">...</a>
+                            </li>`
+                    }
+                    liTag += `<li class="page-item" onclick="element(${totalPages},${totalPages})">
+                                <a class="page-link">${totalPages}</a>
+                            </li>`
+                }
+                if (currentPage < totalPages) {
+                    liTag += ` <li class="page-item next" onclick="element(${totalPages},${currentPage + 1})">
+                                <a class="page-link">
+                                    <span class="bi bi-chevron-right"></span>
+                                </a>
+                            </li>`
+                }
+            }
+            ulTag.innerHTML = liTag
+        }
 
+        element({{totalOfPages}},{{currentPage}},{{userInfor.id}})
+    </script>
+{{/section}}
+<main id="main">
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
         <div class="container">
@@ -70,7 +176,7 @@
                                         <p>
                                         <form method="get" action="/user/product/post-product">
                                             <p>
-                                                <button class="btn btn-b" >Đăng sản phẩm</button>
+                                                <button class="btn btn-b">Đăng sản phẩm</button>
                                             </p>
                                         </form>
                                         </p>
@@ -100,64 +206,123 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                     Cập nhật thông tin
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 section-t8">
-                    <div class="title-box-d">
-                        <h3 class="title-d">Sản phẩm đã đăng ({{totalPro}})</h3>
-                    </div>
-                </div>
-                <div id="listProProfile" class="row property-grid grid">
-                    {{#each listPro}}
-                        <div class="col-md-4">
-                            <div class="card-box-a card-shadow">
-                                <div class="img-box-a">
-                                    <img src="{{this.image}}" style="width: 400px;height: 300px;object-fit: cover" alt="" class="img-a img-fluid">
-                                </div>
-                                <div class="card-overlay">
-                                    <div class="card-overlay-a-content">
-                                        <div class="card-header-a">
-                                            <h2 class="card-title-a">
-                                                <a href="/{{this.calling}}/{{this.category}}/{{this.id}}" >{{title}}</a>
-                                            </h2>
+                                {{#if updateSuccess}}
+                                    <div style="margin-top: 10px" class="alert alert-success" role="alert">
+                                       {{updateSuccess}}
+                                    </div>
+                                {{/if}}
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="/user/updateprofile" method="post">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin
+                                                        <span style="color: #5c636a">{{userInfor.email}}</span></h5>
+                                                    <input type="text" name="email" hidden value="{{userInfor.email}}">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="mb-3 col-6">
+                                                            <label for="recipient-name"
+                                                                   class="col-form-label">Tên:</label>
+                                                            <input type="text" class="form-control" name="name"
+                                                                   value="{{userInfor.name}}" id="txtName">
+                                                        </div>
+                                                        <div class="mb-3 col-6">
+                                                            <label for="recipient-name" class="col-form-label">Số điện
+                                                                thoại</label>
+                                                            <input type="text" class="form-control" name="phone"
+                                                                   value="{{userInfor.phone}}" id="txtPhone">
+                                                        </div>
+                                                        <div class="mb-3 col-6">
+                                                            <label for="recipient-name" class="col-form-label">Địa
+                                                                chỉ:</label>
+                                                            <input type="text" class="form-control" name="address"
+                                                                   value="{{userInfor.address}}" id="txtAddress">
+                                                        </div>
+                                                        <div class="mb-3 col-6">
+                                                            <label for="recipient-name" class="col-form-label">Ngày
+                                                                sinh:</label>
+                                                            <input type="text" class="form-control" name="birthday"
+                                                                   id="txtDob">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Hủy
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="card-body-a">
-                                            <div class="price-box d-flex">
-                                                <span class="price-a">{{this.current}}</span>
-                                            </div>
-                                            <a href="/{{this.calling}}/{{this.category}}/{{this.id}}" class="link-a">Click here to view
-                                                <span class="bi bi-chevron-right"></span>
-                                            </a>
-                                        </div>
-                                        <div class="card-footer-a">
-                                            <ul class="card-info d-flex justify-content-around">
-                                                <li>
-                                                    <h4 class="card-info-title">Area</h4>
-                                                    <span>{{this.acreage}}
-                                                        <sup>2</sup></span>
-                                                </li>
-                                                <li>
-                                                    <h4 class="card-info-title">Beds</h4>
-                                                    <span>{{this.bedroom}}</span>
-                                                </li>
-                                                <li>
-                                                    <h4 class="card-info-title">Baths</h4>
-                                                    <span>{{this.bathroom}}</span>
-                                                </li>
-                                            </ul>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {{/each}}
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-12 section-t8">
+                <div class="title-box-d">
+                    <h3 class="title-d">Sản phẩm đã đăng ({{totalPro}})</h3>
+                </div>
+            </div>
+            <div id="listProProfile" class="row property-grid grid">
+                {{#each listPro}}
+                    <div class="col-md-4">
+                        <div class="card-box-a card-shadow">
+                            <div class="img-box-a">
+                                <img src="{{this.image}}" style="width: 400px;height: 300px;object-fit: cover"
+                                     alt="" class="img-a img-fluid">
+                            </div>
+                            <div class="card-overlay">
+                                <div class="card-overlay-a-content">
+                                    <div class="card-header-a">
+                                        <h2 class="card-title-a">
+                                            <a href="/{{this.calling}}/{{this.category}}/{{this.id}}">{{title}}</a>
+                                        </h2>
+                                    </div>
+                                    <div class="card-body-a">
+                                        <div class="price-box d-flex">
+                                            <span class="price-a">{{this.current}}</span>
+                                        </div>
+                                        <a href="/{{this.calling}}/{{this.category}}/{{this.id}}" class="link-a">Click
+                                            here to view
+                                            <span class="bi bi-chevron-right"></span>
+                                        </a>
+                                    </div>
+                                    <div class="card-footer-a">
+                                        <ul class="card-info d-flex justify-content-around">
+                                            <li>
+                                                <h4 class="card-info-title">Area</h4>
+                                                <span>{{this.acreage}}
+                                                    <sup>2</sup></span>
+                                            </li>
+                                            <li>
+                                                <h4 class="card-info-title">Beds</h4>
+                                                <span>{{this.bedroom}}</span>
+                                            </li>
+                                            <li>
+                                                <h4 class="card-info-title">Baths</h4>
+                                                <span>{{this.bathroom}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -168,93 +333,8 @@
                 </div>
             </div>
         </div>
+
+        </div>
     </section><!-- End Agent Single -->
 
 </main><!-- End #main -->
-{{#section 'js'}}
-    <script>
-        function element(totalPages,currentPage){
-            $.ajax({
-                async:false,
-                type:"GET",
-                url:"/page/profile/{{userInfor.id}}/"+currentPage,
-                success:function (data){
-                    $("#listProProfile").replaceWith(data)
-                },
-                err:function (xhr,ajaxOptions,thrownError){
-                    alert("Lỗi")
-                }
-            })
-            const ulTag=document.querySelector("ul#pageUl")
-            let liTag=''
-            let beforePages=currentPage-1
-            let afterPages=currentPage+1
-            let activeLi=''
-            if (totalPages<=4){
-                for (let i=1;i<=totalPages;i++){
-                    if (currentPage == i) activeLi='active'
-                    else activeLi=''
-                    liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
-                                <a class="page-link">${i}</a>
-                            </li>`
-                }
-            }else{
-                if (currentPage>1){
-                    liTag+=` <li class="page-item" onclick="element(${totalPages},${currentPage-1})">
-                                <a class="page-link" tabindex="-1">
-                                    <span class="bi bi-chevron-left"></span>
-                                </a>
-                            </li>`
-                }
-                if (currentPage>2){
-                    liTag+=`<li class="page-item" onclick="element(${totalPages},1)">
-                                <a class="page-link">1</a>
-                            </li>`
-                    if (currentPage>3){
-                        liTag+=`<li class="page-item">
-                                <a class="page-link">...</a>
-                            </li>`
-                    }
-                }
-                if (currentPage == totalPages){
-                    beforePages=beforePages-2
-                }else if (currentPage == totalPages -1){
-                    beforePages=beforePages-1
-                }
-                if (currentPage == 1){
-                    afterPages=afterPages+2
-                }else if (currentPage == 2){
-                    afterPages=afterPages+1
-                }
-                for (let i=beforePages;i<=afterPages;i++){
-                    if (i>totalPages) continue
-                    if (i==0) i=i+1
-                    if (currentPage == i) activeLi='active'
-                    else activeLi=""
-                    liTag+=`<li class="page-item ${activeLi}" onclick="element(${totalPages},${i})">
-                                <a class="page-link">${i}</a>
-                            </li>`
-                }
-                if (currentPage<totalPages-1){
-                    if (currentPage<totalPages-2){
-                        liTag+=`<li class="page-item">
-                                <a class="page-link">...</a>
-                            </li>`
-                    }
-                    liTag+=`<li class="page-item" onclick="element(${totalPages},${totalPages})">
-                                <a class="page-link">${totalPages}</a>
-                            </li>`
-                }
-                if (currentPage<totalPages){
-                    liTag+=` <li class="page-item next" onclick="element(${totalPages},${currentPage+1})">
-                                <a class="page-link">
-                                    <span class="bi bi-chevron-right"></span>
-                                </a>
-                            </li>`
-                }
-            }
-            ulTag.innerHTML=liTag
-        }
-        element({{totalOfPages}},{{currentPage}},{{userInfor.id}})
-    </script>
-{{/section}}
