@@ -36,6 +36,13 @@ export default function (app) {
             },
             nequals(f,s){
                 return f!==s
+            },
+            check3(index){
+                console.log(index);
+                if((index===15)||(index===16)){
+                    return true;
+                }
+                return false
             }
         },
     }));

@@ -233,6 +233,37 @@ export default {
         });
         return check2
     },
+    async insertProByCategory(id,entity){
+        const check2=await db("estate").insert({
+            title:entity.title,
+            acreage:"null",
+            seller:1,
+            start:new Date(),
+            category:id,
+            image:"1",
+            quantity:1,
+            price:0,
+            ward:entity.ward,
+            current:"null"
+        }).select("estate.id");
+        return check2;
+    },
+    async insertDetailByproID(id,entity){
+        const check2=await db("detail_des").insert({
+           pro_id:id,
+            des:entity.des,
+            detail_description:entity.des,
+            other_detail:entity.des
+        });
+        return check2;
+    },
+
+    async insertImageByproID(id){
+        const check2=await db("img_detail").insert({
+            proid:id,
+        });
+        return check2;
+    },
 
       async updateNewImage(id, url, index) {
            if(index.includes("1")){

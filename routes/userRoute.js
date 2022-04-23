@@ -269,8 +269,6 @@ router.get("/checkprice/:price",async (req,res) =>{
     }
     return res.json(false);
 });
-
-
 router.get("/check-title/:title",async (req,res) =>{
     console.log(req.params.title.length)
     if(req.params.title===""){

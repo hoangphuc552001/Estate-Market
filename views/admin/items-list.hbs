@@ -11,7 +11,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h3 class="title"> {{nameCategory.name}}
-                                <a href="views/admin/category-add.hbs" class="btn btn-primary btn-sm rounded-s"> Add New </a>
+                                {{#if catID}}
+                                    <a href="/admin/san-pham/{{calling}}/them-san-pham" class="btn btn-primary btn-sm rounded-s" id="addnew"> Add New </a>
+                                {{else}}
+                                {{/if}}
                                 <!--
          -->
                                 <div class="action dropdown">
@@ -167,9 +170,16 @@
                                                 </li>-->
                                                 <li>
                                                     {{#if this.check}}
+                                                        <li>
                                                         <a class="edit" href="sua-san-pham/{{this.id}}">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
+                                                        </li>
+                                                        <li>
+                                                        <a class="edit" href="#" name="{{this.id}}" id="removeproduct">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                        </li>
                                                     {{else}}
                                                         <a class="edit" href="/admin/xem-chi-tiet-san-pham/{{this.id}}">
                                                             <i class="fa fa-eye"></i>
@@ -283,9 +293,61 @@
     </div>
 </div>
 </body>
+<div class="position-fixed bottom-0 end-0 p-3" id="toast" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="/public/assets/estate/realestate.png" style="width: 30px;height: 30px" class="rounded me-2" alt="...">
+            <strong class="me-auto">Thông tin sản phẩm</strong>
+            <small>Hiện tại</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Xóa sản phẩm thành công. Vui lòng đợi ít phút để tải lại
+        </div>
+    </div>
+</div>
 
+
+
+<div class="modal fade" id="cofirm-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa sản phẩm này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                <button type="button" id="cofirmremove" class="btn btn-b-n">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
 {{#section 'jsAdmin'}}
-<script>
+    <script type="text/javascript">
+    $('[id="removeproduct"]').click(function (){
+        $("#cofirm-modal").modal('show');
+        a=$(this).attr('name');
+    });
+
+    $('[id="cofirmremove"]').click(function (){
+        console.log(a)
+        $.post("/admin/product/remove-product",{proid:a},function (data,status){
+            if(data){
+                console.log(data);
+                $("#cofirm-modal").modal('hide');
+                $("#liveToast").toast('show');
+                const myTimeout = setTimeout(function (){
+                    location.reload();
+                }, 3000);
+
+            }
+        });
+    })
+
     $(".remove").click(function(){
         $.post("/admin/danh-muc/:calling/xoa-san-pham",{proID:this.id},function (data,status){
             console.log(data);
@@ -294,5 +356,8 @@
             }
         });
     });
+    $("#addnew").click(function (){
+        localStorage.setItem("categoryid",{{catID}})
+    })
 </script>
 {{/section}}

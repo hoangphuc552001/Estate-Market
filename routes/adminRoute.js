@@ -13,6 +13,7 @@ import userModel from "../models/user.model.js";
 import * as Console from "console";
 /*import {list} from "../public/assets/js/vendor.js";*/
 import fs from 'fs';
+import {reject} from "bcrypt/promises.js";
 /*import {list} from "../public/assets/js/vendor.js";*/
 const router=express.Router();
 
@@ -67,7 +68,6 @@ router.post("/upload/:id", async (req,res)=>{
     });
     });
     promise.then(async  function(data){
-        console.log(data);
         return res.send({"detail": urlImage,"filename":fileName});
     });
 });
@@ -78,7 +78,7 @@ router.post("/san-pham/:calling/sua-san-pham/:catID",async (req,res)=>{
       /*  return res.redirect('/san-pham/:calling/sua-san-pham/:catID');*/
     }
 });
-
+let categoryid=0;
 router.get("/",(req,res)=>{
     res.render('admin/home',{
         layout:'layoutAdmin.hbs'
@@ -110,11 +110,21 @@ router.get("/san-pham/:calling/:catID",async (req,res)=>{
         const nameCategory = await categoryModels.findCatByID(catID);
         const listProduct = await estateModel.findByEstateID(catID);
         const totalProduct = await estateModel.findTotalByID(catID);
+
         res.render('admin/items-list', {
                 layout: 'layoutAdmin.hbs',
                 list: listProduct,
                 nameCategory: nameCategory[0],
-                totalProduct: totalProduct[0]
+                totalProduct: totalProduct[0],
+            }
+        )
+    }
+    else if(req.params.catID==='them-san-pham'){
+        const listward= await estateModel.findAllWard();
+        res.render('admin/item-add', {
+                layout: 'layoutAdmin.hbs',
+                listward:listward,
+
             }
         )
     }
@@ -123,6 +133,7 @@ router.get("/san-pham/:calling/:catID",async (req,res)=>{
         const nameCategory = await categoryModels.findCatByID(catID);
         const listProduct = await estateModel.findByEstateID(catID);
         const totalProduct = await estateModel.findTotalByID(catID);
+        categoryid=req.params.catID || 0;
          for (const u of listProduct) {
             u.check = true
         }
@@ -130,7 +141,9 @@ router.get("/san-pham/:calling/:catID",async (req,res)=>{
                 layout: 'layoutAdmin.hbs',
                 list: listProduct,
                 nameCategory: nameCategory[0],
-                totalProduct: totalProduct[0]
+                totalProduct: totalProduct[0],
+                calling:req.params.calling,
+                catID:catID
             }
         )
     }
@@ -154,8 +167,10 @@ router.get("/san-pham/:calling/sua-san-pham/:proID",async (req,res)=>{
 
 
 
+
+
 router.get("/danh-muc/:calling/:catID", async (req,res)=>{
-        const listCategory = await categoryModels.findCategoryByParent(req.params.catID || 0);
+    const listCategory = await categoryModels.findCategoryByParent(req.params.catID || 0);
         const totalCategory = await categoryModels.findTotalCategoryByParent(req.params.catID || 0);
         for (const u of listCategory) {
             const temp = await estateModel.findTotalByID(u.id);
@@ -248,4 +263,162 @@ router.post("/geturl",async (req,res) =>{
     })
 })
 
+
+router.post("/san-pham/:calling/them-san-pham",async (req,res) =>{
+    if((req.params.calling==="du-an")) {
+        const promise = new Promise(async (resolve, reject) => {
+            const insertPro = await estateModel.insertProByCategory(15, req.body);
+            resolve(insertPro[0])
+        });
+        promise.then(async function (data) {
+            const insertDetail = await estateModel.insertDetailByproID(data, req.body);
+            const parentID = await categoryModels.findParentByCategory(15);
+            let urlI;
+            let  urlImg="/public/assets/estate/"+parentID[0].parent+"/15/";
+            const total=await estateModel.findTotalByID(15);
+            const myPromise=new Promise((resolve,reject)=>{
+                for (let i = 1; i < total[0].total+20; i++) {
+                    if (!fs.existsSync('.'+urlImg+i)) {
+                        urlI=urlImg+i;
+                        resolve({i:i,url:urlI,data:data});
+                    }
+                }
+            });
+            myPromise.then(async function (data) {
+                console.log(data)
+                fs.mkdirSync("." + data.url, {recursive: true});
+                const listEstate = await estateModel.insertNewImage(data.data);
+                return res.render("admin/item-add-image", {
+                    layout: 'layoutAdmin.hbs',
+                    category: 15,
+                    parent: parentID[0].parent,
+                    id: data.data,
+                    url: data.i
+                })
+            })
+
+        });
+    }
+    else{
+            const promise = new Promise(async (resolve, reject) => {
+                const insertPro = await estateModel.insertProByCategory(16, req.body);
+                resolve(insertPro[0])
+            });
+            promise.then(async function (data) {
+                const insertDetail = await estateModel.insertDetailByproID(data, req.body);
+                const parentID = await categoryModels.findParentByCategory(16);
+                console.log(parentID)
+                let urlI;
+                let  urlImg="/public/assets/estate/"+parentID[0].parent+"/15/";
+                const total=await estateModel.findTotalByID(16);
+                const myPromise=new Promise((resolve,reject)=>{
+                    for (let i = 1; i < total[0].total+20; i++) {
+                        if (!fs.existsSync('.'+urlImg+i)) {
+                            urlI=urlImg+i;
+                            resolve({i:i,url:urlI,data:data});
+                        }
+                        console.log('.'+urlImg+i)
+                    }
+                });
+                myPromise.then(async function (data) {
+                    fs.mkdirSync("." + data.url, {recursive: true});
+                    const listEstate = await estateModel.insertNewImage(data.data);
+                    return res.render("admin/item-add-image", {
+                        layout: 'layoutAdmin.hbs',
+                        category: 16,
+                        parent: parentID[0].parent,
+                        id: data.data,
+                        url: data.i
+                    })
+                })
+
+            });
+    }
+});
+
+router.post("/add-url-image",(req,res)=>{
+    urlImage="/public/assets/estate/"+req.body.parent+"/"+req.body.category+"/"+req.body.data+"/"+req.body.name;
+    console.log("he"+urlImage)
+    res.send(true);
+});
+
+router.post("/upload-image/:id", async (req,res)=>{
+    let pos;
+    console.log(req.params.id)
+    urlImage=urlImage.toString();
+    pos=urlImage.lastIndexOf("/");
+    const url=urlImage.substring(0,pos) ;/*+ urlImage.substring(pos+1);*/
+    const fileName=urlImage.substring(pos+1,urlImage.length);
+    console.log("post"+urlImage)
+    console.log(fileName)
+    const promise=new Promise((resolve,reject)=>{
+        const storage = multer.diskStorage({
+            destination:async function (req, file, cb) {
+                cb(null, '.'+url)
+            },
+            filename:async function (req, file, cb) {
+                const uniqueSuffix = fileName;
+                cb(null, uniqueSuffix)
+            }
+        });
+        const upload=multer({storage});
+        upload.single('image')(req,res,async function (err) {
+            if (err) {
+                console.error("he")
+            } else {
+                resolve({fileName:fileName});
+            }
+        });
+    });
+
+    promise.then(async  function(data){
+        if(data.fileName.includes("1")){
+            const list=await estateModel.updateNewImage(req.params.id||0,urlImage,"1");
+            const listEstate=await estateModel. insertNewImageInEstate(req.params.id||0,urlImage);
+            return res.send({"detail": urlImage,"position":"1"});
+        }
+        else if(data.fileName.includes("2")){
+            const list =await estateModel.updateNewImage(req.params.id||0,urlImage,"2");
+            return res.send({"detail": urlImage,"position":"2"});
+        }
+        else if(data.fileName.includes("3")){
+            const list =await estateModel.updateNewImage(req.params.id||0,urlImage,"3");
+            return res.send({"detail": urlImage,"position":"3"});
+        }
+    });
+});
+
+router.post("/geturl",async (req,res) =>{
+    res.render("admin/perform-image2",{
+        layout:false,
+        name:req.body.id,
+        url:req.body.url
+    })
+});
+
+
+
+router.post("/product/remove-product",async (req,res)=>{
+    console.log(req.body);
+    const myPromise=new Promise(async (resolve, reject) => {
+        const delImg = await estateModel.removeImageById(req.body.proid)
+        const delDetail = await estateModel.removeDetailById(req.body.proid);
+        let pos;
+        const urlImage = await estateModel.findImageById(req.body.proid);
+        let urlImageTemp=urlImage[0].image;
+        urlImageTemp= urlImageTemp.toString();
+        pos=urlImageTemp.lastIndexOf("/");
+        const url=urlImageTemp.substring(0,pos);/*+ urlImage.substring(pos+1);*/
+        resolve(url);
+    });
+    myPromise.then(async function (data) {
+        console.log("."+data);
+        if (fs.existsSync("."+data)) {
+            fs.rmdirSync("."+data,{ recursive: true });
+            console.log("done");
+        }
+        const delEstate = await estateModel.removeEstateById(req.body.proid);
+        return res.send(true);
+    })
+})
 export default router;
