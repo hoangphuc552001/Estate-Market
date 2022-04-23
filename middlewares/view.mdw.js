@@ -31,6 +31,9 @@ export default function (app) {
             checkAdmin(index){
                 return index===1
             },
+            checkProJect(index){
+                return index===2
+            },
             checkTrue(index){
                 return index===true
             },

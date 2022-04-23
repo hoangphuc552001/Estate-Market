@@ -197,6 +197,9 @@
                             {{#if (checkAdmin user.permissions)}}
                                 <a class="dropdown-item " href="/admin">Di chuyển về admin</a>
                             {{/if}}
+                            {{#if (checkProJect user.permissions)}}
+                                <a class="dropdown-item " href="/admin">Di chuyển về dự án</a>
+                            {{/if}}
                             <form method="POST" action="/authen/logout">
                                 <button class="dropdown-item ">Log out</button>
                             </form>
