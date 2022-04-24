@@ -18,10 +18,30 @@ import {reject} from "bcrypt/promises.js";
 const router=express.Router();
 
 
+let checkIsAccess = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        console.log(req.user)
+        if((req.user.permissions!==1)&&(req.user.permissions!==2)){
+            return res.redirect("/");
+        }
+    }
+    next();
+};
+
 let checkIsAdmin = (req, res, next) => {
     if (req.isAuthenticated()) {
         console.log(req.user)
-        if(req.user.permissions!==1){
+        if((req.user.permissions!==1)){
+            return res.redirect("/");
+        }
+    }
+    next();
+};
+
+let checkIsProJect = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        console.log(req.user)
+        if(req.user.permissions!==2){
             return res.redirect("/");
         }
     }
@@ -63,11 +83,6 @@ router.post("/upload/:id", async (req,res)=>{
                 }
             });
             resolve("hello");
-          /*  res.render("admin/new-product-editor", {
-                layout: 'layoutAdmin.hbs',
-                list: list[0],
-                listward,
-            });*/
         }
     });
     });
@@ -83,7 +98,7 @@ router.post("/san-pham/:calling/sua-san-pham/:catID",async (req,res)=>{
     }
 });
 let categoryid=0;
-router.get("/",checkIsAdmin,(req,res)=>{
+router.get("/",checkIsAccess,(req,res)=>{
     res.render('admin/home',{
         layout:'layoutAdmin.hbs'
         }
@@ -108,7 +123,8 @@ router.get("/quan-li-tai-khoan",checkIsAdmin ,async (req,res)=>{
     })
 
 })
-router.get("/san-pham/:calling/:catID",checkIsAdmin ,async (req,res)=>{
+router.get("/san-pham/:calling/:catID",checkIsAccess ,async (req,res)=>{
+
     if((req.params.calling!=="du-an")&&(req.params.calling!="tin-tuc")) {
         const catID = req.params.catID || 0
         const nameCategory = await categoryModels.findCatByID(catID);
@@ -152,7 +168,7 @@ router.get("/san-pham/:calling/:catID",checkIsAdmin ,async (req,res)=>{
         )
     }
 })
-router.get("/san-pham/:calling/sua-san-pham/:proID",checkIsAdmin ,async (req,res)=>{
+router.get("/san-pham/:calling/sua-san-pham/:proID",checkIsProJect ,async (req,res)=>{
     const list =await estateModel.findDetailProByID(req.params.proID);
     const listward= await estateModel.findAllWard();
     listward.forEach(u=>{

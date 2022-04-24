@@ -39,6 +39,7 @@
                     <a href="/">
                         <i class="fa fa-home"></i> Dashboard </a>
                 </li>
+                {{#if (checkAdmin user.permissions)}}
                 <li id="managementProduct" >
                     <a href="#">
                         <i class="fa fa-th-large">
@@ -86,20 +87,22 @@
                         <i class="fa fa-pencil-square-o"></i> Quản lí tài khoản
                     </a>
                 </li>
-               <!-- <li>
-                    <a href="forms.html">
-                        <i class="fa fa-pencil-square-o"></i> Forms </a>
-                </li>-->
-                <li>
-                    <a href="/admin/san-pham/du-an/15">
-                        <i class="fa fa-desktop" ></i> Quản lí dự án
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/san-pham/tin-tuc/16">
-                        <i class="fa fa-file-text-o" ></i> Quản lí tin tức
-                    </a>
-                </li>
+                    {{/if}}
+                {{#if (checkProJect user.permissions)}}
+                    <li>
+                        <a href="/admin/san-pham/du-an/15">
+                            <i class="fa fa-desktop" ></i> Quản lí dự án
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/san-pham/tin-tuc/16">
+                            <i class="fa fa-file-text-o" ></i> Quản lí tin tức
+                        </a>
+                    </li>
+                {{/if}}
+
+
+
                 <!--<li>
                     <a href="#">
                         <i class="fa fa-sitemap"></i> Menu Levels
