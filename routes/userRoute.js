@@ -158,7 +158,7 @@ router.get("/profile/:id",async (req,res)=>{
     let pro=await estateModel.findProDuctOwnedByUserByTop(req.params.id,9,0)
     if (res.locals.user){
         var firstName=res.locals.user.firstName
-        var rating=await ratingModel.findRating(res.locals.user.id,parseInt(req.params.id))
+        var rating=await ratingModel.findRating(parseInt(req.params.id),res.locals.user.id)
         if (rating.length>0){
             var ratingscore=rating[0].ratingscore
         }

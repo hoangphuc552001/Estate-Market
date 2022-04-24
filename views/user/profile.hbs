@@ -134,7 +134,10 @@
                             contentType: 'application/x-www-form-urlencoded',
                             dataType: 'html',
                             success: function (data) {
-                                const id = "star-" + data
+                                const spl=data.split(',')
+                                console.log(spl)
+                                const id = "star-" + spl[0]
+                                document.getElementById("score").innerHTML=spl[1]
                                 document.getElementById(id).checked = "true"
                                 document.getElementById("custId").value = data
                                 $("#toast_ss").toast("show")
@@ -273,7 +276,7 @@
                                         </p>
                                         <p>
                                             <strong>Điểm đánh giá: </strong>
-                                            <span class="color-text-a"> {{userInfor.ratingscore}}</span>
+                                            <span id="score" class="color-text-a"> {{userInfor.ratingscore}}</span>
                                         </p>
                                         <p>
                                         {{#if ../user}}

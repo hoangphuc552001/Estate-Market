@@ -45,7 +45,7 @@ router.get('/:estateID/:detailID',async function (req,res){
         i.parentID=1;
     })
     if (res.locals.user){
-        var rating=await ratingModel.findRatingUser(res.locals.user.id,pro[0].proid)
+        var rating=await ratingModel.findRating(res.locals.user.id,pro[0].proid)
         if (rating.length>0){
             var ratingscore=rating[0].ratingscore
         }
