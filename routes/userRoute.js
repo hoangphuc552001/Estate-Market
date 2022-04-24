@@ -12,6 +12,8 @@ import estateModels from "../models/estate.models.js";
 import db from "../utils/db.js";
 import {reject} from "bcrypt/promises.js";
 import EstateModels from "../models/estate.models.js";
+import ratingModel from "../models/rating.model.js";
+import commentModel from "../models/comment.model.js";
 
 const router=express.Router();
 let checkLoggedIn = (req, res, next) => {
@@ -138,7 +140,6 @@ router.get('/profile',checkLoggedIn,checkIsLockAccount,async (req,res)=>{
         const user=await userModel.findUserByID(res.locals.user.id)
         const listPro=await estateModels.findProDuctOwnedByUser(res.locals.user.id)
         let pro=await estateModel.findProDuctOwnedByUserByTop(res.locals.user.id,9,0)
-        console.log(user[0])
         res.render('user/profile',{
             userInfor:user[0],
             firstName:res.locals.user.firstName,
@@ -151,7 +152,28 @@ router.get('/profile',checkLoggedIn,checkIsLockAccount,async (req,res)=>{
         res.status(500).send("False")
     }
 })
-
+router.get("/profile/:id",async (req,res)=>{
+    const user=await userModel.findUserByID(req.params.id)
+    const listPro=await estateModels.findProDuctOwnedByUser(req.params.id)
+    let pro=await estateModel.findProDuctOwnedByUserByTop(req.params.id,9,0)
+    if (res.locals.user){
+        var firstName=res.locals.user.firstName
+        var rating=await ratingModel.findRating(res.locals.user.id,parseInt(req.params.id))
+        if (rating.length>0){
+            var ratingscore=rating[0].ratingscore
+        }
+    }
+    res.render('user/profile',{
+        userInfor:user[0],
+        firstName,
+        listPro:pro,
+        currentPage:1,
+        totalOfPages:Math.ceil(listPro.length/9),
+        totalPro:listPro.length,
+        notSeller:1,
+        ratingscore
+    })
+})
 
 router.get('/product/post-product',checkLoggedIn,checkIsLockAccount,async (req,res)=> {
     if (res.locals.user){
@@ -328,7 +350,6 @@ router.post("/updateprofile",async (req,res)=>{
         const user=req.user
         const listPro=await estateModels.findProDuctOwnedByUser(req.user.id)
         let pro=await estateModel.findProDuctOwnedByUserByTop(req.user.id,9,0)
-        console.log(pro)
         res.render('user/profile',{
             userInfor:user,
             firstName:res.locals.user.firstName,

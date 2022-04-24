@@ -5,7 +5,8 @@ import userModel from "../models/user.model.js";
 import commentModel from "../models/comment.model.js";
 import ratingModel from "../models/rating.model.js";
 const router=express.Router();
-
+import moment from "moment";
+import db from "../utils/db.js";
 router.get('/',async function (req,res){
     const top3EstateHouse= await estateModel.findProTopByEstateID(1,3)
     const top3EstateGround= await estateModel.findProTopByEstateID(5,3)
@@ -33,7 +34,7 @@ router.post("/comment",async (req,res)=>{
         layout:false
     })
 })
-router.post("/rating",async (req,res)=>{
+router.post("/ratingestate",async (req,res)=>{
     const userid=await userModel.findUserByEmail(req.body.email)
     //type=0:product,type=1:user
     const object={
@@ -46,6 +47,18 @@ router.post("/rating",async (req,res)=>{
     }
     await ratingModel.insert(object.userrate,object.ratingscore,object1.estateid,object.type)
     res.status(200).send(object.ratingscore.toString())
+})
+router.post("/ratinguser",async (req,res)=>{
+    const userid=await userModel.findUserByEmail(req.body.email)
+    const sum=await ratingModel.sum(userid[0].id)
+    console.log(sum.length)
+    if (sum.length!=0) {
+        console.log(sum[0])
+        await ratingModel.insert(res.locals.user.id, req.body.value, userid[0].id, 1, req.body.msg.toString())
+        res.status(200).send(req.body.value.toString())
+    }
+    res.status(500).send("fail")
+
 })
 router.post("/mailer",async (req,res)=>{
     try{
