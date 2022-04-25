@@ -139,14 +139,15 @@ router.get('/profile',checkLoggedIn,checkIsLockAccount,async (req,res)=>{
     if (res.locals.user){
         const user=await userModel.findUserByID(res.locals.user.id)
         const listPro=await estateModels.findProDuctOwnedByUser(res.locals.user.id)
-        let pro=await estateModel.findProDuctOwnedByUserByTop(res.locals.user.id,9,0)
+        let pro=await estateModel.findAll(res.locals.user.id,9,0)
         res.render('user/profile',{
             userInfor:user[0],
             firstName:res.locals.user.firstName,
             listPro:pro,
             currentPage:1,
             totalOfPages:Math.ceil(listPro.length/9),
-            totalPro:listPro.length
+            totalPro:listPro.length,
+            proList:listPro
         })
     }else{
         res.status(500).send("False")

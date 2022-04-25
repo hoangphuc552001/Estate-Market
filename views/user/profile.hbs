@@ -161,10 +161,30 @@
             checkedRadio()
             {{/if}}
     </script>
+    <script>
+        function get(id) {
+            {{#each proList}}
+                var x1={{this.id}}
+                if (x1==id){
+                    $.post("/user/product/remove-product",{proid:id},function (data,status){
+                        if(data){
+                            $("#change-"+id).modal('hide');
+                            $("#liveToast").toast('show');
+                            const myTimeout = setTimeout(function (){
+                                location.reload();
+                            }, 3000);
+
+                        }
+                    });
+                }
+            {{/each}}
+        }
+    </script>
+
 {{/section}}
 <main id="main">
-    <!-- ======= Intro Single ======= -->
     <section class="intro-single">
+        <button id="btn">ABC</button>
         <div class="modal fade" id="reviewuser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -279,7 +299,7 @@
                                             <span id="score" class="color-text-a"> {{userInfor.ratingscore}}</span>
                                         </p>
                                         <p>
-                                        {{#if ../user}}
+                                        {{#if (equal user.id userInfor.id)}}
                                             <form method="get" action="/user/product/post-product">
                                                 <p>
                                                     <button class="btn btn-b">Đăng sản phẩm</button>
@@ -314,7 +334,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                {{#if ../user}}
+                                {{#if (equal user.id userInfor.id)}}
                                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -417,51 +437,6 @@
                 </div>
             </div>
             <div id="listProProfile" class="row property-grid grid">
-                {{#each listPro}}
-                    <div class="col-md-4">
-                        <div class="card-box-a card-shadow">
-                            <div class="img-box-a">
-                                <img src="{{this.image}}" style="width: 400px;height: 300px;object-fit: cover"
-                                     alt="" class="img-a img-fluid">
-                            </div>
-                            <div class="card-overlay">
-                                <div class="card-overlay-a-content">
-                                    <div class="card-header-a">
-                                        <h2 class="card-title-a">
-                                            <a href="/{{this.calling}}/{{this.category}}/{{this.id}}">{{title}}</a>
-                                        </h2>
-                                    </div>
-                                    <div class="card-body-a">
-                                        <div class="price-box d-flex">
-                                            <span class="price-a">{{this.current}}</span>
-                                        </div>
-                                        <a href="/{{this.calling}}/{{this.category}}/{{this.id}}" class="link-a">Click
-                                            here to view
-                                            <span class="bi bi-chevron-right"></span>
-                                        </a>
-                                    </div>
-                                    <div class="card-footer-a">
-                                        <ul class="card-info d-flex justify-content-around">
-                                            <li>
-                                                <h4 class="card-info-title">Area</h4>
-                                                <span>{{this.acreage}}
-                                                    <sup>2</sup></span>
-                                            </li>
-                                            <li>
-                                                <h4 class="card-info-title">Beds</h4>
-                                                <span>{{this.bedroom}}</span>
-                                            </li>
-                                            <li>
-                                                <h4 class="card-info-title">Baths</h4>
-                                                <span>{{this.bathroom}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -475,6 +450,19 @@
 
         </div>
         <input type="hidden" id="custId" name="custId" value="0">
+        <div class="position-fixed bottom-0 end-0 p-3" id="toast" style="z-index: 11">
+            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="/public/assets/estate/realestate.png" style="width: 30px;height: 30px" class="rounded me-2" alt="...">
+                    <strong class="me-auto">Thông tin sản phẩm</strong>
+                    <small>Hiện tại</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Xóa sản phẩm thành công. Vui lòng đợi ít phút để tải lại
+                </div>
+            </div>
+        </div>
     </section><!-- End Agent Single -->
 
 </main><!-- End #main -->
