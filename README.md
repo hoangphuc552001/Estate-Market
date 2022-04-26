@@ -27,6 +27,12 @@
       <li>
     <a href='#license'>License</a>
     </li>
+      <li>
+    <a href='#demo'>Demo</a>
+    </li>
+      <li>
+    <a href='#deployment'>Deployment</a>
+    </li>
   </ol>
 </details>
 
@@ -48,6 +54,13 @@
       ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
       ![html](https://img.shields.io/badge/HTML-e56d30?style=for-the-badge&logo=html5&logoColor=white)
       ![css](https://img.shields.io/badge/CSS-406ae9?&style=for-the-badge&logo=css3&logoColor=white)
+# Demo
+
+- Home page
+  ![img](https://res.cloudinary.com/phucle/image/upload/v1650991917/HAGLEstateMarket/Capture_itt02q.png)
+# Deployment
+
+-
 # Installation
 
 **1. Install Nodejs**
@@ -72,7 +85,7 @@ https://nodejs.org/en/download/
 
 2.1 Connect database mysql with database name realestate
 
-2.2 Run realestate.sql script
+2.2 Run realestate.sql script in folder
 
 2.3 Configure in file db.js that inside folder Utils
 ```sh
