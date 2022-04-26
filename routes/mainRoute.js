@@ -5,7 +5,9 @@ import userModel from "../models/user.model.js";
 import commentModel from "../models/comment.model.js";
 import ratingModel from "../models/rating.model.js";
 const router=express.Router();
-
+import moment from "moment";
+import db from "../utils/db.js";
+import estateModels from "../models/estate.models.js";
 router.get('/',async function (req,res){
     const top3EstateHouse= await estateModel.findProTopByEstateID(1,3)
     const top3EstateGround= await estateModel.findProTopByEstateID(5,3)
@@ -33,7 +35,7 @@ router.post("/comment",async (req,res)=>{
         layout:false
     })
 })
-router.post("/rating",async (req,res)=>{
+router.post("/ratingestate",async (req,res)=>{
     const userid=await userModel.findUserByEmail(req.body.email)
     //type=0:product,type=1:user
     const object={
@@ -46,6 +48,29 @@ router.post("/rating",async (req,res)=>{
     }
     await ratingModel.insert(object.userrate,object.ratingscore,object1.estateid,object.type)
     res.status(200).send(object.ratingscore.toString())
+})
+router.post("/ratinguser",async (req,res)=>{
+    const userid=await userModel.findUserByEmail(req.body.email)
+    await ratingModel.insert(res.locals.user.id, req.body.value, userid[0].id, 1, req.body.msg.toString())
+    const rating=await ratingModel.findRatingFromUser(userid[0].id)
+    let sumScore=rating.map(x=>x.ratingscore).reduce((x1,x2)=>{
+        return parseInt(x1)+parseInt(x2);
+    },0)
+    sumScore+=parseInt(req.body.value)
+    const countRating=rating.length+1
+    const score=sumScore/(countRating*4)
+    const listPro=await estateModels.findProDuctOwnedByUser(userid[0].id)
+    let pro=await estateModel.findProDuctOwnedByUserByTop(userid[0].id,9,0)
+    userid[0].ratingscore=score*100
+    await userModel.updateRatingscore(score*100,userid[0].email)
+    if (res.locals.user){
+        var firstName=res.locals.user.firstName
+        var rating_=await ratingModel.findRating(parseInt(userid[0].id),res.locals.user.id)
+        if (rating_.length>0){
+            var ratingscore=rating_[0].ratingscore
+        }
+    }
+   res.status(200).send(req.body.value+','+score*100)
 })
 router.post("/mailer",async (req,res)=>{
     try{

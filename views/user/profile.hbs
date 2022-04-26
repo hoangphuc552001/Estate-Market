@@ -3,6 +3,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
           integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="/public/assets/modal/successfully.css">
+    <link rel="stylesheet" href="/public/assets/css/rating.css">
 {{/section}}
 {{#section 'js'}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
@@ -104,10 +106,129 @@
 
         element({{totalOfPages}},{{currentPage}},{{userInfor.id}})
     </script>
+    <script>
+        $("input[class^='star'][type='radio']").on("click", function () {
+            {{#if ratingscore}}
+                {
+                    const id = "star-" + "{{ratingscore}}"
+                    document.getElementById(id).checked = "true"
+                    $("#toast_nn").toast("show")
+                }
+            {{else}}
+                if (document.getElementById("custId").value != 0) {
+                    const id = "star-" + document.getElementById("custId").value
+                    document.getElementById(id).checked = "true"
+                    $("#toast_nn").toast("show")
+                } else {
+                    const email="{{userInfor.email}}"
+                    const value = $("input[class^='star'][type='radio']:checked").val()
+                    $("#reviewuser").modal("show")
+                    $("#btnReview").on("click",function (){
+                        const msg=$("#review-msg").val()
+                        $("#reviewuser").modal("hide")
+                        $.ajax({
+                            async: false,
+                            type: "POST",
+                            url: "/ratinguser",
+                            data: {email,value,msg},
+                            contentType: 'application/x-www-form-urlencoded',
+                            dataType: 'html',
+                            success: function (data) {
+                                const spl=data.split(',')
+                                console.log(spl)
+                                const id = "star-" + spl[0]
+                                document.getElementById("score").innerHTML=spl[1]
+                                document.getElementById(id).checked = "true"
+                                document.getElementById("custId").value = data
+                                $("#toast_ss").toast("show")
+                            },
+                            err: function (xhr, ajaxOptions, thrownError) {
+                                alert("Lỗi")
+                            }
+                        })
+                    })
+                }
+
+            {{/if}}
+        })
+    </script>
+    <script>
+            {{#if ratingscore}}
+            function checkedRadio() {
+                const id = "star-" + "{{ratingscore}}"
+                document.getElementById(id).checked = "true"
+            }
+            checkedRadio()
+            {{/if}}
+    </script>
+    <script>
+        function get(id) {
+            {{#each proList}}
+                var x1={{this.id}}
+                if (x1==id){
+                    $.post("/user/product/remove-product",{proid:id},function (data,status){
+                        if(data){
+                            $("#change-"+id).modal('hide');
+                            $("#liveToast").toast('show');
+                            const myTimeout = setTimeout(function (){
+                                location.reload();
+                            }, 3000);
+
+                        }
+                    });
+                }
+            {{/each}}
+        }
+    </script>
+
 {{/section}}
 <main id="main">
-    <!-- ======= Intro Single ======= -->
     <section class="intro-single">
+        <button id="btn">ABC</button>
+        <div class="modal fade" id="reviewuser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Báo cáo người bán</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Nội dung báo cáo:</label>
+                                <textarea rows="5" class="form-control" id="review-msg"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button id="btnReview" type="button" class="btn btn-primary">Đánh giá</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div aria-live="polite" aria-atomic="true" style="position: relative;width: 300px;">
+            <div class="toast" id="toast_ss" style="position: absolute; bottom: 0px; right: 0;">
+                <div class="toast-header">
+                    <strong class="mr-auto">Thông báo</strong>
+                </div>
+                <div class="toast-body">
+                    <i class="fa fa-check-circle" style="color: green" aria-hidden="true"></i>
+                    Bạn vừa đánh giá thành công
+                </div>
+            </div>
+        </div>
+        <div aria-live="polite" aria-atomic="true" style="position: relative">
+            <div class="toast" id="toast_nn" style="position: absolute; top: 50px; right: 0;">
+                <div class="toast-header">
+                    <strong class="mr-auto">Thông báo</strong>
+                </div>
+                <div class="toast-body">
+                    <i class="fa fa-ban" style="color: red" aria-hidden="true"></i>
+                    Bạn đã đánh giá rồi
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-8">
@@ -174,11 +295,18 @@
                                             <span class="color-text-a"> {{time userInfor.birthday}}</span>
                                         </p>
                                         <p>
-                                        <form method="get" action="/user/product/post-product">
-                                            <p>
-                                                <button class="btn btn-b">Đăng sản phẩm</button>
-                                            </p>
-                                        </form>
+                                            <strong>Điểm đánh giá: </strong>
+                                            <span id="score" class="color-text-a"> {{userInfor.ratingscore}}</span>
+                                        </p>
+                                        <p>
+                                        {{#if (equal user.id userInfor.id)}}
+                                            <form method="get" action="/user/product/post-product">
+                                                <p>
+                                                    <button class="btn btn-b">Đăng sản phẩm</button>
+                                                </p>
+                                            </form>
+                                        {{/if}}
+
                                         </p>
                                     </div>
                                 </div>
@@ -206,11 +334,42 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    Cập nhật thông tin
-                                </button>
+                                {{#if (equal user.id userInfor.id)}}
+                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        Cập nhật thông tin
+                                    </button>
+                                {{else}}
+<!--                                    star voting-->
+                                    {{#if notSeller}}
+                                        {{#if user}}
+                                            <div class="container" style="padding: 0">
+                                                <div class="row">
+                                                    <div class="col-md-12" style="margin: 0;padding: 0">
+                                                        <div class="stars" id="stars_space" style="display: flex;justify-content: flex-start">
+                                                            <form action="">
+                                                                <input value="4" class="star star-4 disabled" id="star-4" type="radio"
+                                                                       name="star"/>
+                                                                <label class="star star-4" id="start-4_" for="star-4"></label>
+                                                                <input value="3" class="star star-3" id="star-3" type="radio"
+                                                                       name="star"/>
+                                                                <label class="star star-3" id="start-3_" for="star-3"></label>
+                                                                <input value="2" class="star star-2" id="star-2" type="radio"
+                                                                       name="star"/>
+                                                                <label class="star star-2" id="start-2_" for="star-2"></label>
+                                                                <input value="1" class="star star-1" id="star-1" type="radio"
+                                                                       name="star"/>
+                                                                <label class="star star-1" id="start-1_" for="star-1"></label>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/if}}
+
                                 {{#if updateSuccess}}
                                     <div style="margin-top: 10px" class="alert alert-success" role="alert">
                                        {{updateSuccess}}
@@ -278,51 +437,6 @@
                 </div>
             </div>
             <div id="listProProfile" class="row property-grid grid">
-                {{#each listPro}}
-                    <div class="col-md-4">
-                        <div class="card-box-a card-shadow">
-                            <div class="img-box-a">
-                                <img src="{{this.image}}" style="width: 400px;height: 300px;object-fit: cover"
-                                     alt="" class="img-a img-fluid">
-                            </div>
-                            <div class="card-overlay">
-                                <div class="card-overlay-a-content">
-                                    <div class="card-header-a">
-                                        <h2 class="card-title-a">
-                                            <a href="/{{this.calling}}/{{this.category}}/{{this.id}}">{{title}}</a>
-                                        </h2>
-                                    </div>
-                                    <div class="card-body-a">
-                                        <div class="price-box d-flex">
-                                            <span class="price-a">{{this.current}}</span>
-                                        </div>
-                                        <a href="/{{this.calling}}/{{this.category}}/{{this.id}}" class="link-a">Click
-                                            here to view
-                                            <span class="bi bi-chevron-right"></span>
-                                        </a>
-                                    </div>
-                                    <div class="card-footer-a">
-                                        <ul class="card-info d-flex justify-content-around">
-                                            <li>
-                                                <h4 class="card-info-title">Area</h4>
-                                                <span>{{this.acreage}}
-                                                    <sup>2</sup></span>
-                                            </li>
-                                            <li>
-                                                <h4 class="card-info-title">Beds</h4>
-                                                <span>{{this.bedroom}}</span>
-                                            </li>
-                                            <li>
-                                                <h4 class="card-info-title">Baths</h4>
-                                                <span>{{this.bathroom}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -334,6 +448,20 @@
             </div>
         </div>
 
+        </div>
+        <input type="hidden" id="custId" name="custId" value="0">
+        <div class="position-fixed bottom-0 end-0 p-3" id="toast" style="z-index: 11">
+            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="/public/assets/estate/realestate.png" style="width: 30px;height: 30px" class="rounded me-2" alt="...">
+                    <strong class="me-auto">Thông tin sản phẩm</strong>
+                    <small>Hiện tại</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Xóa sản phẩm thành công. Vui lòng đợi ít phút để tải lại
+                </div>
+            </div>
         </div>
     </section><!-- End Agent Single -->
 

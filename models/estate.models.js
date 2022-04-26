@@ -317,4 +317,13 @@ export default {
         const check=db('estate').select('estate.image').where('estate.id',proid)
         return check;
     },
+    findAll(userid,limit,off){
+        return db("estate").select("estate.id as estateid","category.id as category","estate.*","category.*","categoryparent.*").where("estate.seller",userid)
+            .join("category","category.id","estate.category")
+            .join("categoryparent","categoryparent.id","category.parent")
+            .limit(limit)
+            .offset(off)
+    }
+
+
 }

@@ -103,37 +103,36 @@
             } else {
                 $("#modalLogin").modal("show")
             }
-
         })
     </script>
     <script>
         $("input[class^='star'][type='radio']").on("click", function () {
             {{#if ratingscore}}
-            {
-                const id = "star-" + "{{ratingscore}}"
-                document.getElementById(id).checked = "true"
-                $("#toast_n").toast("show")
-            }
+                {
+                    const id = "star-" + "{{ratingscore}}"
+                    document.getElementById(id).checked = "true"
+                    $("#toast_n").toast("show")
+                }
             {{else}}
-                if (document.getElementById("custId").value!=0){
+                if (document.getElementById("custId").value != 0) {
                     const id = "star-" + document.getElementById("custId").value
                     document.getElementById(id).checked = "true"
                     $("#toast_n").toast("show")
-                }else{
+                } else {
                     const value = $("input[class^='star'][type='radio']:checked").val()
                     const id = document.getElementById("proID").textContent
                     const email = document.getElementById("inputEmailUser").value
                     $.ajax({
                         async: false,
                         type: "POST",
-                        url: "/rating",
+                        url: "/ratingestate",
                         data: {value, id, email},
                         contentType: 'application/x-www-form-urlencoded',
                         dataType: 'html',
                         success: function (data) {
                             const id = "star-" + data
                             document.getElementById(id).checked = "true"
-                            document.getElementById("custId").value=data
+                            document.getElementById("custId").value = data
                             $("#toast_s").toast("show")
                         },
                         err: function (xhr, ajaxOptions, thrownError) {
@@ -146,13 +145,14 @@
         })
     </script>
     <script>
-        {{#if ratingscore}}
-        function checkedRadio() {
-            const id = "star-" + "{{ratingscore}}"
-            document.getElementById(id).checked = "true"
-        }
-        checkedRadio()
-        {{/if}}
+            {{#if ratingscore}}
+            function checkedRadio() {
+                const id = "star-" + "{{ratingscore}}"
+                document.getElementById(id).checked = "true"
+            }
+
+            checkedRadio()
+            {{/if}}
     </script>
 {{/section}}
 <main id="main">
@@ -189,6 +189,7 @@
                             <span class="color-text-a">{{pro.ward}}</span>
                         </div>
                         {{#if ../user}}
+                            <!--                                    star voting-->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -508,13 +509,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-lg-4">
-                                <img src="/public/assets/img/agent-4.jpg" alt="" class="img-fluid">
-                            </div>
                             {{#with ../userInfor}}
                                 <div class="col-md-6 col-lg-4">
+                                    <a href="/user/profile/{{id}}">
+                                        <img src="/public/assets/img/agent-4.jpg" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
                                     <div class="property-agent">
-                                        <h4 class="title-agent">{{name}}</h4>
+                                        <h4 class="title-agent"> <a href="/user/profile/{{id}}">{{name}}</a></h4>
                                         <p class="color-text-a">
                                             Thông tin người đăng.
                                         </p>
@@ -686,7 +689,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="thank-you-pop">
-                        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png"
+                             alt="">
                         <h1>Cảm ơn!</h1>
                         <p>Chủ nhà sẽ liên hệ đến bạn trong thời gian sớm nhất</p>
                         <h3 class="cupon-pop">Trân trọng: <span>HAGL</span></h3>

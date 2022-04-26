@@ -47,8 +47,12 @@ export default {
                 name:object.name,
                 phone:object.phone,
                 address:object.address,
-                birthday:object.birthday
+                birthday:object.birthday,
             })
+    },
+    updateRatingscore(score,email){
+        return db("user").update({ratingscore:score})
+            .where("user.email",email)
     }
 
 

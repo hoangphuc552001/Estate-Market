@@ -6,7 +6,7 @@ router.get("/profile/:iduser/:pageID",async (req,res)=>{
     const id=req.params.iduser||0
     let currentPage=req.params.pageID
     let offset_=(parseInt(currentPage)-1)*9
-    let pro=await estateModel.findProDuctOwnedByUserByTop(id,9,offset_)
+    let pro=await estateModel.findAll(res.locals.user.id,9,offset_)
     let proList=await estateModel.findProDuctOwnedByUser(id)
     res.render("product/profileProductLayout",{
         layout:false,
