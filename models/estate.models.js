@@ -209,6 +209,14 @@ export default {
         }).select('estate.id');
         return check;
     },
+    async findDetailProByCategory(ProID){
+        const data= await db('estate') .where('estate.category',ProID)
+            .join('detail_des','detail_des.pro_id','estate.id')
+            .join('img_detail','img_detail.proid','estate.id')
+            .join('category','category.id','estate.category')
+            .join('user','user.id','estate.seller')
+        return data;
+    },
 
     async ínsertDes(entity) {
         entity=entity[0];
@@ -223,8 +231,8 @@ export default {
     async insertNewImageInEstate(id,url){
         const check=await db("estate").where("estate.id",id).update(
             {
-            image:url
-        })
+                image:url
+            })
         return check
     },
     async insertNewImage(id){
@@ -250,7 +258,7 @@ export default {
     },
     async insertDetailByproID(id,entity){
         const check2=await db("detail_des").insert({
-           pro_id:id,
+            pro_id:id,
             des:entity.des,
             detail_description:entity.des,
             other_detail:entity.des
@@ -265,32 +273,32 @@ export default {
         return check2;
     },
 
-      async updateNewImage(id, url, index) {
-           if(index.includes("1")){
-               console.log(index)
-               const check=await db("img_detail").where('img_detail.proid',id).update({
-                   proid:id,
-                   image1:url
-               });
-               return check
-           }
-           else  if(index.includes("2")){
-               console.log(index)
-               const check=await db("img_detail").where('img_detail.proid',id).update({
-                   proid:id,
-                   image2:url
-               });
-               return check
-           }
-           else   if(index.includes("3")){
-               console.log(index)
-               const check=await db("img_detail").where('img_detail.proid',id).update({
-                   proid:id,
-                   image3:url
-               });
-               return check
-           }
-      },
+    async updateNewImage(id, url, index) {
+        if(index.includes("1")){
+            console.log(index)
+            const check=await db("img_detail").where('img_detail.proid',id).update({
+                proid:id,
+                image1:url
+            });
+            return check
+        }
+        else  if(index.includes("2")){
+            console.log(index)
+            const check=await db("img_detail").where('img_detail.proid',id).update({
+                proid:id,
+                image2:url
+            });
+            return check
+        }
+        else   if(index.includes("3")){
+            console.log(index)
+            const check=await db("img_detail").where('img_detail.proid',id).update({
+                proid:id,
+                image3:url
+            });
+            return check
+        }
+    },
     async removeDetailById(proid){
         const check=db('detail_des').where('detail_des.pro_id',proid).del();
         return check;

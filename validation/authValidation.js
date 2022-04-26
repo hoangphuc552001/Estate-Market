@@ -8,6 +8,5 @@ let validateRegister=[
         custom((value,{req})=>{
     return value === req.body.password
         }),
-
 ]
 export default validateRegister
