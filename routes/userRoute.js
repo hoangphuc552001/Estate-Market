@@ -14,7 +14,29 @@ import {reject} from "bcrypt/promises.js";
 import EstateModels from "../models/estate.models.js";
 import ratingModel from "../models/rating.model.js";
 import commentModel from "../models/comment.model.js";
+const cancelProductCreate=(req, res, next)=>{
+    try {
+        const promise = new Promise(async (resolve, reject) => {
+            const getID = await estateModels.selectProIDCancel();
+            console.log(getID)
+            for (const u of getID) {
+                const delDes = await estateModels.removeDetailById(u.id);
+                const desImage = await estateModels.removeImageById(u.id)
+            }
+            resolve(getID)
+        });
+        promise.then(async function (data) {
+            for (const u of data) {
+                const delProduct = await estateModels.removeEstateById(u.id);
+            }
+            next();
+        })
+    }
+    catch (ex){
+        next();
+    }
 
+}
 const router=express.Router();
 let checkLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -125,7 +147,7 @@ router.get('/product/edit-product/:proid',checkIsLockAccount,async (req,res)=>{
     }
     return res.redirect("/");
 })
-router.get('/profile',checkLoggedIn,checkIsLockAccount,async (req,res)=>{
+router.get('/profile',checkLoggedIn,checkIsLockAccount,cancelProductCreate,async (req,res)=>{
     if (res.locals.user){
         const user=await userModel.findUserByID(res.locals.user.id)
         const listPro=await estateModels.findProDuctOwnedByUser(res.locals.user.id)
@@ -208,7 +230,7 @@ router.post("/product/post-product",async (req, res) =>{
         let  urlImg="/public/assets/estate/"+list.categoryParent+"/"+list.category+"/";
         const total=await estateModel.findTotalByID(list.category);
         const myPromise=new Promise((resolve,reject)=>{
-            for (let i = 1; i < total[0].total+30; i++) {
+            for (let i = 1; i < total[0].total+100; i++) {
                 if (!fs.existsSync('.'+urlImg+i)) {
                     urlI=urlImg+i;
                     resolve({i:i,url:urlI});
