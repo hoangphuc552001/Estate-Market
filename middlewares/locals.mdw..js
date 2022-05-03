@@ -1,4 +1,6 @@
 import categoryModel from "../models/category.models.js";
+import estateModels from "../models/estate.models.js";
+import {reject} from "bcrypt/promises.js";
 
 
 export default function (app){
@@ -36,7 +38,9 @@ export default function (app){
             category.push(k)
         })
         res.locals.category=category
-        res.locals.catSeemore=catePa2
+        res.locals.catSeemore=catePa2;
+
+
         next();
     });
 

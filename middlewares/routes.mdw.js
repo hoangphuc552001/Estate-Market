@@ -11,6 +11,8 @@ import oauthentication from "../routes/oauthentication.js";
 import api from "../routes/api.js"
 import adminRoute from "../routes/adminRoute.js";
 import mainRoute from "../routes/mainRoute.js";
+import paypalRoute from "../routes/paypalRoute.js";
+import estateModels from "../models/estate.models.js";
 export default function (app) {
 
     app.use('/',mainRoute)
@@ -25,6 +27,7 @@ export default function (app) {
     app.use("/auth",oauthentication)
     app.use("/api/v1",api)
     app.use("/admin",adminRoute);
+    app.use("/checkout",paypalRoute);
 
     app.use(function (req, res,next) {
         res.render("error/404", { layout: false });

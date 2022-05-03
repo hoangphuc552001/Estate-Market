@@ -22,6 +22,8 @@ let checkLoggedIn = (req, res, next) => {
     }
     next();
 };
+
+
 let checkIsLockAccount = (req, res, next) => {
     if (req.isAuthenticated()) {
         if(req.user.permissions===-1){
@@ -94,18 +96,6 @@ router.post("/upload/:id",(req,res)=>{
 });
 
 
-router.get('/product',checkIsLockAccount,async (req,res)=>{
-    if(req.isAuthenticated()){
-        const list=await profileModel.findProfileByID(req.user.id);
-        const total=await profileModel.totalProductByID(req.user.id);
-        return res.render('user/product',{
-            profile:list[0],
-            total,
-            listProduct:list.product
-        })
-    }
-    return res.redirect("/");
-})
 
 
 
@@ -190,7 +180,6 @@ router.get('/product/post-product',checkLoggedIn,checkIsLockAccount,async (req,r
 router.post("/product/post-product",async (req, res) =>{
     if(req.isAuthenticated) {
         const list = req.body;
-        list.seller = req.user.id;
         const index=list.price.split(",");
         if(index.length===4){
             list.current=index[0]+" tỷ"
@@ -204,6 +193,7 @@ router.post("/product/post-product",async (req, res) =>{
         list.price=list.price.replace(" VNĐ","");
         list.price=list.price.replaceAll(",","");
         list.price=parseFloat(list.price);
+        list.seller=req.user.id;
         const check = await estateModel.insertNewProduct(list);
         const listDes=[{
             "des":list.des,
@@ -211,14 +201,15 @@ router.post("/product/post-product",async (req, res) =>{
             "otherdes":list.otherdes,
             "id":check[0]
         }];
+
         const checkDes = await estateModel.ínsertDes(listDes);
+
         let urlI;
         let  urlImg="/public/assets/estate/"+list.categoryParent+"/"+list.category+"/";
         const total=await estateModel.findTotalByID(list.category);
         const myPromise=new Promise((resolve,reject)=>{
-            for (let i = 1; i < total[0].total+20; i++) {
+            for (let i = 1; i < total[0].total+30; i++) {
                 if (!fs.existsSync('.'+urlImg+i)) {
-
                     urlI=urlImg+i;
                     resolve({i:i,url:urlI});
                 }
@@ -262,8 +253,6 @@ router.post("/post-product/upload/:id",(req,res)=>{
     upload.single('image')(req,res,async function (err) {
         if (err) {
         } else {
-            console.log(req.params.id)
-            console.log(fileName)
             if(fileName.includes("1")){
                 const list=await estateModel.updateNewImage(req.params.id||0,urlImage,"1");
                 const listEstate=await estateModel. insertNewImageInEstate(req.params.id||0,urlImage);

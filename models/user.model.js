@@ -27,11 +27,11 @@ export default {
     findUserByID(id){
         return db("user").where("user.id",id)
     },
+
     async blockEmailByID(id){
         const check=await db("user").where('id',id).update({
             'permissions':-1,
         });
-        console.log(check);
         return check;
     },
 
@@ -53,7 +53,17 @@ export default {
     updateRatingscore(score,email){
         return db("user").update({ratingscore:score})
             .where("user.email",email)
-    }
+    },
+
+    async updateStatus(proID) {
+        const check = await db("estate").where('id', proID).update({
+            status:"0"
+        });
+        return check;
+    },
+    async updateSeller(userID,proID) {
+
+    },
 
 
 }
