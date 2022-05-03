@@ -146,7 +146,7 @@ router.get('/profile',checkLoggedIn,checkIsLockAccount,async (req,res)=>{
 router.get("/profile/:id",async (req,res)=>{
     const user=await userModel.findUserByID(req.params.id)
     const listPro=await estateModels.findProDuctOwnedByUser(req.params.id)
-    let pro=await estateModel.findProDuctOwnedByUserByTop(req.params.id,9,0)
+    let pro=await estateModel.findAll(req.params.id,9,0)
     if (res.locals.user){
         var firstName=res.locals.user.firstName
         var rating=await ratingModel.findRating(parseInt(req.params.id),res.locals.user.id)

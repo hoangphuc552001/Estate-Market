@@ -511,13 +511,20 @@
                         <div class="row">
                             {{#with ../userInfor}}
                                 <div class="col-md-6 col-lg-4">
-                                    <a href="/user/profile/{{id}}">
+                                {{#if ../../user}}
+                                    <a
+                                            href="/user/profile/{{id}}">
                                         <img src="/public/assets/img/agent-4.jpg" alt="" class="img-fluid">
                                     </a>
+                                {{else}}
+                                    <img src="/public/assets/img/agent-4.jpg" alt="" class="img-fluid">
+                                {{/if}}
+
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="property-agent">
-                                        <h4 class="title-agent"> <a href="/user/profile/{{id}}">{{name}}</a></h4>
+                                        <h4 class="title-agent">
+                                            <a   {{#if ../../user}} href="/user/profile/{{id}}" {{/if}}>{{name}}</a></h4>
                                         <p class="color-text-a">
                                             Thông tin người đăng.
                                         </p>
