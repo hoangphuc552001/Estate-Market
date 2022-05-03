@@ -6,15 +6,15 @@ import passport from "passport"
 import xmldom from'xmldom'
 import bodyParser from "body-parser";
 import multer from 'multer'
+import fs from 'fs';
 import initPassportLocal from '../middlewares/passport.mdw.js'
 import estateModel from '../models/estate.models.js'
 import categoryModels from "../models/category.models.js";
 import userModel from "../models/user.model.js";
 import * as Console from "console";
 /*import {list} from "../public/assets/js/vendor.js";*/
-import fs from 'fs';
-import {reject} from "bcrypt/promises.js";
-/*import {list} from "../public/assets/js/vendor.js";*/
+
+
 const router=express.Router();
 
 

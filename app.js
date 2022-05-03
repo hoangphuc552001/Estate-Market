@@ -9,11 +9,10 @@ import activateSessionMiddleware from './middlewares/session.mdw.js'
 import asyncErrors from 'express-async-errors'
 //express declare
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 app.use('/public',express.static('public'))
 //morgan
 app.use(morgan('dev'));
-
 //middleware declare for post method
 app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json())
@@ -28,7 +27,6 @@ activateSessionMiddleware(app);
 activateLocalsMiddleware(app);
 activateViewMiddleware(app);
 activateRouteMiddleware(app);
-
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

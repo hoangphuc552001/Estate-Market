@@ -5,7 +5,7 @@ const knex = fn({
     host : 'localhost',
     user : 'root',
     port:3306,
-    password : '',
+    password : '123456',
     database : 'realestate'
     },
     pool: { min: 0, max: 10 },
