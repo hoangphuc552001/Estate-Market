@@ -6,7 +6,6 @@ import multer from "multer";
 import fs from 'fs'
 import gulp from 'gulp'
 import moment from "moment";
-
 import userModel from "../models/user.model.js";
 import estateModels from "../models/estate.models.js";
 import db from "../utils/db.js";
@@ -14,6 +13,7 @@ import {reject} from "bcrypt/promises.js";
 import EstateModels from "../models/estate.models.js";
 import ratingModel from "../models/rating.model.js";
 import commentModel from "../models/comment.model.js";
+
 
 const router=express.Router();
 let checkLoggedIn = (req, res, next) => {
@@ -364,5 +364,33 @@ router.post("/updateprofile",async (req,res)=>{
         res.status(500).send("False")
     }
 
+})
+router.post("/post-product/avatar/:userId",(req,res,next)=>{
+    const userId=req.params.userId
+    const folderName = "./public/assets/user/"+userId
+    const folderAdd = "/public/assets/user/" +userId+ "/";
+    try {
+        if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName);
+        }
+    } catch (err) {
+    }
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, folderName);
+        },
+        filename: function (req, file, cb) {
+            cb(null, "avatar.jpg");
+        },
+    });
+    const upload = multer({storage});
+    upload.single('avatar')(req,res,async function (err){
+        if (err) {
+            console.error(err);
+        } else {
+            await userModel.add_image(folderName.replace(".","") + "/avatar.jpg",userId)
+            return res.redirect("/user/profile");
+        }
+    })
 })
 export default router;

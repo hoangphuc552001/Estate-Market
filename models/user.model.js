@@ -53,6 +53,9 @@ export default {
     updateRatingscore(score,email){
         return db("user").update({ratingscore:score})
             .where("user.email",email)
+    },
+    add_image(img,userId){
+        return db("user").update({avatar:img}).where("user.id",userId)
     }
 
 

@@ -18,6 +18,15 @@
         });
     </script>
     <script>
+        function thisFileUpload() {
+            document.getElementById("file").click();
+            $("#file").change(function(e){
+                $("#submitFile").submit()
+            });
+        };
+
+    </script>
+    <script>
         $("#txtDob").val("{{time userInfor.birthday}}");
     </script>
     <script>
@@ -260,7 +269,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="agent-avatar-box">
-                                <img src="/public/assets/img/agent-7.jpg" alt="" class="agent-avatar img-fluid">
+                                <img src="{{userInfor.avatar}}" style="object-fit: cover" width="500px" height="500px" alt="" class="agent-avatar img-fluid">
                             </div>
                         </div>
                         <div class="col-md-5 section-md-t3">
@@ -301,7 +310,10 @@
                                         {{#if (equal user.id userInfor.id)}}
                                             <form method="get" action="/user/product/post-product">
                                                 <p>
-                                                    <button class="btn btn-b">Đăng sản phẩm</button>
+                                                    <button class="btn btn-b">
+                                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                                        Đăng sản phẩm
+                                                    </button>
                                                 </p>
                                             </form>
                                         {{/if}}
@@ -339,6 +351,13 @@
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Cập nhật thông tin
                                     </button>
+                                    <button type="button" onclick="thisFileUpload();" class="btn btn-info">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Thay đổi ảnh đại diện
+                                    </button>
+                                    <form id="submitFile" action="/user/post-product/avatar/{{userInfor.id}}" enctype="multipart/form-data" method="POST">
+                                        <input id="file" type="file" name="avatar" accept=".jpg,.png" style="display: none"/>
+                                    </form>
                                 {{else}}
 <!--                                    star voting-->
                                     {{#if notSeller}}
