@@ -144,7 +144,6 @@
                             dataType: 'html',
                             success: function (data) {
                                 const spl=data.split(',')
-                                console.log(spl)
                                 const id = "star-" + spl[0]
                                 document.getElementById("score").innerHTML=spl[1]
                                 document.getElementById(id).checked = "true"

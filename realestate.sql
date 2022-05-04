@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS testrealestate/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
-USE `testrealestate`;
+CREATE DATABASE  IF NOT EXISTS realestate/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
+USE `realestate`;
 DROP TABLE IF EXISTS `categoryparent`;
 create table categoryparent
 (
@@ -8,6 +8,7 @@ create table categoryparent
     name    varchar(50) charset utf8 not null,
     calling varchar(50) charset utf8 null
 );
+
 INSERT INTO categoryparent (id, name,calling) VALUES (1, 'Nhà đất bán','nha-dat-ban');
 INSERT INTO categoryparent (id, name,calling) VALUES (2, 'Nhà đất cho thuê','nha-dat-cho-thue');
 INSERT INTO categoryparent (id, name,calling) VALUES (3, 'Dự án','du-an');
@@ -59,7 +60,7 @@ create table estate
     current     varchar(50) charset utf8             not null,
     category    int                                  null,
     image       longtext                             not null,
-    status      varchar(45) charset utf8             null,
+    status      varchar(45) charset utf8 default 0,
     annoucement varchar(300) charset utf8            null,
     bathroom    int                                  null,
     bedroom     int                                  null,
@@ -641,6 +642,36 @@ create table comments
     constraint comments_user_id_fk
         foreign key (userid) references user (id)
 );
+create table rating
+(
+    idrating    int  not null,
+    ratingscore int  not null,
+    userrate    int  not null,
+    type        int  null,
+    daterating  date null,
+    id          int auto_increment,
+    primary key (id, idrating, userrate)
+);
+create table ratingestate
+(
+    id       int auto_increment,
+    estateid int not null,
+    primary key (id, estateid),
+    constraint ratingestate_estate_id_fk
+        foreign key (estateid) references realestate.estate (id)
+);
+create table ratinguser
+(
+    id      int auto_increment,
+    userid  int                      not null,
+    comment varchar(50) charset utf8 null,
+    primary key (id, userid),
+    constraint ratinguser_user_id_fk
+        foreign key (userid) references realestate.user (id)
+);
+
+
+
 DELIMITER $$
 create procedure insertTableRating(IN userrate_ int(11),IN ratingscore_ int(11),IN idinsert_ int(11),IN type_ int(11))
 BEGIN

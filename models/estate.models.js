@@ -201,7 +201,6 @@ export default {
         return checkDes;
     },
     async insertNewProduct(entity) {
-
         const check=await db("estate").insert({
             title:entity.title,
             current:entity.current,
