@@ -13,12 +13,20 @@ export default {
             .where('category.parent',catID)
             .limit(limit_).offset(offset_)
     },
+    async selectProIDCancel(){
+        const list= await db("estate").select('estate.id').where("estate.status","-1");
+        return list;
+    },
     //Tìm bđs top
     findProTopByEstateID(catID,top){
         return db('estate').select('estate.*','categoryparent.calling').where('category',catID)
             .join("category","category.id","estate.category")
             .join("categoryparent","categoryparent.id","category.parent")
             .limit(top).offset(0)
+    },
+    async delProductCancelCreate() {
+        const list = await db('estate').where('estate.status',"-1").del();
+        return list
     },
     //tìm bđs top và sớm
     findProTopLatest(limit,offset){
@@ -205,6 +213,7 @@ export default {
             bathroom:entity.bathroom,
             seller: entity.seller,
             price:entity.price,
+            status:"-1",
             image:"1"
         }).select('estate.id');
         return check;

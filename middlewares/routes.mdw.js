@@ -11,20 +11,45 @@ import oauthentication from "../routes/oauthentication.js";
 import api from "../routes/api.js"
 import adminRoute from "../routes/adminRoute.js";
 import mainRoute from "../routes/mainRoute.js";
+import paypalRoute from "../routes/paypalRoute.js";
+import estateModels from "../models/estate.models.js";
 export default function (app) {
+    const cancelProductCreate=(req, res, next)=>{
+        try {
+            const promise = new Promise(async (resolve, reject) => {
+                const getID = await estateModels.selectProIDCancel();
+                console.log(getID)
+                for (const u of getID) {
+                    const delDes = await estateModels.removeDetailById(u.id);
+                    const desImage = await estateModels.removeImageById(u.id)
+                }
+                resolve(getID)
+            });
+            promise.then(async function (data) {
+                for (const u of data) {
+                    const delProduct = await estateModels.removeEstateById(u.id);
+                }
+                next();
+            })
+        }
+        catch (ex){
+            next();
+        }
 
+    }
     app.use('/',mainRoute)
-    app.use("/nha-dat-ban",muabanRoute)
-    app.use("/tim-kiem",timkiemRoute)
-    app.use("/du-an",duanRoute)
-    app.use("/nha-dat-cho-thue",chothueRoute)
-    app.use("/tin-tuc",tintucRoute);
+    app.use("/nha-dat-ban",cancelProductCreate,muabanRoute)
+    app.use("/tim-kiem",cancelProductCreate,timkiemRoute)
+    app.use("/du-an",cancelProductCreate,duanRoute)
+    app.use("/nha-dat-cho-thue",cancelProductCreate,chothueRoute)
+    app.use("/tin-tuc",cancelProductCreate,tintucRoute);
     app.use("/page",pageRoute)
-    app.use("/authen",authenRoute)
+    app.use("/authen",cancelProductCreate,authenRoute)
     app.use("/user",userRoute)
     app.use("/auth",oauthentication)
     app.use("/api/v1",api)
     app.use("/admin",adminRoute);
+    app.use("/checkout",paypalRoute);
 
     app.use(function (req, res,next) {
         res.render("error/404", { layout: false });

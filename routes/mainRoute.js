@@ -8,7 +8,32 @@ const router=express.Router();
 import moment from "moment";
 import db from "../utils/db.js";
 import estateModels from "../models/estate.models.js";
-router.get('/',async function (req,res){
+
+
+const cancelProductCreate=(req, res, next)=>{
+    try {
+        const promise = new Promise(async (resolve, reject) => {
+            const getID = await estateModels.selectProIDCancel();
+            console.log(getID)
+            for (const u of getID) {
+                const delDes = await estateModels.removeDetailById(u.id);
+                const desImage = await estateModels.removeImageById(u.id)
+            }
+            resolve(getID)
+        });
+        promise.then(async function (data) {
+            for (const u of data) {
+                const delProduct = await estateModels.removeEstateById(u.id);
+            }
+            next();
+        })
+    }
+    catch (ex){
+        next();
+    }
+
+}
+router.get('/',cancelProductCreate,async function (req,res){
     const top3EstateHouse= await estateModel.findProTopByEstateID(1,3)
     const top3EstateGround= await estateModel.findProTopByEstateID(5,3)
     const sellPro=top3EstateGround.concat(top3EstateHouse)

@@ -27,11 +27,11 @@ export default {
     findUserByID(id){
         return db("user").where("user.id",id)
     },
+
     async blockEmailByID(id){
         const check=await db("user").where('id',id).update({
             'permissions':-1,
         });
-        console.log(check);
         return check;
     },
 
@@ -56,7 +56,14 @@ export default {
     },
     add_image(img,userId){
         return db("user").update({avatar:img}).where("user.id",userId)
+    },
+    async updateStatus(proID) {
+        const check = await db("estate").where('id', proID).update({
+            status:"0"
+        });
+        return check;
+    },
+    async updateSeller(userID,proID) {
+
     }
-
-
 }

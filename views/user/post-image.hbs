@@ -83,7 +83,10 @@
         </div>
         <div class="row">
             <div class="col-sm-12" style="display: flex; flex-direction: row; justify-content: center">
-                <button  id="post" class="btn btn-b"  >Đăng sản phẩm</button>
+                <form method="post" action="/checkout/{{id}}">
+                    <a class="btn btn-b btn-danger"  href="/user/profile" style="background-color: red" id="cancel"   >Hủy bỏ</a>
+                <button  id="post"   class="btn btn-b">Bấm để thanh toán sản phẩm</button>
+                </form>
             </div>
         </div>
     </div>
@@ -151,13 +154,13 @@
             function myGreeting(){
                 location.href="/"
             }
-            $("#post").click(function (){
+           /* $("#post").click(function (){
                 $("#success-modal").modal('show');
                 const myTimeout = setTimeout(myGreeting, 5000);
             })
             $("#submitpost").click(function (){
                 location.href="/"
-            });
+            });*/
             $("#image").fileinput({
                 overwriteInitial: false,
                 validateInitialCount: true,
