@@ -17,6 +17,10 @@ export default {
                         email:user.email,
                         password:bcryptjs.hashSync(user.password.trim(),salt),
                         permissions:user.permissions,
+                        birthday:user.birthday,
+                        address:user.address,
+                        phone:user.phone,
+                        avatar:user.avatar
                     }
                     try{
                         await userModelPro.insert(data)

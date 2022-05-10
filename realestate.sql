@@ -672,11 +672,27 @@ create table ratinguser
 
 
 
-DELIMITER $$
-create procedure insertTableRating(IN userrate_ int(11),IN ratingscore_ int(11),IN idinsert_ int(11),IN type_ int(11))
+create
+    definer = root@localhost procedure insertTableRating(IN idinsert_ int, IN ratingscore_ int, IN userrate_ int, IN type_ int)
 BEGIN
     declare id_ INT DEFAULT 0;
-    insert into rating(id,ratingscore,userrate,type) values(idinsert_,ratingscore_,userrate_,type_);
-    insert into ratingestate(id) values (idinsert_);
-END $$
-DELIMITER ;
+    declare date_ date DEFAULT  CURRENT_DATE();
+    insert into rating(idrating,ratingscore,userrate,type,daterating) values(idinsert_,ratingscore_,userrate_,type_,date_);
+    select id_=id from rating where idrating=idinsert_ and ratingscore = ratingscore_ and userrate=userrate_ and type=type_
+                                and daterating=date_;
+    insert into ratingestate(id,estateid) values (id_,idinsert_);
+END;
+
+
+
+create
+    definer = root@localhost procedure insertTableUserRating(IN userrate_ int, IN ratingscore_ int, IN idinsert_ int,
+                                                             IN type_ int, IN comment_ varchar(50))
+BEGIN
+    declare id_ INT DEFAULT 0;
+    declare date_ date DEFAULT  CURRENT_DATE();
+    insert into rating(idrating,ratingscore,userrate,type,daterating) values(idinsert_,ratingscore_,userrate_,type_,date_);
+    select id_=id from rating where idrating=idinsert_ and ratingscore = ratingscore_ and userrate=userrate_ and type=type_;
+    insert into ratinguser(id,userid,comment) values (id_,idinsert_,comment_);
+END;
+

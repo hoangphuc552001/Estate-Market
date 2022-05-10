@@ -50,6 +50,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
@@ -83,9 +84,14 @@
         </div>
         <div class="row">
             <div class="col-sm-12" style="display: flex; flex-direction: row; justify-content: center">
-                <form method="post" action="/checkout/{{id}}">
+                <h3 class="title-single"> Lưu ý: Bạn cần thêm đầy đủ 3 tấm hình mới được thanh toán</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="display: flex; flex-direction: row; justify-content: center">
+                <form method="post" id="postProduct" action="/checkout/{{id}}">
                     <a class="btn btn-b btn-danger"  href="/user/profile" style="background-color: red" id="cancel"   >Hủy bỏ</a>
-                <button  id="post"   class="btn btn-b">Bấm để thanh toán sản phẩm</button>
+                <button  id="post" class="btn btn-b">Bấm để thanh toán sản phẩm</button>
                 </form>
             </div>
         </div>
@@ -151,6 +157,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
+            let image1=false;
+            let image2=false;
+            let image3=false;
+            $("#post").attr("disabled",true);
+            function checkUploadImage(){
+                if(image1===false||image2===false||image3===false){
+
+                    $("#post").attr("disabled",true);
+                }
+                else{
+                    $("#post").attr("disabled",false);
+                }
+            }
             function myGreeting(){
                 location.href="/"
             }
@@ -192,6 +211,8 @@
                         url:"/user/geturl",
                         data:{url:params.response.detail,id:"image1"},
                         success:function (data){
+                            image1=true;
+                            checkUploadImage();
                             $("#image1").replaceWith(data)
                         },
                         err:function (xhr,ajaxOptions,thrownError){
@@ -201,13 +222,14 @@
                 }
                 else if(params.response.position==='2'){
                     console.log(params.response.detail);
-
                     $.ajax({
                         async:false,
                         type:"POST",
                         url:"/user/geturl",
                         data:{url:params.response.detail,id:"image2"},
                         success:function (data){
+                            image2=true;
+                            checkUploadImage();
                             $("#image2").replaceWith(data)
                         },
                         err:function (xhr,ajaxOptions,thrownError){
@@ -223,6 +245,8 @@
                         url:"/user/geturl",
                         data:{url:params.response.detail,id:"image3"},
                         success:function (data){
+                            image3=true;
+                            checkUploadImage();
                             $("#image3").replaceWith(data)
                         },
                         err:function (xhr,ajaxOptions,thrownError){
@@ -231,22 +255,7 @@
                     })
                 }
             });
-        });
-        $("#saveImage").click(function (){
-            location.reload();
-        })
-
-        $("#cancelUploadImage").click(function (){
-            $('#imagemodal').modal('hide');
-        });
-        $("#closebtn").click(function (){
-            $('#imagemodal').modal('hide');
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
             $("#uploadimage1").click(function () {
-
                 $.post("/user/product/url", {
                     parent:{{parent}},
                     id:{{id}},
@@ -255,14 +264,12 @@
                     name: "1.jpg"
                 }, function (data, status) {
                     if (data) {
+
                         $('#imagemodal').modal('show');
                     }
                 });
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
+
             $("#uploadimage2").click(function () {
                 console.log("hello")
                 $.post("/user/product/url", {
@@ -273,14 +280,12 @@
                     name: "2.jpg"
                 }, function (data, status) {
                     if (data) {
+
                         $('#imagemodal').modal('show');
                     }
                 });
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
+
             $("#uploadimage3").click(function () {
                 console.log("hello")
                 $.post("/user/product/url", {
@@ -291,10 +296,21 @@
                     name: "3.jpg"
                 }, function (data, status) {
                     if (data) {
+
                         $('#imagemodal').modal('show');
                     }
                 });
             });
+        $("#saveImage").click(function (){
+            location.reload();
+        })
+
+        $("#cancelUploadImage").click(function (){
+            $('#imagemodal').modal('hide');
+        });
+        $("#closebtn").click(function (){
+            $('#imagemodal').modal('hide');
+        });
         });
     </script>
 

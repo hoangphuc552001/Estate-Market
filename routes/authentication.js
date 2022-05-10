@@ -73,7 +73,11 @@ router.post('/register',auth, async (req,res)=>{
             name:req.body.name,
             email:req.body.email,
             password:req.body.password,
-            permissions:0
+            permissions:0,
+            birthday:req.body.birthday,
+            address:req.body.address,
+            phone:req.body.phone,
+            avatar:"/public/assets/user/default.jpg"
         };
         await registerService.createNewUser(newUser)
         return res.redirect("login")

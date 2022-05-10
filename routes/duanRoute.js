@@ -14,7 +14,9 @@ router.get('/',async function (req,res){
     })
 });
 router.get('/:detailID',async function (req,res){
-    const pro=await estateModel.findDetailProByID(req.params.detailID||0)
+    console.log(req.params.detailID)
+    const pro=await estateModel.findDetailProByID(req.params.detailID||0);
+    console.log(pro[0])
     res.render('product/blog-single',{
         pro:pro[0]
     })

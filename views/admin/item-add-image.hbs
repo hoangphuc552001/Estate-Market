@@ -64,6 +64,11 @@
                                 <div class="image" id="image3" style="background-image:url('{{list.image3}}')"></div>
                             </div>
                         </div>
+                        <div class="title-block">
+                            <h3 class="title">
+                                Lưu ý: cần thêm đầy đủ 3 tấm hình
+                            </h3>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row" >
@@ -176,14 +181,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js" integrity="sha512-Uq/oCjgDVhP8yiVZWU3F+XZcIwdIeMCgP43VG/Q/V3rqlhdpLS16CRknPqjKo4WUUM606zVchpiJuIkMJbQp7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
     <script>
         function myGreeting(){
-            location.href="/"
+            location.href="/admin/san-pham/du-an/15"
         }
-        $("#post").click(function (){
-            $("#success-modal").modal('show');
-            const myTimeout = setTimeout(myGreeting, 5000);
-        });
         $("#submitpost").click(function (){
-            location.href="/"
+            location.href="/admin/san-pham/du-an/15"
         });
         $('#no').click(function (){
             $('#confirm-modal').modal('hide');
@@ -195,9 +196,6 @@
         $('#submitbtn22').click(function (){
             $('#confirm-modal').modal('show');
         });
-        function myGreeting(){
-            location.reload();
-        }
         $('#submitUpdate').click(function (){
             var des=$('#des').html().replace('contenteditable="true"',"contenteditable=false");
             $.post("/admin/san-pham/du-an/sua-san-pham/{{list.proid}}",{title:$('#title').val(),des:des,ward:$("#ward option:selected").val(),check:true},function (data,status){
@@ -206,26 +204,39 @@
                     $('#success-modal').modal('show');
                     $('#success-modal').click(function (e) {
                         $('#success-modal').modal('toggle');
-                        location.reload();
+                        myGreeting()
                     });
                     const myTimeout = setTimeout(myGreeting, 5000);
-                    /*   console.log(data.update)
-                       location.reload();*/
                 }
             });
         })
     </script>
     <script>
+
         $(document).ready(function() {
-            /*$("#reload1").click(function (){
-                $("#step1Content").load('YourUrl');
+            let image1=false;
+            let image2=false;
+            let image3=false;
+            let notificationRequireThreePicture=false;
+            $("#post").click(function (){
+                console.log(image1)
+                console.log(image2)
+                console.log(image3)
+                if((image1===false)
+                        ||(image2===false)
+                        ||(image3===false)){
+                    if(notificationRequireThreePicture===false) {
+                        $(this).parent().after("<h3 class='title'>Vui lòng chọn đầy đủ hình ảnh</h3>")
+                        notificationRequireThreePicture=true
+                    }
+                }
+                else
+                {
+                    $("#success-modal").modal('show');
+                    const myTimeout = setTimeout(myGreeting, 5000);
+                }
             })
-            $("#reload2").click(function (){
-                $("#step1Content").load('YourUrl');
-            })
-            $("#reload3").click(function (){
-                $("#step1Content").load('YourUrl');
-            })*/
+
             let temp=0;
             $("#addImage1").click(function() {
                 /*$("#modal-medial #selection option[value='file']").attr('selected', 'selected');*/
@@ -242,7 +253,6 @@
                     }
                 });
                 });
-        });
         $("#addImage2").click(function() {
             /*$("#modal-medial #selection option[value='file']").attr('selected', 'selected');*/
             temp=this.name;
@@ -319,7 +329,9 @@
                     url:"/admin/geturl",
                     data:{url:params.response.detail,id:"image1"},
                     success:function (data){
-                        $("#image1").replaceWith(data)
+                        image1=true;
+                        $("#image1").replaceWith(data);
+
                     },
                     err:function (xhr,ajaxOptions,thrownError){
                         alert("Lỗi")
@@ -335,6 +347,7 @@
                     url:"/admin/geturl",
                     data:{url:params.response.detail,id:"image2"},
                     success:function (data){
+                        image2=true;
                         $("#image2").replaceWith(data)
                     },
                     err:function (xhr,ajaxOptions,thrownError){
@@ -350,6 +363,7 @@
                     url:"/admin/geturl",
                     data:{url:params.response.detail,id:"image3"},
                     success:function (data){
+                        image3=true
                         $("#image3").replaceWith(data)
                     },
                     err:function (xhr,ajaxOptions,thrownError){
@@ -357,6 +371,7 @@
                     }
                 })
             }
+        });
         });
     </script>
 {{/section}}

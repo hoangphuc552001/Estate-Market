@@ -57,8 +57,11 @@ router.post("/product/url",(req,res)=>{
     urlImage="/public/assets/estate/"+req.body.parent+"/"+req.body.category+"/"+req.body.data+"/"+req.body.name;
     res.send(true);
 });
+
+
 router.post("/product/url-image",(req,res)=>{
     urlImage=req.body;
+
     res.send(true);
 });
 router.post("/update-product/:name/:id",async (req,res)=>{
@@ -123,6 +126,7 @@ router.get('/product/edit-product/:proid',checkIsLockAccount,async (req,res)=>{
     if(req.isAuthenticated()){
         const list = await estateModel.findDetailProByID(req.params.proid);
         const listWard = await estateModel.findAllWard();
+        console.log(list);
         listWard.forEach(u => {
             if (u.ward === list[0].ward) {
                 u.check = true;
@@ -228,7 +232,7 @@ router.post("/product/post-product",async (req, res) =>{
         let  urlImg="/public/assets/estate/"+list.categoryParent+"/"+list.category+"/";
         const total=await estateModel.findTotalByID(list.category);
         const myPromise=new Promise((resolve,reject)=>{
-            for (let i = 1; i < total[0].total+100; i++) {
+            for (let i = 1; i < total[0].total+5000; i++) {
                 if (!fs.existsSync('.'+urlImg+i)) {
                     urlI=urlImg+i;
                     resolve({i:i,url:urlI});
