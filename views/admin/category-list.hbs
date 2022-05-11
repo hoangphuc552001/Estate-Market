@@ -121,7 +121,7 @@
                                             <div class="item-actions-block">
                                                 <ul class="item-actions-list">
                                                     <li>
-                                                        <a class="remove" href="" id="deleteCategory" name="{{this.id}}">
+                                                        <a class="remove" href="#" id="deleteCategory" name="{{this.id}}">
                                                             <i class="fa fa-trash-o "></i>
                                                         </a>
                                                     </li>
@@ -138,117 +138,44 @@
                             </div>
                         </li>
                     {{/each}}
-            <nav class="text-right">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#"> Prev </a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#"> 1 </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> 2 </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> 3 </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> 4 </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> 5 </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#"> Next </a>
-                    </li>
-                </ul>
-            </nav>
+
         </article>
-        <footer class="footer">
-            <div class="footer-block buttons">
-                <iframe class="footer-github-btn" src="https://ghbtns.com/github-btn.html?user=modularcode&amp;repo=modular-admin-html&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="140px" height="20px"></iframe>
-            </div>
-            <div class="footer-block author">
-                <ul>
-                    <li> created by
-                        <a href="https://github.com/modularcode">ModularCode</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/modularcode/modular-admin-html#get-in-touch">get in touch</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
-        <div class="modal fade" id="modal-media">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Media Library</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                    </div>
-                    <div class="modal-body modal-tab-container">
-                        <ul class="nav nav-tabs modal-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#gallery" data-toggle="tab" role="tab">Gallery</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#upload" data-toggle="tab" role="tab">Upload</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content modal-tab-content">
-                            <div class="tab-pane fade" id="gallery" role="tabpanel">
-                                <div class="images-container">
-                                    <div class="row"> </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade active in" id="upload" role="tabpanel">
-                                <div class="upload-container">
-                                    <div id="dropzone">
-                                        <form action="https://modularcode.io/" method="POST" enctype="multipart/form-data" class="dropzone needsclick dz-clickable" id="demo-upload">
-                                            <div class="dz-message-block">
-                                                <div class="dz-message needsclick"> Drop files here or click to upload. </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Insert Selected</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-        <div class="modal fade" id="confirm-modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            <i class="fa fa-warning"></i> Alert</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure want to do this?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
+    <div class="position-fixed bottom-0 end-0 p-3" id="toast" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="/public/assets/estate/realestate.png" style="width: 30px;height: 30px" class="rounded me-2" alt="...">
+                <strong class="me-auto">Thông tin sản phẩm</strong>
+                <small>Hiện tại</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <!-- /.modal-dialog -->
+            <div class="toast-body">
+                Xóa sản phẩm thành công. Vui lòng đợi ít phút để tải lại
+            </div>
         </div>
+    </div>
+
+
+
+    <div class="modal fade" id="cofirm-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn chắc chắn muốn xóa sản phẩm này ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" id="cofirmremove" class="btn btn-b-n">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
         <!-- /.modal -->
     </div>
 </div>
@@ -269,13 +196,21 @@
 
             })
         }*/
-       $(".remove").click(function(){
-        $.post("/admin/danh-muc/:calling/xoa-danh-muc",{parent:{{parentID}},id:this.name},function (data,status){
-            console.log(data);
-            if(data){
-                alert("Hello")
-            }
-           });
+       let id;
+       $(".remove").click(function() {
+           id=this.name;
+           $("#cofirm-modal").modal('show');
        });
+       $("#cofirmremove").click(function (){
+           $.post("/admin/danh-muc/:calling/xoa-danh-muc",{parent:{{parentID}},id:id},function (data,status){
+               if(data){
+                   $("#cofirm-modal").modal('hide');
+                   $("#liveToast").toast('show');
+                   const myTimeout = setTimeout(function (){
+                       location.reload();
+                   }, 2000);
+               }
+           });
+       })
     </script>
 {{/section}}

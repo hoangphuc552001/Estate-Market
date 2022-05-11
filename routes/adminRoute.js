@@ -214,6 +214,7 @@ router.get("/danh-muc/:calling/:catID", checkIsAdmin ,async (req,res)=>{
         )
 });
 router.post("/danh-muc/:calling/xoa-danh-muc",async (req,res)=>{
+    console.log(req.body)
     const delCategory= await categoryModels.delCategoryByParentAndID(req.body)
     res.send(true)
 })
