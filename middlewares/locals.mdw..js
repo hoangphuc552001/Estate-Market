@@ -39,8 +39,6 @@ export default function (app){
         })
         res.locals.category=category
         res.locals.catSeemore=catePa2;
-
-
         next();
     });
 

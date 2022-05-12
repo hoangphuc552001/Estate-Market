@@ -15,8 +15,8 @@ export default function (app){
             connectionLimit: 100,
             host: 'localhost',
             user: 'root',
-            password: '',
-            database: 'realestatetest',
+            password: 'bbb92f05',
+            database: 'heroku_59394531068dea2',
             charset: 'utf8mb4_general_ci',
             schema: {
                 tableName: 'sessions',
