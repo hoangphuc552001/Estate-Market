@@ -165,6 +165,7 @@ router.get("/san-pham/:calling/:catID",checkIsAccess ,async (req,res)=>{
          for (const u of listProduct) {
             u.check = true
         }
+
         res.render('admin/items-list', {
                 layout: 'layoutAdmin.hbs',
                 list: listProduct,

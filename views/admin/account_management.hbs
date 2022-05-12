@@ -88,9 +88,23 @@
                                 <div class="item-col item-col-category no-overflow">
                                     <div class="item-heading">Trạng thái</div>
                                     {{#if (checkExist this.permissions)}}
-                                        <div>
-                                            <a >Tồn tại</a>
-                                        </div>
+                                        {{#if ( checkAdmin this.permissions)}}
+                                            <div>
+                                                <a >Admin</a>
+                                            </div>
+                                        {{else}}
+                                            {{#if (checkProJect this.permissions)}}
+                                                <div>
+                                                    <a >Tổ chức</a>
+                                                </div>
+                                            {{else}}
+                                                <div>
+                                                    <a >Tồn tại</a>
+                                                </div>
+                                            {{/if}}
+
+                                        {{/if}}
+
                                     {{else}}
                                         <div class="no-overflow">
                                             <a>Đã Khóa</a>

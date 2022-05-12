@@ -55,11 +55,18 @@
                                         <strong>Email: </strong>
                                         <span class="color-text-a"> {{profile.email}}</span>
                                     </p>
-                                    <form method="get" action="/user/product/post-product">
-                                    <p>
-                                        <button class="btn btn-b"  >Đăng sản phẩm</button>
-                                    </p>
-                                    </form>
+                                    {{#if (checkBLock profile.permissions)}}
+                                        <form method="get" action="/user/product/post-product">
+                                            <p>
+                                                <button class="btn btn-b"  >Đăng sản phẩm</button>
+                                            </p>
+                                        </form>
+                                    {{else}}
+                                            <p>
+                                                <button class="btn btn-b" disabled >Không thể đăng sản phẩm</button>
+                                            </p>
+                                    {{/if}}
+
                                 </div>
                             </div>
                             <div class="socials-footer">

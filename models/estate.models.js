@@ -2,9 +2,10 @@ import db from "../utils/db.js";
 export default {
     //Tìm bđs sản bằng danh mục 1
     async findByEstateID(catID) {
-        const list = await db('estate').where('category', catID)
+        const list = await db('estate').join('user','user.id','estate.seller').where('category', catID)
         return list
     },
+
     //Tìm bđs sản bằng danh mục 2
     findProByCatParentID(catID,limit_,offset_){
         return db('estate').join('category','category.id','estate.category')
