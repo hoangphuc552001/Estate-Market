@@ -1,0 +1,82 @@
+
+0javascript:S3317"Rename this file to "router"
+Mjavascript:S1128",Remove this unused import of 'profileModel'.(Ì¿àŠøÿÿÿÿ
+@javascript:S1128"$Remove this unused import of 'gulp'.(É¤…
+Mjavascript:S3863
+"2'../models/estate.models.js' import is duplicated.(£ƒÕ$
+Cjavascript:S1128""Remove this unused import of 'db'.(ŠĞ¼ğûÿÿÿÿ
+Gjavascript:S1128"&Remove this unused import of 'reject'.(âÃ÷¾øÿÿÿÿ
+Sjavascript:S3863"2'../models/estate.models.js' import is duplicated.(ò¼¶Úıÿÿÿÿ
+Mjavascript:S1128",Remove this unused import of 'EstateModels'.(ò¼¶Úıÿÿÿÿ
+Hjavascript:S1128",Remove this unused import of 'commentModel'.(™ÆÜ¥
+yjavascript:S1172"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(›½¨²
+yjavascript:S1172"]Remove the unused function parameter "res" or rename it to "_res" to make intention explicit.(›½¨²
+„javascript:S1172"cRemove the unused function parameter "reject" or rename it to "_reject" to make intention explicit.(ò¤Ûùÿÿÿÿ
+Qjavascript:S1117"0'reject' is already declared in the upper scope.(ò¤Ûùÿÿÿÿ
+Xjavascript:S1481"7Remove the declaration of the unused 'delDes' variable.(¿ûšöúÿÿÿÿ
+Ujavascript:S1854"4Remove this useless assignment to variable "delDes".(¿ûšöúÿÿÿÿ
+Zjavascript:S1481"9Remove the declaration of the unused 'desImage' variable.(‘¦×¾øÿÿÿÿ
+Wjavascript:S1854"6Remove this useless assignment to variable "desImage".(‘¦×¾øÿÿÿÿ
+\javascript:S1481";Remove the declaration of the unused 'delProduct' variable.(–¬‰»øÿÿÿÿ
+Yjavascript:S1854"8Remove this useless assignment to variable "delProduct".(–¬‰»øÿÿÿÿ
+_javascript:S1481E">Remove the declaration of the unused 'updateSummary' variable.(õĞÁéùÿÿÿÿ
+\javascript:S1854E";Remove this useless assignment to variable "updateSummary".(õĞÁéùÿÿÿÿ
+[javascript:S1481I":Remove the declaration of the unused 'updateDes' variable.(Äàıÿÿÿÿ
+Xjavascript:S1854I"7Remove this useless assignment to variable "updateDes".(Äàıÿÿÿÿ
+\javascript:S1481M"@Remove the declaration of the unused 'updateDetailDes' variable.(Ÿ„¨À
+Yjavascript:S1854M"=Remove this useless assignment to variable "updateDetailDes".(Ÿ„¨À
+^javascript:S1481P"BRemove the declaration of the unused 'updateOtherDetail' variable.(üÜ²¿
+[javascript:S1854P"?Remove this useless assignment to variable "updateOtherDetail".(üÜ²¿
+Xjavascript:S1481T"<Remove the declaration of the unused 'updatePrice' variable.(åñûê
+Ujavascript:S1854T"9Remove this useless assignment to variable "updatePrice".(åñûê
+yjavascript:S1172a"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(˜ Úœ
+Ijavascript:S1117a"-'req' is already declared in the upper scope.(˜ Úœ
+{javascript:S1172a"_Remove the unused function parameter "file" or rename it to "_file" to make intention explicit.(˜ Úœ
+yjavascript:S1172d"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(ƒëŸ½
+Ijavascript:S1117d"-'req' is already declared in the upper scope.(ƒëŸ½
+{javascript:S1172d"_Remove the unused function parameter "file" or rename it to "_file" to make intention explicit.(ƒëŸ½
+6javascript:S108k"Empty block statement.(¯‘Õ­ÿÿÿÿÿ
+ujavascript:S4144‚"XUpdate this function so that its implementation is not identical to the one on line 111.(«¨¡á
+zjavascript:S1172˜"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(¸è×µ
+javascript:S2392¯"_Consider moving declaration of 'firstName' as it is referenced outside current binding context.(òÈ‡ùÿÿÿÿ
+~javascript:S2392²"aConsider moving declaration of 'ratingscore' as it is referenced outside current binding context.(Â¾—
+javascript:S1172Á"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(È°«Êúÿÿÿÿ
+[javascript:S1481å"9Remove the declaration of the unused 'checkDes' variable.(´–áìøÿÿÿÿ
+Xjavascript:S1854å"6Remove this useless assignment to variable "checkDes".(´–áìøÿÿÿÿ
+…javascript:S1172ê"cRemove the unused function parameter "reject" or rename it to "_reject" to make intention explicit.(›„Ìëøÿÿÿÿ
+Rjavascript:S1117ê"0'reject' is already declared in the upper scope.(›„Ìëøÿÿÿÿ
+]javascript:S1481ù";Remove the declaration of the unused 'listEstate' variable.(ÖÌØñüÿÿÿÿ
+Zjavascript:S1854ù"8Remove this useless assignment to variable "listEstate".(ÖÌØñüÿÿÿÿ
+zjavascript:S1172Œ"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(˜ Úœ
+Jjavascript:S1117Œ"-'req' is already declared in the upper scope.(˜ Úœ
+|javascript:S1172Œ"_Remove the unused function parameter "file" or rename it to "_file" to make intention explicit.(˜ Úœ
+zjavascript:S1172"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(ƒëŸ½
+Jjavascript:S1117"-'req' is already declared in the upper scope.(ƒëŸ½
+|javascript:S1172"_Remove the unused function parameter "file" or rename it to "_file" to make intention explicit.(ƒëŸ½
+7javascript:S108–"Empty block statement.(¯‘Õ­ÿÿÿÿÿ
+Wjavascript:S1481™"5Remove the declaration of the unused 'list' variable.(‘†õıÿÿÿÿ
+Tjavascript:S1854™"2Remove this useless assignment to variable "list".(‘†õıÿÿÿÿ
+Xjavascript:S1481š";Remove the declaration of the unused 'listEstate' variable.(â¼ªÓ
+Ujavascript:S1854š"8Remove this useless assignment to variable "listEstate".(â¼ªÓ
+Wjavascript:S1481"5Remove the declaration of the unused 'list' variable.(Ğ§ÂÑıÿÿÿÿ
+Tjavascript:S1854"2Remove this useless assignment to variable "list".(Ğ§ÂÑıÿÿÿÿ
+Wjavascript:S1481¢"5Remove the declaration of the unused 'list' variable.(çó‘óÿÿÿÿÿ
+Tjavascript:S1854¢"2Remove this useless assignment to variable "list".(çó‘óÿÿÿÿÿ
+€javascript:S1172Ç"cRemove the unused function parameter "reject" or rename it to "_reject" to make intention explicit.(ªìŸ
+Mjavascript:S1117Ç"0'reject' is already declared in the upper scope.(ªìŸ
+Tjavascript:S1481È"7Remove the declaration of the unused 'delImg' variable.(şòÑÎ
+Qjavascript:S1854È"4Remove this useless assignment to variable "delImg".(şòÑÎ
+Vjavascript:S1481É":Remove the declaration of the unused 'delDetail' variable.(·Õ…#
+Sjavascript:S1854É"7Remove this useless assignment to variable "delDetail".(·Õ…#
+Tjavascript:S1117Ë"2'urlImage' is already declared in the upper scope.(²Ê¶Èûÿÿÿÿ
+Wjavascript:S1481Ø":Remove the declaration of the unused 'delEstate' variable.(Æş‘
+Tjavascript:S1854Ø"7Remove this useless assignment to variable "delEstate".(Æş‘
+javascript:S1172ı"_Remove the unused function parameter "next" or rename it to "_next" to make intention explicit.(í³®Ôûÿÿÿÿ
+Wjavascript:S1481€":Remove the declaration of the unused 'folderAdd' variable.(©Â˜”
+Tjavascript:S1854€"7Remove this useless assignment to variable "folderAdd".(©Â˜”
+zjavascript:S1172ˆ"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(¸ã“Ì
+Jjavascript:S1117ˆ"-'req' is already declared in the upper scope.(¸ã“Ì
+|javascript:S1172ˆ"_Remove the unused function parameter "file" or rename it to "_file" to make intention explicit.(¸ã“Ì
+javascript:S1172‹"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(ş‘íàÿÿÿÿÿ
+Ojavascript:S1117‹"-'req' is already declared in the upper scope.(ş‘íàÿÿÿÿÿ
+javascript:S1172‹"_Remove the unused function parameter "file" or rename it to "_file" to make intention explicit.(ş‘íàÿÿÿÿÿ

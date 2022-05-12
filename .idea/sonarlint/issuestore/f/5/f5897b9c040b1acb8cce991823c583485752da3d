@@ -1,0 +1,8 @@
+
+Gjavascript:S1128",Remove this unused import of 'estateModels'.(£ƒÕ$
+Gjavascript:S1128"&Remove this unused import of 'reject'.(âÃ÷¾øÿÿÿÿ
+Cjavascript:S1125
+"'Remove the unnecessary boolean literal.(ÁÌÔ£
+~javascript:S1172"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(çŸ”²ûÿÿÿÿ
+[javascript:S1481":Remove the declaration of the unused 'totalCate' variable.(œá•ñûÿÿÿÿ
+Xjavascript:S1854"7Remove this useless assignment to variable "totalCate".(œá•ñûÿÿÿÿ

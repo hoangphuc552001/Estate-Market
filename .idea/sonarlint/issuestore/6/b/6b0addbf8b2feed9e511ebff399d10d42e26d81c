@@ -1,0 +1,13 @@
+
+0javascript:S3317"Rename this file to "router"
+†javascript:S1172 "eRemove the unused function parameter "payment" or rename it to "_payment" to make intention explicit.(ç»ÇÑüÿÿÿÿ
+Yjavascript:S1481%"=Remove the declaration of the unused 'updateSeller' variable.(ÒÒ•¯
+Vjavascript:S1854%":Remove this useless assignment to variable "updateSeller".(ÒÒ•¯
+„javascript:S1172-"cRemove the unused function parameter "reject" or rename it to "_reject" to make intention explicit.(ò¤Ûùÿÿÿÿ
+Ujavascript:S14812"9Remove the declaration of the unused 'userList' variable.(Í„ÔØ
+Rjavascript:S18542"6Remove this useless assignment to variable "userList".(Í„ÔØ
+Ujavascript:S14813"9Remove the declaration of the unused 'subtotal' variable.(ÃøŒ®
+Rjavascript:S14814"6Remove the declaration of the unused 'price' variable.(„‰üó
+Ojavascript:S18544"3Remove this useless assignment to variable "price".(„‰üó
+-javascript:S1763Y"Unreachable code.(ó‚¶‹
+mjavascript:S4138["LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(Êà¬Ìÿÿÿÿÿ
