@@ -25,6 +25,12 @@ export default function (app) {
             check(index){
                 return index===0
             },
+            checkIsGroupOrAdmin(index){
+                return index===1 || index===2
+            },
+            checkIsBLock(index){
+                return index===-1
+            },
             checkExist(index){
                 return index!==-1
             },
