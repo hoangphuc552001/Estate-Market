@@ -27,8 +27,6 @@ O
 views/authentication/signup.hbs,7\b\7b397e0d0d6cb382731ad36661ba880ca249ebf5
 E
 routes/paypalRoute.js,6\b\6b0addbf8b2feed9e511ebff399d10d42e26d81c
-6
-app.js,4\a\4a68969ef8e858229267b842dedf42ab5dde4d50
 E
 routes/muabanRoute.js,a\5\a5fb79c25890d3ba39f5426b8579f31f22225dfd
 M

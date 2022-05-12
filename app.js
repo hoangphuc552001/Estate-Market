@@ -6,6 +6,8 @@ import activateViewMiddleware from './middlewares/view.mdw.js'
 import activateRouteMiddleware from './middlewares/routes.mdw.js'
 import activateLocalsMiddleware from './middlewares/locals.mdw..js'
 import activateSessionMiddleware from './middlewares/session.mdw.js'
+
+
 import asyncErrors from 'express-async-errors'
 //express declare
 const app = express()
