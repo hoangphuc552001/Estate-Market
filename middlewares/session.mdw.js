@@ -15,8 +15,8 @@ export default function (app){
             connectionLimit: 100,
             host: 'localhost',
             user: 'root',
-            password: '123456',
-            database: 'realestate123',
+            password: '',
+            database: 'realestatetest',
             charset: 'utf8mb4_general_ci',
             schema: {
                 tableName: 'sessions',

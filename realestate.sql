@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS realestate/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
-USE `realestate`;
+CREATE DATABASE  IF NOT EXISTS realestatetest/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
+USE `realestatetest`;
 DROP TABLE IF EXISTS `categoryparent`;
 create table categoryparent
 (
