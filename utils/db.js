@@ -2,10 +2,10 @@ import fn from "knex";
 const knex = fn({
     client: 'mysql2',
     connection: {
-        host: 'us-cdbr-east-05.cleardb.net',
-        user: 'b5905207c287be',
-        password: '04538a5b',
-        database: 'heroku_162e0e15c74f48'
+        host: 'sql6.freemysqlhosting.net',
+        user: 'sql6517852',
+        password: '9tuXmzLZzf',
+        database: 'sql6517852'
     },
     pool: { min: 0, max: 10 },
 });
