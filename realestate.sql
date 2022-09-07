@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS realestatetest/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
-USE `realestatetest`;
+CREATE DATABASE  IF NOT EXISTS sql6517852/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 */;
+USE `sql6517852`;
 DROP TABLE IF EXISTS `categoryparent`;
 create table categoryparent
 (
@@ -56,7 +56,7 @@ create table estate
     title       longtext                             not null,
     acreage     varchar(45) charset utf8             null,
     seller      int                                  not null,
-    start       datetime default current_timestamp() not null,
+    start       TIMESTAMP default CURRENT_TIMESTAMP not null,
     current     varchar(50) charset utf8             not null,
     category    int                                  null,
     image       longtext                             not null,
@@ -69,8 +69,8 @@ create table estate
     quantity    int      default 1                   null,
     price       double   default 0                   null,
     constraint `product-category`
-        foreign key (category) references realestate.category (id)
-);
+        foreign key (category) references category (id)
+) ENGINE=MyISAM;
 
 create fulltext index name
     on estate (title);
@@ -239,7 +239,7 @@ create table detail_des
         unique (id),
     constraint detail_des_estate_id_fk
         foreign key (pro_id) references estate (id)
-);
+)ENGINE=MyISAM;
 INSERT INTO detail_des (id, des, detail_description, other_detail, location, pro_id) VALUES (1, '*Mô tả:<br/>- Kết Cấu:<br/>+ 1 trệt,1 lầu BTCT kiến cố,nhà mới xây vào ở ngay. Gồm 3PN,3WC,Phòng khách,Bếp,Phòng thờ,sân trước, sân sau.Trước chủ dự định mua ở nên làm móng chắc chắn,có thể lên thêm được 2 lầu nữa.<br/>- Vị trí: Hẻm trước nhà 3.5m, sạch sẽ. Nhà kế bên Trung tâm hành chính Q7,TTTM BigC ,Bệnh viện đa khoa Quận 7,Bệnh viện FV, Tim Tâm Đức...<br/>+Thuận tiện đi qua các quận như : Q1,Q4,Q8,Q5,Q2,Thủ Đức. Nhà tiếp giáp với các đường lớn Huỳnh Tấn Phát, Nguyễn Thị Thập, Nguyễn Lương Bằng, Nguyễn Văn Linh, Nguyễn Văn Quỳ...<br/>*Sổ hồng vuông vức,hoàn công đầy đủ,pháp lý chuẩn,công chứng ngay.*Mô tả:<br /> - Kết Cấu:<br /> + 1 trệt,1 lầu BTCT kiến cố,nhà mới xây vào ở ngay. Gồm 3PN,3WC,Phòng khách,Bếp,Phòng thờ,sân trước, sân sau.Trước chủ dự định mua ở nên làm móng chắc chắn,có thể lên thêm được 2 lầu nữa.<br /> - Vị trí: Hẻm trước nhà 3.5m, sạch sẽ. Nhà kế bên Trung tâm hành chính Q7,TTTM BigC ,Bệnh viện đa khoa Quận 7,Bệnh viện FV, Tim Tâm Đức...<br /> +Thuận tiện đi qua các quận như : Q1,Q4,Q8,Q5,Q2,Thủ Đức. Nhà tiếp giáp với các đường lớn Huỳnh Tấn Phát, Nguyễn Thị Thập, Nguyễn Lương Bằng, Nguyễn Văn Linh, Nguyễn Văn Quỳ...<br /> *Sổ hồng vuông vức,hoàn công đầy đủ,pháp lý chuẩn,công chứng ngay.<img src="" style="position: absolute; z-index: 2; height: 100px; margin: auto; margin-left: 300px ;left: 0; right: 0; top: 30px; bottom: 0;"/>', '<table class="table-overview table table-bordered table-striped mb-0" style="font-size: 14px; width: 90%"> <tbody> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Danh mục</td> <td style="padding-left: 5px;"> <a href="/ban-nha-mat-pho-tp-hcm-xc79-ci41.html" title="Bán nhà mặt phố TP HCM"> Bán nhà mặt phố TP HCM </a> </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Pháp lý</td> <td style="padding-left: 5px;">Sổ đổ, sổ hồng</td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Tình trạng</td> <td style="padding-left: 5px; ">Đã qua sử dụng</td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Số tầng</td> <td style="padding-left: 5px; "> 4 tầng </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Chiều ngang</td> <td style="padding-left: 5px;"> 5 m </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Chiều dài</td> <td style="padding-left: 5px;"> 10 m </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Diện tích</td> <td style="padding-left: 5px;"> 50 m<sup>2</sup> </td> </tr> </tbody> </table>', '<table class="table-overview table table-bordered table-striped mb-0" style="font-size: 14px;"> <tbody> <tr> <td style="padding-left: 5px; font-weight: bold;">Loại tin đăng</td> <td style="padding-left: 5px;">VIP Đặc biệt</td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Ngày cập nhật</td> <td style="padding-left: 5px;"> <time title="29-03-2022 07:50:15">29-03-2022</time> </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Ngày hết hạn</td> <td style="padding-left: 5px;"> <time title="03-04-2022 07:50:15">03-04-2022</time> </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Phòng ngủ</td> <td style="padding-left: 5px;"> 5 </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Nhà tắm</td> <td style="padding-left: 5px;"> 6 </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Đường trước nhà</td> <td style="padding-left: 5px;"> 6 m </td> </tr> </tbody> </table>
 ', null, 415);
 INSERT INTO detail_des (id, des, detail_description, other_detail, location, pro_id) VALUES (3, '*Mô tả:<br/>- Kết Cấu:<br/>+ 1 trệt,1 lầu BTCT kiến cố,nhà mới xây vào ở ngay. Gồm 3PN,3WC,Phòng khách,Bếp,Phòng thờ,sân trước, sân sau.Trước chủ dự định mua ở nên làm móng chắc chắn,có thể lên thêm được 2 lầu nữa.<br/>- Vị trí: Hẻm trước nhà 3.5m, sạch sẽ. Nhà kế bên Trung tâm hành chính Q7,TTTM BigC ,Bệnh viện đa khoa Quận 7,Bệnh viện FV, Tim Tâm Đức...<br/>+Thuận tiện đi qua các quận như : Q1,Q4,Q8,Q5,Q2,Thủ Đức. Nhà tiếp giáp với các đường lớn Huỳnh Tấn Phát, Nguyễn Thị Thập, Nguyễn Lương Bằng, Nguyễn Văn Linh, Nguyễn Văn Quỳ...<br/>*Sổ hồng vuông vức,hoàn công đầy đủ,pháp lý chuẩn,công chứng ngay.*Mô tả:<br /> - Kết Cấu:<br /> + 1 trệt,1 lầu BTCT kiến cố,nhà mới xây vào ở ngay. Gồm 3PN,3WC,Phòng khách,Bếp,Phòng thờ,sân trước, sân sau.Trước chủ dự định mua ở nên làm móng chắc chắn,có thể lên thêm được 2 lầu nữa.<br /> - Vị trí: Hẻm trước nhà 3.5m, sạch sẽ. Nhà kế bên Trung tâm hành chính Q7,TTTM BigC ,Bệnh viện đa khoa Quận 7,Bệnh viện FV, Tim Tâm Đức...<br /> +Thuận tiện đi qua các quận như : Q1,Q4,Q8,Q5,Q2,Thủ Đức. Nhà tiếp giáp với các đường lớn Huỳnh Tấn Phát, Nguyễn Thị Thập, Nguyễn Lương Bằng, Nguyễn Văn Linh, Nguyễn Văn Quỳ...<br /> *Sổ hồng vuông vức,hoàn công đầy đủ,pháp lý chuẩn,công chứng ngay.<img src="" style="position: absolute; z-index: 2; height: 100px; margin: auto; margin-left: 300px ;left: 0; right: 0; top: 30px; bottom: 0;"/>', '<table class="table-overview table table-bordered table-striped mb-0" style="font-size: 14px; width: 90%"> <tbody> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Danh mục</td> <td style="padding-left: 5px;"> <a href="/ban-nha-mat-pho-tp-hcm-xc79-ci41.html" title="Bán nhà mặt phố TP HCM"> Bán nhà mặt phố TP HCM </a> </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Pháp lý</td> <td style="padding-left: 5px;">Sổ đổ, sổ hồng</td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Tình trạng</td> <td style="padding-left: 5px; ">Đã qua sử dụng</td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Số tầng</td> <td style="padding-left: 5px; "> 4 tầng </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Chiều ngang</td> <td style="padding-left: 5px;"> 5 m </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Chiều dài</td> <td style="padding-left: 5px;"> 10 m </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Diện tích</td> <td style="padding-left: 5px;"> 50 m<sup>2</sup> </td> </tr> </tbody> </table>', '<table class="table-overview table table-bordered table-striped mb-0" style="font-size: 14px;"> <tbody> <tr> <td style="padding-left: 5px; font-weight: bold;">Loại tin đăng</td> <td style="padding-left: 5px;">VIP Đặc biệt</td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Ngày cập nhật</td> <td style="padding-left: 5px;"> <time title="29-03-2022 07:50:15">29-03-2022</time> </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Ngày hết hạn</td> <td style="padding-left: 5px;"> <time title="03-04-2022 07:50:15">03-04-2022</time> </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Phòng ngủ</td> <td style="padding-left: 5px;"> 5 </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Nhà tắm</td> <td style="padding-left: 5px;"> 6 </td> </tr> <tr> <td class="td-name" style="padding-left: 5px; font-weight: bold;">Đường trước nhà</td> <td style="padding-left: 5px;"> 6 m </td> </tr> </tbody> </table>
@@ -529,7 +529,7 @@ create table img_detail
         unique (id),
     constraint img_detail_estate_id_fk
         foreign key (proid) references estate (id)
-);
+)ENGINE=MyISAM;
 INSERT INTO img_detail (id, proid, image1, image2, image3) VALUES (1, 415, '/public/assets/estate/1/1/1/1.jpg', '/public/assets/estate/1/1/1/2.jpg', '/public/assets/estate/1/1/1/3.jpg');
 INSERT INTO img_detail (id, proid, image1, image2, image3) VALUES (2, 416, '/public/assets/estate/1/1/2/1.jpg', '/public/assets/estate/1/1/2/2.jpg', '/public/assets/estate/1/1/2/3.jpg');
 INSERT INTO img_detail (id, proid, image1, image2, image3) VALUES (3, 417, '/public/assets/estate/1/1/3/1.jpg', '/public/assets/estate/1/1/3/2.jpg', '/public/assets/estate/1/1/3/3.jpg');
@@ -684,7 +684,7 @@ create table user
 
     constraint user_id_uindex
         unique (id)
-);
+)ENGINE=MyISAM;
 
 
 INSERT INTO user (id, name, email, password, permissions,birthday,address,phone) VALUES (2, 'Phuc Le', 'hoangphuc552001@gmail.com', '$2a$10$gb9x9D9ef4toTRg2F0lqSeoH53ZcanAGBSyjf/NF8VArSi4Z6IPfe', 0,'2022-04-13','My Tho','09123413413');
@@ -707,7 +707,7 @@ create table contact
         foreign key (proid) references estate (id),
     constraint contact_user_id_fk
         foreign key (sellerid) references user (id)
-);
+)ENGINE=MyISAM;
 create table comments
 (
     id      int auto_increment
@@ -722,7 +722,7 @@ create table comments
         foreign key (proid) references estate (id),
     constraint comments_user_id_fk
         foreign key (userid) references user (id)
-);
+)ENGINE=MyISAM;
 create table rating
 (
     idrating    int  not null,
@@ -732,15 +732,15 @@ create table rating
     daterating  date null,
     id          int auto_increment,
     primary key (id, idrating, userrate)
-);
+)ENGINE=MyISAM;
 create table ratingestate
 (
     id       int auto_increment,
     estateid int not null,
     primary key (id, estateid),
     constraint ratingestate_estate_id_fk
-        foreign key (estateid) references realestate.estate (id)
-);
+        foreign key (estateid) references estate (id)
+)ENGINE=MyISAM;
 create table ratinguser
 (
     id      int auto_increment,
@@ -748,13 +748,12 @@ create table ratinguser
     comment varchar(50) charset utf8 null,
     primary key (id, userid),
     constraint ratinguser_user_id_fk
-        foreign key (userid) references realestate.user (id)
-);
+        foreign key (userid) references user (id)
+)ENGINE=MyISAM;
 
 
 
-create
-    definer = root@localhost procedure insertTableRating(IN idinsert_ int, IN ratingscore_ int, IN userrate_ int, IN type_ int)
+create procedure insertTableRating(IN idinsert_ int, IN ratingscore_ int, IN userrate_ int, IN type_ int)
 BEGIN
     declare id_ INT DEFAULT 0;
     declare date_ date DEFAULT  CURRENT_DATE();
@@ -766,9 +765,8 @@ END;
 
 
 
-create
-    definer = root@localhost procedure insertTableUserRating(IN userrate_ int, IN ratingscore_ int, IN idinsert_ int,
-                                                             IN type_ int, IN comment_ varchar(50))
+create procedure insertTableUserRating(IN userrate_ int, IN ratingscore_ int, IN idinsert_ int,
+                                       IN type_ int, IN comment_ varchar(50))
 BEGIN
     declare id_ INT DEFAULT 0;
     declare date_ date DEFAULT  CURRENT_DATE();
