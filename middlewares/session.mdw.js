@@ -13,10 +13,10 @@ export default function (app){
         cookie: { secure: false, maxAge: 10800000},
         store: new MySQLStore({
             connectionLimit: 100,
-            host: 'sql6.freemysqlhosting.net',
-            user: 'sql6517852',
-            password: '9tuXmzLZzf',
-            database: 'sql6517852',
+            host: 'localhost',
+            user: 'root',
+            password: '123456',
+            database: 'realestate',
             charset: 'utf8mb4_general_ci',
             schema: {
                 tableName: 'sessions',

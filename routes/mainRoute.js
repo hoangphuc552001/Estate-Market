@@ -40,7 +40,12 @@ router.get('/',cancelProductCreate,async function (req,res){
     const top4Latest=await estateModel.findProTopLatest(4,0)
     const top6RentPro= await estateModel.findProTopByEstateID(6,6)
     const top5Project = await estateModel.findProByCatParentID(3)
-    const top5News=await estateModel.findProByCatParentID(4)
+    const top5News=await estateModel.findProByCatParentID(4);
+  /*  res.send({ sellPro,
+        top4Latest,
+        top6RentPro,
+        top5Project,
+        top5News});*/
     res.render('product/index',{
         sellPro,
         top4Latest,
