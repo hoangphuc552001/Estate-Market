@@ -1,16 +1,0 @@
-
-Ljavascript:S1128"+Remove this unused import of 'estateModel'.(œÑÎ¦úÿÿÿÿ
-Mjavascript:S3863"2'../models/estate.models.js' import is duplicated.(£ƒÕ$
-yjavascript:S1172"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(›½¨²
-yjavascript:S1172"]Remove the unused function parameter "res" or rename it to "_res" to make intention explicit.(›½¨²
-„javascript:S1172"cRemove the unused function parameter "reject" or rename it to "_reject" to make intention explicit.(ò¤Ûùÿÿÿÿ
-Xjavascript:S1481"7Remove the declaration of the unused 'delDes' variable.(¿ûšöúÿÿÿÿ
-Ujavascript:S1854"4Remove this useless assignment to variable "delDes".(¿ûšöúÿÿÿÿ
-Zjavascript:S1481"9Remove the declaration of the unused 'desImage' variable.(‘¦×¾øÿÿÿÿ
-Wjavascript:S1854"6Remove this useless assignment to variable "desImage".(‘¦×¾øÿÿÿÿ
-\javascript:S1481";Remove the declaration of the unused 'delProduct' variable.(–¬‰»øÿÿÿÿ
-Yjavascript:S1854"8Remove this useless assignment to variable "delProduct".(–¬‰»øÿÿÿÿ
-yjavascript:S11726"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(‡‚÷
-{javascript:S11726"_Remove the unused function parameter "next" or rename it to "_next" to make intention explicit.(‡‚÷
-yjavascript:S11729"]Remove the unused function parameter "req" or rename it to "_req" to make intention explicit.(Ò­›±
-{javascript:S11729"_Remove the unused function parameter "next" or rename it to "_next" to make intention explicit.(Ò­›±

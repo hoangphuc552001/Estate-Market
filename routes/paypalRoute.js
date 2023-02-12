@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config();
+const PROCESS = dotenv.config()
 import express from "express";
 import  paypal from 'paypal-rest-sdk';
 import estateModels from "../models/estate.models.js";
@@ -68,8 +68,8 @@ router.post("/:proID",async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://localhost:3000/checkout/success",
-                "cancel_url": "http://localhost:3000/checkout/cancel"
+                "return_url": `${PROCESS.parsed.DOMAIN}/checkout/success`,
+                "cancel_url": `${PROCESS.parsed.DOMAIN}/checkout/cancel`
             },
             "transactions": [{
                 "item_list": {

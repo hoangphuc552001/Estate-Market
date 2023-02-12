@@ -5,8 +5,6 @@ I
 models/category.models.js,3\9\399fdf301071c42e5d56ad9ae5c3193d60b96ff6
 G
 models/comment.model.js,7\0\706a65fc281d098f3e71e239bc9186bc34e49571
-G
-models/estate.models.js,4\6\460c531463aa67d9a755e85b2992093fa39c8dc4
 H
 models/profile.model..js,0\c\0cdeb36bbd71c13b25cdb71d12b248dac6f9bfed
 F
@@ -21,19 +19,11 @@ C
 routes/userRoute.js,2\9\293e2a65eb49483f6540995204e7df5433e5acef
 J
 middlewares/locals.mdw..js,f\5\f5897b9c040b1acb8cce991823c583485752da3d
-I
-middlewares/routes.mdw.js,8\b\8bb1d9a501f87f760d404394b1f7fc37e977cff1
 O
 views/authentication/signup.hbs,7\b\7b397e0d0d6cb382731ad36661ba880ca249ebf5
-E
-routes/paypalRoute.js,6\b\6b0addbf8b2feed9e511ebff399d10d42e26d81c
 E
 routes/muabanRoute.js,a\5\a5fb79c25890d3ba39f5426b8579f31f22225dfd
 M
 views/product/prop-single.hbs,f\8\f8c83c36736be0cd657959a59b869245494e3fba
-J
-middlewares/session.mdw.js,d\8\d8a770c62ac8443c77fcee9f2a2b7e2fb52f7f90
 >
 realestate.sql,9\1\91fe9618dd991da7c998f3583f7f0fd56b5cdd53
-;
-utils/db.js,2\1\21cdd15c5c95459688417d23ac91a8125c714721

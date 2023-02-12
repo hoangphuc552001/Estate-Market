@@ -2,6 +2,8 @@ import cookieParser from 'cookie-parser'
 import connectFlash from 'connect-flash'
 import session from 'express-session'
 import passport from 'passport'
+import dotenv from "dotenv";
+const PROCESS = dotenv.config()
 import MySQLStore from 'express-mysql-session'
 export default function (app){
     app.use(cookieParser('secret'));
@@ -13,10 +15,10 @@ export default function (app){
         cookie: { secure: false, maxAge: 10800000},
         store: new MySQLStore({
             connectionLimit: 100,
-            host: 'localhost',
-            user: 'root',
-            password: '123456',
-            database: 'realestate',
+            host: PROCESS.parsed.PRO_DB_HOST,
+            user: PROCESS.parsed.PRO_DB_USER,
+            password: PROCESS.parsed.PRO_DB_PASSWORD,
+            database: PROCESS.parsed.PRO_DB_DATABASE,
             charset: 'utf8mb4_general_ci',
             schema: {
                 tableName: 'sessions',
@@ -33,6 +35,7 @@ export default function (app){
     app.use(passport.session())
 }
 //
+
 // store: new MySQLStore({
 //     connectionLimit: 100,
 //     host: 'us-cdbr-east-05.cleardb.net',
